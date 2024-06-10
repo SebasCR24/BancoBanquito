@@ -1,5 +1,7 @@
 package com.banquito.core.bank.model;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -16,7 +18,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "ROLE")
 
-public class Role {
+public class Role implements Serializable{
 
     @Id
     @Column(name = "CODE_ROLE", length = 10, nullable = false)

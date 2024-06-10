@@ -1,5 +1,6 @@
 package com.banquito.core.bank.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "BANK")
 
-public class Bank {
+public class Bank implements Serializable{
 
     @Id
     @Column(name = "CODE_BANK", length = 20, nullable = false)
