@@ -1,10 +1,12 @@
-package com.banquito.core.bank.model;
+package com.banquito.core.client.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,16 +18,20 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-@Table(name = "ROLE")
-public class Role implements Serializable {
+@Table(name = "SEGMENT")
+public class Segment implements Serializable {
 
     @Id
-    @Column(name = "CODE_ROLE", length = 10, nullable = false)
+    @Column(name = "CODE_SEGMENT", length = 10, nullable = false)
     private String code;
     @Column(name = "NAME", length = 50, nullable = false)
     private String name;
+    @Column(name = "CLIENT_TYPE", length = 3, nullable = false)
+    private String clientType;
+    @Column(name = "DESCRIPTION", length = 500)
+    private String description;
 
-    public Role(String code) {
+    public Segment(String code) {
         this.code = code;
     }
 
@@ -45,7 +51,7 @@ public class Role implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Role other = (Role) obj;
+        Segment other = (Segment) obj;
         if (code == null) {
             if (other.code != null)
                 return false;

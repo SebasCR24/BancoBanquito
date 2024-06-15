@@ -14,17 +14,16 @@ import lombok.ToString;
 @Setter
 @ToString
 @Embeddable
-
 public class ProductPK implements Serializable {
 
     @Column(name = "CODE_PRODUCT_TYPE", length = 20, nullable = false)
     private String codeProductType;
     @Column(name = "CODE_PRODUCT", length = 30, nullable = false)
-    private String codeProduct;
+    private String code;
 
-    public ProductPK(String codeProductType, String codeProduct) {
+    public ProductPK(String codeProductType, String code) {
         this.codeProductType = codeProductType;
-        this.codeProduct = codeProduct;
+        this.code = code;
     }
 
     @Override
@@ -32,7 +31,7 @@ public class ProductPK implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((codeProductType == null) ? 0 : codeProductType.hashCode());
-        result = prime * result + ((codeProduct == null) ? 0 : codeProduct.hashCode());
+        result = prime * result + ((code == null) ? 0 : code.hashCode());
         return result;
     }
 
@@ -50,10 +49,10 @@ public class ProductPK implements Serializable {
                 return false;
         } else if (!codeProductType.equals(other.codeProductType))
             return false;
-        if (codeProduct == null) {
-            if (other.codeProduct != null)
+        if (code == null) {
+            if (other.code != null)
                 return false;
-        } else if (!codeProduct.equals(other.codeProduct))
+        } else if (!code.equals(other.code))
             return false;
         return true;
     }

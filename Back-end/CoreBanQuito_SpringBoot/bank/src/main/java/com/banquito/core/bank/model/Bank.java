@@ -11,34 +11,58 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@NoArgsConstructor
-@Getter
-@Setter
-@ToString
 @Entity
-@Table(name = "BANK")
-
-public class Bank implements Serializable{
+@Table(name="BANK")
+public class Bank implements Serializable {
 
     @Id
-    @Column(name = "CODE_BANK", length = 20, nullable = false)
+    @Column(name="CODE_BANK", length = 20, nullable = false)
     private String code;
-    @Column(name = "NAME", length = 100, nullable = false)
+    @Column(name="NAME", length = 100, nullable = false)
     private String name;
     @Temporal(TemporalType.DATE)
-    @Column(name = "START_DATE", nullable = false)
+    @Column(name="START_DATE", nullable = false)
     private Date startDate;
 
-    @OneToMany(mappedBy = "bank")   
+    @OneToMany(mappedBy = "bank")
     private List<Channel> channels;
 
-    public Bank(String code) {
+    public Bank(){
+
+    }
+
+    public Bank(String code){
+        this.code=code;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Bank [code=" + code + ", name=" + name + ", startDate=" + startDate + "]";
     }
 
     @Override
@@ -65,5 +89,7 @@ public class Bank implements Serializable{
             return false;
         return true;
     }
+
+    
 
 }

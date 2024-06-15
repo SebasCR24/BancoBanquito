@@ -8,7 +8,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -23,32 +23,64 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "PRODUCT")
-
 public class Product implements Serializable {
+
     @EmbeddedId
     private ProductPK pk;
+    @Column(name = "NAME", length = 100, nullable = false)
+    private String name;
     @Column(name = "CODE_INTEREST_RATE", length = 10, nullable = false)
     private String codeInterestRate;
     @Column(name = "CODE_SEGMENT", length = 10, nullable = false)
     private String codeSegment;
-    @Column(name = "NAME", length = 100, nullable = false)
-    private String name;
     @Column(name = "STATE", length = 3, nullable = false)
     private String state;
     @Temporal(TemporalType.DATE)
     @Column(name = "START_DATE", nullable = false)
-    private Date starDate;
+    private Date startDate;
     @Temporal(TemporalType.DATE)
-    @Column(name = "END_DATE", nullable = false)
+    @Column(name = "END_DATE")
     private Date endDate;
-    @Column(name = "ALLOW_DEBIT_CARD", nullable = false)
-    private Boolean allowDebitCard;
-    @Column(name = "ALLOW_TRANSFERENCES", nullable = false)
-    private Boolean allowTransferences;
+    @Column(name = "ALLOW_DEBIT_CARD")
+    private String allowDebitCard;
+    @Column(name = "ALLOW_TRANSFERENCES")
+    private String allowTransferences;
     @Column(name = "MINIMUM_OPENING_BALANCE", precision = 17, scale = 2, nullable = false)
-    private BigDecimal minOpeningBalance;
+    private BigDecimal minimumOpeningBalance;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "CODE_PRODUCT_TYPE", referencedColumnName = "CODE_PRODUCT_TYPE", insertable = false, updatable = false)
     private ProductType productType;
+
+    public Product(ProductPK pk) {
+        this.pk = pk;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((pk == null) ? 0 : pk.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Product other = (Product) obj;
+        if (pk == null) {
+            if (other.pk != null)
+                return false;
+        } else if (!pk.equals(other.pk))
+            return false;
+        return true;
+    }
+
+    
+    
 }

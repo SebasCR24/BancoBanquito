@@ -1,13 +1,14 @@
 package com.banquito.core.bank.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -23,18 +24,17 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "BANK_USER")
-
-public class BankUser implements Serializable{
-
+public class BankUser implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BANK_USER_ID", nullable = false)
-    private Integer bankUserId;
-    @Column(name = "CODE_BANK", length = 20, nullable = false)
+    private Long id;
+    @Column(name = "CODE_BANK", nullable = false)
     private String codeBank;
-    @Column(name = "CODE_ROLE", length = 10, nullable = false)
+    @Column(name = "CODE_ROLE", nullable = false)
     private String codeRole;
     @Column(name = "USER_NAME", length = 20, nullable = false)
-    private String userName;
+    private String username;
     @Column(name = "FIRST_NAME", length = 50, nullable = false)
     private String firstName;
     @Column(name = "LAST_NAME", length = 50, nullable = false)
@@ -45,22 +45,51 @@ public class BankUser implements Serializable{
     private String typeUser;
     @Column(name = "PASSWORD", length = 64, nullable = false)
     private String password;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATION_DATE", nullable = false)
-    private Date creationDate;
+    private LocalDateTime creationDate;
     @Column(name = "STATE", length = 3, nullable = false)
     private String state;
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "LAST_LOGIN", nullable = false)
-    private Date lastLogin;
+    @Column(name = "LAST_LOGIN")
+    private LocalDateTime lastLogin;
     @Column(name = "EMAIL", length = 100, nullable = false)
-    private String email; 
+    private String email;
 
     @ManyToOne
     @JoinColumn(name = "CODE_BANK", referencedColumnName = "CODE_BANK", insertable = false, updatable = false)
     private Bank bank;
-
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "CODE_ROLE", referencedColumnName = "CODE_ROLE", insertable = false, updatable = false)
     private Role role;
+
+    public BankUser(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        BankUser other = (BankUser) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
+    }
+
 }

@@ -1,11 +1,13 @@
-package com.banquito.core.bank.model;
-
-import java.io.Serializable;
+package com.banquito.core.interest.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,16 +18,20 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-@Table(name = "ROLE")
-public class Role implements Serializable {
+@Table(name = "INTEREST_RATE")
+public class InterestRate implements Serializable {
 
     @Id
-    @Column(name = "CODE_ROLE", length = 10, nullable = false)
+    @Column(name = "CODE_INTEREST_RATE", length = 10, nullable = false)
     private String code;
-    @Column(name = "NAME", length = 50, nullable = false)
+    @Column(name = "NAME", length = 100, nullable = false)
     private String name;
+    @Column(name = "DAYS_IN_MONTH", precision = 2, nullable = false)
+    private BigDecimal daysInMonth;
+    @Column(name = "DAYS_IN_YEAR", precision = 3, nullable = false)
+    private BigDecimal daysInYear;
 
-    public Role(String code) {
+    public InterestRate(String code) {
         this.code = code;
     }
 
@@ -45,7 +51,7 @@ public class Role implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Role other = (Role) obj;
+        InterestRate other = (InterestRate) obj;
         if (code == null) {
             if (other.code != null)
                 return false;
