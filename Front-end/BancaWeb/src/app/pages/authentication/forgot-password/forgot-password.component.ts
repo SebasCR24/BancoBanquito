@@ -2,11 +2,18 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-forgot-password',
-  standalone: true,
-  imports: [],
   templateUrl: './forgot-password.component.html',
-  styleUrl: './forgot-password.component.scss'
+  styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent {
+  user = {
+    email: ''
+  };
 
+  constructor() { }
+
+  onSubmit() {
+    // Lógica para enviar el enlace de restablecimiento de contraseña
+    console.log('Enlace de restablecimiento enviado a:', this.user.email);
+  }
 }

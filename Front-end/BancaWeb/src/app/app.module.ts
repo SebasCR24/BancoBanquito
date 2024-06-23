@@ -24,7 +24,7 @@ import { HeaderComponent } from './layouts/full/header/header.component';
 import { BrandingComponent } from './layouts/full/sidebar/branding.component';
 import { AppNavItemComponent } from './layouts/full/sidebar/nav-item/nav-item.component';
 
-// Import Login and Register Components
+// Import Authentication Components
 import { LoginComponent } from './pages/authentication/login/login.component';
 import { RegistroComponent } from './pages/authentication/register/registro.component';
 import { ForgotPasswordComponent } from './pages/authentication/forgot-password/forgot-password.component';
@@ -43,7 +43,8 @@ import { ModificarUsuarioComponent } from './pages/ui-components/modificar-usuar
     BrandingComponent,
     AppNavItemComponent,
     LoginComponent,
-    RegistroComponent, // Asegúrate de declarar tu componente aquí
+    RegistroComponent,
+    ForgotPasswordComponent, // Declara tu componente aquí
     CrearUsuarioComponent,
     ModificarUsuarioComponent
   ],
@@ -53,10 +54,9 @@ import { ModificarUsuarioComponent } from './pages/ui-components/modificar-usuar
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    FormsModule, // Asegúrate de importar FormsModule
+    FormsModule,
     MaterialModule,
     TablerIconsModule.pick(TablerIcons),
-    ForgotPasswordComponent // Importa el componente independiente aquí
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],

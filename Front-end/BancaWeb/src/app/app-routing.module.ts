@@ -3,15 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
 import { LoginComponent } from './pages/authentication/login/login.component';
-import { RegistroComponent } from './pages/authentication/register/registro.component'; // Importa correctamente el componente
+import { RegistroComponent } from './pages/authentication/register/registro.component';
 import { ForgotPasswordComponent } from './pages/authentication/forgot-password/forgot-password.component';
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegistroComponent }, // Usa el nombre correcto aquí
-  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'register', component: RegistroComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent }, // Añade esta ruta
   {
     path: '',
     component: FullComponent,
