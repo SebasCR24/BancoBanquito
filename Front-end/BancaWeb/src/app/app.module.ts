@@ -33,6 +33,9 @@ import { ForgotPasswordComponent } from './pages/authentication/forgot-password/
 import { CrearUsuarioComponent } from './pages/ui-components/crear-usuario/crear-usuario.component';
 import { ModificarUsuarioComponent } from './pages/ui-components/modificar-usuario/modificar-usuario.component';
 
+// Import NotificationBellComponent
+import { NotificationBellComponent } from './pages/ui-components/notification-bell/notification-bell.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,9 +47,10 @@ import { ModificarUsuarioComponent } from './pages/ui-components/modificar-usuar
     AppNavItemComponent,
     LoginComponent,
     RegistroComponent,
-    ForgotPasswordComponent, // Declara tu componente aquí
+    ForgotPasswordComponent,
     CrearUsuarioComponent,
-    ModificarUsuarioComponent
+    ModificarUsuarioComponent,
+    NotificationBellComponent // Deja este componente aquí
   ],
   imports: [
     BrowserModule,

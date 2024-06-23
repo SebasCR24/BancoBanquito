@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistroComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent }, // Añade esta ruta
+  { path: 'forgot-password', component: ForgotPasswordComponent },
   {
     path: '',
     component: FullComponent,

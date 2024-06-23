@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { AppDashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './dashboard/dashboard.component'; // Asegúrate de importar correctamente
 
 export const PagesRoutes: Routes = [
   {
     path: '',
-    component: AppDashboardComponent,
+    component: DashboardComponent, // Usa el componente aquí
     data: {
       title: 'Starter Page',
     },
