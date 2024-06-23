@@ -3,4 +3,10 @@
   <mat-nav-list class="sidebar-list">
     <app-nav-item *ngFor="let item of navItems" [item]="item"> </app-nav-item>
   </mat-nav-list>
+  <div class="logout-button">
+    <button mat-button (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Cerrar Sesión</span>
+    </button>
+  </div>
 </div>

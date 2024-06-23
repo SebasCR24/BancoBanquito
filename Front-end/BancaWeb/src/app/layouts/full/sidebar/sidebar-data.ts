@@ -5,7 +5,7 @@ export const navItems: NavItem[] = [
     navCap: 'Inicio',
   },
   {
-    displayName: 'Dashboard',
+    displayName: 'DASHBOARD',
     iconName: 'layout-dashboard',
     route: '/dashboard',
   },
@@ -13,12 +13,12 @@ export const navItems: NavItem[] = [
     navCap: 'MENU',
   },
   {
-    displayName: 'COBROS Y RECAUDOS',
+    displayName: 'PAGOS',
     iconName: 'rosette',
     route: '/ui-components/badge',
   },
   {
-    displayName: 'COMISIONES',
+    displayName: 'TRANSFERENCIAS',
     iconName: 'poker-chip',
     route: '/ui-components/chips',
   },
@@ -26,10 +26,5 @@ export const navItems: NavItem[] = [
     displayName: 'POSICION CONSOLIDADA',
     iconName: 'list',
     route: '/ui-components/lists',
-  },
-  {
-    displayName: 'GESTION DE USUARIOS',
-    iconName: 'layout-navbar-expand',
-    route: '/ui-components/menu',
   },
 ];
