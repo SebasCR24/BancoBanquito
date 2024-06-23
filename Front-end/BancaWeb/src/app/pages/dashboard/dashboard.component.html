@@ -1,73 +1,42 @@
 <div class="dashboard-container">
-  <div class="quick-access">
+  <div class="dashboard-header">
     <h2>ACCESOS DIRECTOS</h2>
-    <div class="quick-access-items">
-      <button class="quick-access-item" (click)="transferirDinero()">
+    <div class="quick-access">
+      <button mat-button>
         <img src="assets/images/backgrounds/transferencias.png" alt="Transferir dinero">
-        <h3>Transferir dinero</h3>
+        <span>Transferir dinero</span>
       </button>
-      <button class="quick-access-item" (click)="realizarPagos()">
+      <button mat-button>
         <img src="assets/images/backgrounds/pagos.png" alt="Realizar Pagos">
-        <h3>Realizar Pagos</h3>
+        <span>Realizar Pagos</span>
       </button>
-      <button class="quick-access-item" (click)="estadosDeCuenta()">
+      <button mat-button>
         <img src="assets/images/backgrounds/estadocuenta.png" alt="Estados de cuenta">
-        <h3>Estados de cuenta</h3>
+        <span>Estados de cuenta</span>
       </button>
     </div>
   </div>
-  <div class="recent-movements">
-    <h3>Ultimos Movimientos</h3>
-    <div class="movements-list">
-      <div class="movement-item">
-        <div class="movement-details">
-          <span class="movement-description">25.895325</span>
-      
+
+  <div class="transactions-section">
+    <h3>Últimos Movimientos</h3>
+    <div class="filter-dates-btn">
+      <input type="date" (change)="filterByDates(startDateInput.value, endDateInput.value)" #startDateInput>
+      <input type="date" (change)="filterByDates(startDateInput.value, endDateInput.value)" #endDateInput>
+      <button mat-button (click)="filterByDates(startDateInput.value, endDateInput.value)">
+        <mat-icon>calendar_today</mat-icon> Filtrar por fechas
+      </button>
+    </div>
+
+    <div class="transaction-group" *ngFor="let group of filteredTransactionGroups">
+      <h4>{{ group.date | date: 'fullDate' }}</h4>
+      <div class="transaction" *ngFor="let transaction of group.transactions">
+        <div class="transaction-info">
+          <p>{{ transaction.description }}</p>
+          <p class="transaction-amount" [ngClass]="{'positive': transaction.amount > 0, 'negative': transaction.amount < 0}">
+            {{ transaction.amount | currency }}
+          </p>
         </div>
-        <div class="movement-changes">
-        
-          <span class="movement-change positive">+4,89%</span>
-        </div>
-      </div>
-      <div class="movement-item">
-        <div class="movement-details">
-          <span class="movement-description">15.789325</span>
-     
-        </div>
-        <div class="movement-changes">
-     
-          <span class="movement-change positive">+54,23%</span>
-        </div>
-      </div>
-      <div class="movement-item">
-        <div class="movement-details">
-          <span class="movement-description">15.789325</span>
-         
-        </div>
-        <div class="movement-changes">
-          
-          <span class="movement-change positive">+54,23%</span>
-        </div>
-      </div>
-      <div class="movement-item">
-        <div class="movement-details">
-          <span class="movement-description">5.679121</span>
-       
-        </div>
-        <div class="movement-changes">
-          
-          <span class="movement-change negative">-5,93%</span>
-        </div>
-      </div>
-      <div class="movement-item">
-        <div class="movement-details">
-          <span class="movement-description">5.679121</span>
-        
-        </div>
-        <div class="movement-changes">
-         
-          <span class="movement-change negative">-5,93%</span>
-        </div>
+        <p class="transaction-balance">{{ transaction.balance | currency }}</p>
       </div>
     </div>
   </div>

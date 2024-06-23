@@ -32,8 +32,6 @@ import { ForgotPasswordComponent } from './pages/authentication/forgot-password/
 // Import UI Components
 import { CrearUsuarioComponent } from './pages/ui-components/crear-usuario/crear-usuario.component';
 import { ModificarUsuarioComponent } from './pages/ui-components/modificar-usuario/modificar-usuario.component';
-
-// Import NotificationBellComponent
 import { NotificationBellComponent } from './pages/ui-components/notification-bell/notification-bell.component';
 
 @NgModule({
@@ -54,15 +52,15 @@ import { NotificationBellComponent } from './pages/ui-components/notification-be
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    FormsModule,
     MaterialModule,
-    TablerIconsModule.pick(TablerIcons),
+    TablerIconsModule.pick(TablerIcons)
   ],
   exports: [TablerIconsModule],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

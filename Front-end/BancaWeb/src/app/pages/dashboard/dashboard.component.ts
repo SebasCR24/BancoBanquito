@@ -6,20 +6,37 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-  constructor() { }
+  transactionGroups = [
+    {
+      date: new Date('2024-06-24'),
+      transactions: [
+        { description: 'Transferencia Directa a Vilaña Sanchez Vanessa Alejandra', amount: -7, balance: 1.18 },
+        { description: 'Transferencia Directa de Loyaga Rosero Byron Alexis', amount: 7, balance: 8.18 },
+        { description: '05099112-reg Reclamos-t3-039231803', amount: 1, balance: 1.18 }
+      ]
+    },
+    {
+      date: new Date('2024-06-13'),
+      transactions: [
+        { description: 'Transferencia Directa a Garate Altamirano Edgar Danilo', amount: -2, balance: 0.18 },
+        { description: 'Transferencia Directa a Egas Rodriguez Maria Jose', amount: -0.5, balance: 0.18 }
+      ]
+    }
+  ];
 
-  transferirDinero() {
-    // Lógica para transferir dinero
-    console.log('Transferir dinero');
-  }
+  filteredTransactionGroups = [...this.transactionGroups];
 
-  realizarPagos() {
-    // Lógica para realizar pagos
-    console.log('Realizar Pagos');
-  }
+  filterByDates(startDate: string, endDate: string) {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
 
-  estadosDeCuenta() {
-    // Lógica para estados de cuenta
-    console.log('Estados de cuenta');
+    if (!start || !end) {
+      this.filteredTransactionGroups = [...this.transactionGroups];
+      return;
+    }
+
+    this.filteredTransactionGroups = this.transactionGroups.filter(group =>
+      group.date >= start && group.date <= end
+    );
   }
 }
