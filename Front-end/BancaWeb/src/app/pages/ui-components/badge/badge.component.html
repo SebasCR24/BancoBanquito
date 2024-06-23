@@ -1,0 +1,81 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Cobros y Recaudos</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    <div class="container mt-4">
+      <form class="mb-4">
+        <div class="row mb-3">
+          <div class="form-group col-md-6">
+            <label for="empresa" class="mr-2">Empresa</label>
+            <select id="empresa" class="form-control">
+              <option>Todas</option>
+              <option>ElectroAndes</option>
+              <option>Distribuidora Oriente</option>
+              <option>Inmobiliaria del Pacífico</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="servicio" class="mr-2">Servicio</label>
+            <select id="servicio" class="form-control">
+              <option>Todos</option>
+              <option>Débito Automático</option>
+              <option>Recaudo</option>
+            </select>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="form-group col-md-6">
+            <label for="periodo-desde" class="mr-2">Desde</label>
+            <input type="date" id="periodo-desde" class="form-control">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="periodo-hasta" class="mr-2">Hasta</label>
+            <input type="date" id="periodo-hasta" class="form-control">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Tabla de Cobros y Recaudos -->
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Empresa</th>
+            <th>Servicio</th>
+            <th>Fecha</th>
+            <th>Monto</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ElectroAndes</td>
+            <td>Recaudo</td>
+            <td>2024-01-15</td>
+            <td>$1,200.00</td>
+            <td>Pagado</td>
+          </tr>
+          <tr>
+            <td>Distribuidora Oriente</td>
+            <td>Débito Automático</td>
+            <td>2024-02-10</td>
+            <td>$850.00</td>
+            <td>Pendiente</td>
+          </tr>
+          <tr>
+            <td>Inmobiliaria del Pacífico</td>
+            <td>Recaudo</td>
+            <td>2024-03-05</td>
+            <td>$500.00</td>
+            <td>Pagado</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>

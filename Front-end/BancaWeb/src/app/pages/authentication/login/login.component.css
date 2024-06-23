@@ -1,0 +1,94 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.background {
+    background-color: #f0f0f0; /* Fondo gris */
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    min-height: 70vh; 
+}
+
+.bg-teal {
+    background-color: #017B8B;
+    min-height: 70vh;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+p {
+    text-align: center;
+}
+
+.form-group label {
+    color: #333;
+}
+
+.btn-primary {
+    background-color: #017B8B;
+    border-color: #017B8B;
+}
+
+.btn-outline-light {
+    border-color: white;
+    color: white;
+}
+
+.btn-outline-light:hover {
+    background-color: white;
+    color: #017B8B;
+}
+
+
+.image-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .image-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .links {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .links .link {
+    display: block;
+    margin: 5px 0;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .links .link:hover {
+    text-decoration: underline;
+  }
+  

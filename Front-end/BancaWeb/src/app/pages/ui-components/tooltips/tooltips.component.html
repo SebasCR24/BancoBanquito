@@ -1,0 +1,97 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Perfil</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    <div class="container mt-4">
+      <div class="row mb-4">
+        <div class="col-md-3 text-center">
+          <img src="https://via.placeholder.com/150" alt="Foto de Perfil" class="img-fluid profile-picture">
+        </div>
+        <div class="col-md-5">
+          <p><strong>Nombre de Usuario:</strong> john_doe</p>
+          <p><strong>Nombre:</strong> John</p>
+          <p><strong>Apellido:</strong> Doe</p>
+        </div>
+        <div class="col-md-4">
+          <p><strong>Nombre Completo:</strong> John Doe</p>
+          <p><strong>Correo Electrónico:</strong> john.doexample.com</p>
+          <p><strong>Rol:</strong> Admin</p>
+        </div>
+      </div>
+  
+      <ul class="nav nav-tabs" id="profileTabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="edit-profile-tab" data-toggle="tab" href="#edit-profile" role="tab"
+            aria-controls="edit-profile" aria-selected="true">Editar Perfil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="change-password-tab" data-toggle="tab" href="#change-password" role="tab"
+            aria-controls="change-password" aria-selected="false">Cambiar Contraseña</a>
+        </li>
+      </ul>
+  
+      <div class="tab-content" id="profileTabsContent">
+        <div class="tab-pane fade show active" id="edit-profile" role="tabpanel" aria-labelledby="edit-profile-tab">
+          <h2 class="mt-4">Editar Perfil</h2>
+          <form>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="username">Nombre de Usuario</label>
+                <input type="text" class="form-control" id="username" value="john_doe">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="firstName">Nombre</label>
+                <input type="text" class="form-control" id="firstName" value="John">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="lastName">Apellido</label>
+                <input type="text" class="form-control" id="lastName" value="Doe">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="fullName">Nombre Completo</label>
+                <input type="text" class="form-control" id="fullName" value="John Doe">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" class="form-control" id="email" value="john.doe@example.com">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="role">Rol</label>
+                <input type="text" class="form-control" id="role" value="Admin" readonly>
+              </div>
+            </div>
+            <button type="button" class="btn btn-dark-green mr-2">Guardar Cambios</button>
+          </form>
+        </div>
+  
+        <div class="tab-pane fade" id="change-password" role="tabpanel" aria-labelledby="change-password-tab">
+          <h2 class="mt-4">Cambiar Contraseña</h2>
+          <form>
+            <div class="form-group">
+              <label for="currentPassword">Contraseña Actual</label>
+              <input type="password" class="form-control" id="currentPassword">
+            </div>
+            <div class="form-group">
+              <label for="newPassword">Nueva Contraseña</label>
+              <input type="password" class="form-control" id="newPassword">
+              <small class="form-text text-muted">
+                La contraseña debe tener entre 8 y 16 caracteres, incluir al menos una mayúscula, una minúscula, un número
+                y puede contener caracteres especiales.
+              </small>
+            </div>
+            <div class="form-group">
+              <label for="confirmPassword">Confirmar Nueva Contraseña</label>
+              <input type="password" class="form-control" id="confirmPassword">
+            </div>
+            <button type="submit" class="btn btn-danger">Cambiar Contraseña</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

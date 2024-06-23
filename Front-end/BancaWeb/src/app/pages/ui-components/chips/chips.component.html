@@ -1,0 +1,116 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Comisiones</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    <div class="container">
+      <form class="commission-form">
+        <h4>Configurar Comisiones</h4>
+        <div class="row">
+          <div class="form-group col-lg-6">
+            <label for="empresa" class="col-sm-4 col-form-label">Empresa</label>
+            <div class="col-sm-8">
+              <select id="empresa" class="form-control">
+                <option>--Seleccionar--</option>
+                <option>Conduto S.A.</option>
+                <option>Ecuaconstrucciones</option>
+                <option>Megaprojectos</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group col-lg-6">
+            <label for="servicio"
+              class="col-sm-4 col-form-label">Servicio</label>
+            <div class="col-sm-8">
+              <select id="servicio" class="form-control">
+                <option>--Seleccionar--</option>
+                <option>Débitos Automáticos</option>
+                <option>Recaudos</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-lg-6">
+            <label for="distribucion"
+              class="col-sm-4 col-form-label">Distribución del Cargo</label>
+            <div class="col-sm-8">
+              <select id="distribucion" class="form-control">
+                <option>--Seleccionar--</option>
+                <option>Empresa</option>
+                <option>Deudor</option>
+                <option>Híbrido</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group col-lg-6">
+            <label for="comision"
+              class="col-sm-4 col-form-label">Comisión</label>
+            <div class="col-sm-8">
+              <input type="text" id="comision" class="form-control"
+                value="5.75">
+            </div>
+          </div>
+        </div>
+        <br><br>
+        <h4>Depósito de Comisiones</h4><label for="cuenta" class="col-sm-4 col-form-label">Cuenta de
+              Destino</label>
+        <div class="row">
+          <div class="form-group col-lg-4">
+            
+            <div class="col-sm-8">
+              <input type="text" id="cuenta" class="form-control"
+                value="1234-5678-9012">
+            </div>
+          </div>
+
+          <div class="form-group col-lg-4">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-8">
+              <button type="submit" class="btn btn-primary">Verificar</button>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="form-group col-lg-12">
+          <label for="nombre" class="col-sm-4 col-form-label">Nombre del
+            Destinatario</label>
+          <div class="col-sm-8">
+            <input type="text" id="nombre" class="form-control"
+              value="Juan Perez" readonly>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="form-group col-lg-6">
+            <label for="periodo" class="col-sm-4 col-form-label">Periodo</label>
+            <div class="col-sm-8">
+              <select id="periodo" class="form-control">
+                <option>Diario</option>
+                <option>Semanal</option>
+                <option>Menual</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group col-lg-6">
+            <label for="hora" class="col-sm-4 col-form-label">Hora</label>
+            <div class="col-sm-8">
+              <input type="time" id="hora" name="hora">
+            </div>
+          </div>
+        </div>
+        <br><br>
+        <div class="row">
+          <div class="form-group col-lg-6">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-8">
+              <button type="submit" class="btn btn-primary">Guardar</button>
+              <button type="reset" class="btn btn-secondary">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </mat-card-content>
+</mat-card>
