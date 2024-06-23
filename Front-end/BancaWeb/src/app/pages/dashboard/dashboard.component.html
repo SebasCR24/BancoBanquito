@@ -20,7 +20,9 @@
   <div class="transactions-section">
     <h3>Últimos Movimientos</h3>
     <div class="filter-dates-btn">
+      <label for="startDate">Desde:</label>
       <input type="date" (change)="filterByDates(startDateInput.value, endDateInput.value)" #startDateInput>
+      <label for="endDate">Hasta:</label>
       <input type="date" (change)="filterByDates(startDateInput.value, endDateInput.value)" #endDateInput>
       <button mat-button (click)="filterByDates(startDateInput.value, endDateInput.value)">
         <mat-icon>calendar_today</mat-icon> Filtrar por fechas
