@@ -10,6 +10,7 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
   errorMessage: string = '';
+  passwordFieldType: string = 'password';
 
   constructor(private authService: AuthService) {}
 
@@ -17,5 +18,9 @@ export class LoginComponent {
     if (!this.authService.login(this.username, this.password)) {
       this.errorMessage = 'Invalid credentials';
     }
+  }
+
+  togglePasswordVisibility() {
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 }

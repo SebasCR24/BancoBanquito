@@ -85,3 +85,25 @@ p {
 .links .link:hover {
   text-decoration: underline;
 }
+
+.input-group {
+  display: flex;
+  align-items: center;
+}
+
+.input-group-append {
+  margin-left: -40px; /* Ajusta este valor según sea necesario para posicionar correctamente el icono */
+}
+
+.input-group-append button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.input-group-append button i {
+  font-size: 1.2rem;
+  color: #333;
+}
+
