@@ -1,99 +1,52 @@
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component } from '@angular/core';
-import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
-import {ThemePalette} from '@angular/material/core';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
-export interface ChipColor {
-  name: string;
-  color: ThemePalette;
-}
-
-export interface Fruit {
-  name: string;
-}
-
-export interface Vegetable {
-  name: string;
+interface Transferencia {
+  cuentaOrigen: string;
+  cuentaDestino: string;
+  nombreTitular: string;
+  monto: number;
+  detalle: string;
 }
 
 @Component({
   selector: 'app-chips',
   templateUrl: './chips.component.html',
-  styleUrls: ['./chips.component.scss'],
+  styleUrls: ['./chips.component.scss']
 })
-export class AppChipsComponent {
-  // drag n drop
-  vegetables: Vegetable[] = [
-    { name: 'apple' },
-    { name: 'banana' },
-    { name: 'strawberry' },
-    { name: 'orange' },
-    { name: 'kiwi' },
-    { name: 'cherry' },
+export class ChipsComponent {
+  transferencia: Transferencia = {
+    cuentaOrigen: '',
+    cuentaDestino: '',
+    nombreTitular: '',
+    monto: 0,
+    detalle: ''
+  };
+
+  transferencias: Transferencia[] = [
+    {
+      cuentaOrigen: '1234-5678-9012-3456',
+      cuentaDestino: '6543-2109-8765-4321',
+      nombreTitular: 'Juan Perez',
+      monto: 1000,
+      detalle: 'Pago de servicios'
+    },
+    {
+      cuentaOrigen: '6543-2109-8765-4321',
+      cuentaDestino: '1234-5678-9012-3456',
+      nombreTitular: 'Maria Gomez',
+      monto: 500,
+      detalle: 'Transferencia personal'
+    }
   ];
 
-    // 
-    // Stacked
-    // 
-    availableColors: ChipColor[] = [
-      {name: 'Primary', color: 'primary'},
-      {name: 'Accent', color: 'accent'},
-      {name: 'Warn', color: 'warn'},
-    ];
-
-
-  drop(event: Event) {
-    if (isDragDrop(event)) {
-      moveItemInArray(this.vegetables, event.previousIndex, event.currentIndex);
-    }
+  onSubmit() {
+    this.transferencias.push({ ...this.transferencia });
+    this.transferencia = {
+      cuentaOrigen: '',
+      cuentaDestino: '',
+      nombreTitular: '',
+      monto: 0,
+      detalle: ''
+    };
   }
-
-  // 
-  //  chips with input
-  // 
-  addOnBlur = true;
-  readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  fruits: Fruit[] = [{ name: 'Lemon' }, { name: 'Lime' }, { name: 'Apple' }];
-
-  add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-
-    // Add our fruit
-    if (value) {
-      this.fruits.push({ name: value });
-    }
-
-    // Clear the input value
-    event.chipInput!.clear();
-  }
-
-  remove(fruit: Fruit): void {
-    const index = this.fruits.indexOf(fruit);
-
-    if (index >= 0) {
-      this.fruits.splice(index, 1);
-    }
-  }
-
-  edit(fruit: Fruit, event: MatChipEditedEvent) {
-    const value = event.value.trim();
-
-    // Remove fruit if it no longer has a name
-    if (!value) {
-      this.remove(fruit);
-      return;
-    }
-
-    // Edit existing fruit
-    const index = this.fruits.indexOf(fruit);
-    if (index >= 0) {
-      this.fruits[index].name = value;
-    }
-
-  
-  }
-}
-function isDragDrop(object: any): object is CdkDragDrop<string[]> {
-  return 'previousIndex' in object;
 }

@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 import { BadgeComponent } from './badge/badge.component';
-import { AppChipsComponent } from './chips/chips.component';
+import { ChipsComponent } from './chips/chips.component';  // Asegúrate de que este nombre sea correcto
 import { AppListsComponent } from './lists/lists.component';
 import { AppMenuComponent } from './menu/menu.component';
 import { AppTooltipsComponent } from './tooltips/tooltips.component';
 
 export const UiComponentsRoutes: Routes = [
   { path: 'badge', component: BadgeComponent },
-  { path: 'chips', component: AppChipsComponent },
+  { path: 'chips', component: ChipsComponent },  // Asegúrate de que este nombre sea correcto
   { path: 'lists', component: AppListsComponent },
   { path: 'menu', component: AppMenuComponent },
   { path: 'tooltips', component: AppTooltipsComponent }

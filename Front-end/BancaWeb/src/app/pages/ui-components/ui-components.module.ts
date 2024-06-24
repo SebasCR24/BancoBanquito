@@ -9,7 +9,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker'; // Importa el módulo Datepicker
+import { MatNativeDateModule } from '@angular/material/core'; // Importa el módulo NativeDate
+import { MatFormFieldModule } from '@angular/material/form-field'; // Importa el módulo FormField
 
 import { TablerIconsModule } from 'angular-tabler-icons';
 import * as TablerIcons from 'angular-tabler-icons/icons';
@@ -18,7 +20,7 @@ import { UiComponentsRoutes } from './ui-components.routing';
 
 // UI Components
 import { BadgeComponent } from './badge/badge.component';
-import { AppChipsComponent } from './chips/chips.component';
+import { ChipsComponent } from './chips/chips.component';
 import { AppListsComponent } from './lists/lists.component';
 import { AppMenuComponent } from './menu/menu.component';
 import { AppTooltipsComponent } from './tooltips/tooltips.component';
@@ -26,7 +28,7 @@ import { AppTooltipsComponent } from './tooltips/tooltips.component';
 @NgModule({
   declarations: [
     BadgeComponent,
-    AppChipsComponent,
+    ChipsComponent,
     AppListsComponent,
     AppMenuComponent,
     AppTooltipsComponent
@@ -41,7 +43,9 @@ import { AppTooltipsComponent } from './tooltips/tooltips.component';
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    MatDatepickerModule,
     MatNativeDateModule,
+    MatFormFieldModule,
     TablerIconsModule.pick(TablerIcons),
   ]
 })

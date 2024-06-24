@@ -6,45 +6,53 @@
     <div class="container mt-4">
       <form (ngSubmit)="onSubmit()" class="mb-4">
         <div class="row mb-3">
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-6">
             <label for="empresa" class="mr-2">Empresa</label>
-            <select id="empresa" class="form-control" [(ngModel)]="payment.empresa" name="empresa" required>
-              <option value="">Seleccione una empresa</option>
-              <option value="ElectroAndes">ElectroAndes</option>
-              <option value="Distribuidora Oriente">Distribuidora Oriente</option>
-              <option value="Inmobiliaria del Pacífico">Inmobiliaria del Pacífico</option>
-            </select>
+            <mat-form-field>
+              <mat-select id="empresa" [(ngModel)]="payment.empresa" name="empresa" required>
+                <mat-option value="">Seleccione una empresa</mat-option>
+                <mat-option value="ElectroAndes">ElectroAndes</mat-option>
+                <mat-option value="Distribuidora Oriente">Distribuidora Oriente</mat-option>
+                <mat-option value="Inmobiliaria del Pacífico">Inmobiliaria del Pacífico</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-6">
             <label for="servicio" class="mr-2">Servicio</label>
-            <select id="servicio" class="form-control" [(ngModel)]="payment.servicio" name="servicio" required>
-              <option value="">Seleccione un servicio</option>
-              <option value="Débito Automático">Débito</option>
-              <option value="Recaudo">Transferencia</option>
-            </select>
-          </div>
-          <div class="form-group col-md-4">
-            <label for="comprobante" class="mr-2">Número de Comprobante</label>
-            <input type="text" id="comprobante" class="form-control" [(ngModel)]="payment.comprobante" name="comprobante" required>
+            <mat-form-field>
+              <mat-select id="servicio" [(ngModel)]="payment.servicio" name="servicio" required>
+                <mat-option value="">Seleccione un servicio</mat-option>
+                <mat-option value="Débito Automático">Débito Automático</mat-option>
+                <mat-option value="Recaudo">Recaudo</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
         </div>
         <div class="row mb-3">
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-6">
+            <label for="contrapartida" class="mr-2">Número de Contrapartida</label>
+            <mat-form-field>
+              <input matInput type="text" id="contrapartida" [(ngModel)]="payment.contrapartida" name="contrapartida" required>
+            </mat-form-field>
+          </div>
+          <div class="form-group col-md-6">
             <label for="fecha" class="mr-2">Fecha</label>
-            <input type="date" id="fecha" class="form-control" [(ngModel)]="payment.fecha" name="fecha" required>
+            <mat-form-field>
+              <input matInput type="date" id="fecha" [(ngModel)]="payment.fecha" name="fecha" required disabled>
+            </mat-form-field>
           </div>
-          <div class="form-group col-md-4">
+        </div>
+        <div class="row mb-3">
+          <div class="form-group col-md-6">
             <label for="monto" class="mr-2">Monto</label>
-            <input type="number" id="monto" class="form-control" [(ngModel)]="payment.monto" name="monto" required>
-          </div>
-          <div class="form-group col-md-4">
-            <label for="cuentaBancaria" class="mr-2">Cuenta Bancaria</label>
-            <input type="text" id="cuentaBancaria" class="form-control" [(ngModel)]="payment.cuentaBancaria" name="cuentaBancaria" required>
+            <mat-form-field>
+              <input matInput type="number" id="monto" [(ngModel)]="payment.monto" name="monto" required>
+            </mat-form-field>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12 text-right">
-            <button type="submit" class="btn btn-primary">Realizar Pago</button>
+            <button mat-raised-button color="primary" type="submit">Realizar Pago</button>
           </div>
         </div>
       </form>
@@ -55,8 +63,7 @@
           <tr>
             <th>Empresa</th>
             <th>Servicio</th>
-            <th>Número de Comprobante</th>
-            <th>Cuenta Bancaria</th>
+            <th>Número de Contrapartida</th>
             <th>Fecha</th>
             <th>Monto</th>
             <th>Estado</th>
@@ -66,8 +73,7 @@
           <tr *ngFor="let pago of pagos">
             <td>{{ pago.empresa }}</td>
             <td>{{ pago.servicio }}</td>
-            <td>{{ pago.comprobante }}</td>
-            <td>{{ pago.cuentaBancaria }}</td>
+            <td>{{ pago.contrapartida }}</td>
             <td>{{ pago.fecha | date }}</td>
             <td>{{ pago.monto | currency }}</td>
             <td>{{ pago.estado }}</td>

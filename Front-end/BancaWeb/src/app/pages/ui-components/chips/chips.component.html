@@ -1,116 +1,76 @@
 <mat-card class="cardWithShadow theme-card">
   <mat-card-header>
-    <mat-card-title class="m-b-0">Comisiones</mat-card-title>
+    <mat-card-title class="m-b-0">Realizar Transferencias</mat-card-title>
   </mat-card-header>
   <mat-card-content class="b-t-1">
-    <div class="container">
-      <form class="commission-form">
-        <h4>Configurar Comisiones</h4>
-        <div class="row">
-          <div class="form-group col-lg-6">
-            <label for="empresa" class="col-sm-4 col-form-label">Empresa</label>
-            <div class="col-sm-8">
-              <select id="empresa" class="form-control">
-                <option>--Seleccionar--</option>
-                <option>Conduto S.A.</option>
-                <option>Ecuaconstrucciones</option>
-                <option>Megaprojectos</option>
-              </select>
-            </div>
+    <div class="container mt-4">
+      <form (ngSubmit)="onSubmit()" class="mb-4">
+        <div class="row mb-3">
+          <div class="form-group col-md-6">
+            <label for="cuentaOrigen" class="mr-2">Cuenta de Origen</label>
+            <mat-select id="cuentaOrigen" [(ngModel)]="transferencia.cuentaOrigen" name="cuentaOrigen" required>
+              <mat-option value="">Seleccione una cuenta</mat-option>
+              <mat-option value="1234-5678-9012-3456">1234-5678-9012-3456</mat-option>
+              <mat-option value="6543-2109-8765-4321">6543-2109-8765-4321</mat-option>
+            </mat-select>
           </div>
-          <div class="form-group col-lg-6">
-            <label for="servicio"
-              class="col-sm-4 col-form-label">Servicio</label>
-            <div class="col-sm-8">
-              <select id="servicio" class="form-control">
-                <option>--Seleccionar--</option>
-                <option>Débitos Automáticos</option>
-                <option>Recaudos</option>
-              </select>
-            </div>
+          <div class="form-group col-md-6">
+            <label for="cuentaDestino" class="mr-2">Cuenta de Destino</label>
+            <mat-form-field>
+              <input matInput type="text" id="cuentaDestino" [(ngModel)]="transferencia.cuentaDestino" name="cuentaDestino" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="form-group col-md-6">
+            <label for="nombreTitular" class="mr-2">Nombre del Titular</label>
+            <mat-form-field>
+              <input matInput type="text" id="nombreTitular" [(ngModel)]="transferencia.nombreTitular" name="nombreTitular" required>
+            </mat-form-field>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="monto" class="mr-2">Monto</label>
+            <mat-form-field>
+              <input matInput type="number" id="monto" [(ngModel)]="transferencia.monto" name="monto" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="form-group col-md-12">
+            <label for="detalle" class="mr-2">Detalle de Pago</label>
+            <mat-form-field>
+              <textarea matInput id="detalle" [(ngModel)]="transferencia.detalle" name="detalle" rows="3" required></textarea>
+            </mat-form-field>
           </div>
         </div>
         <div class="row">
-          <div class="form-group col-lg-6">
-            <label for="distribucion"
-              class="col-sm-4 col-form-label">Distribución del Cargo</label>
-            <div class="col-sm-8">
-              <select id="distribucion" class="form-control">
-                <option>--Seleccionar--</option>
-                <option>Empresa</option>
-                <option>Deudor</option>
-                <option>Híbrido</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group col-lg-6">
-            <label for="comision"
-              class="col-sm-4 col-form-label">Comisión</label>
-            <div class="col-sm-8">
-              <input type="text" id="comision" class="form-control"
-                value="5.75">
-            </div>
-          </div>
-        </div>
-        <br><br>
-        <h4>Depósito de Comisiones</h4><label for="cuenta" class="col-sm-4 col-form-label">Cuenta de
-              Destino</label>
-        <div class="row">
-          <div class="form-group col-lg-4">
-            
-            <div class="col-sm-8">
-              <input type="text" id="cuenta" class="form-control"
-                value="1234-5678-9012">
-            </div>
-          </div>
-
-          <div class="form-group col-lg-4">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-8">
-              <button type="submit" class="btn btn-primary">Verificar</button>
-            </div>
-          </div>
-        </div>
-        <br>
-        <div class="form-group col-lg-12">
-          <label for="nombre" class="col-sm-4 col-form-label">Nombre del
-            Destinatario</label>
-          <div class="col-sm-8">
-            <input type="text" id="nombre" class="form-control"
-              value="Juan Perez" readonly>
-          </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="form-group col-lg-6">
-            <label for="periodo" class="col-sm-4 col-form-label">Periodo</label>
-            <div class="col-sm-8">
-              <select id="periodo" class="form-control">
-                <option>Diario</option>
-                <option>Semanal</option>
-                <option>Menual</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group col-lg-6">
-            <label for="hora" class="col-sm-4 col-form-label">Hora</label>
-            <div class="col-sm-8">
-              <input type="time" id="hora" name="hora">
-            </div>
-          </div>
-        </div>
-        <br><br>
-        <div class="row">
-          <div class="form-group col-lg-6">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-8">
-              <button type="submit" class="btn btn-primary">Guardar</button>
-              <button type="reset" class="btn btn-secondary">Cancelar</button>
-            </div>
+          <div class="col-md-12 text-right">
+            <button mat-raised-button color="primary" type="submit">Realizar Transferencia</button>
           </div>
         </div>
       </form>
-    </div>
 
+      <!-- Tabla de Transferencias Realizadas -->
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Cuenta de Origen</th>
+            <th>Cuenta de Destino</th>
+            <th>Nombre del Titular</th>
+            <th>Monto</th>
+            <th>Detalle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let transferencia of transferencias">
+            <td>{{ transferencia.cuentaOrigen }}</td>
+            <td>{{ transferencia.cuentaDestino }}</td>
+            <td>{{ transferencia.nombreTitular }}</td>
+            <td>{{ transferencia.monto | currency }}</td>
+            <td>{{ transferencia.detalle }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </mat-card-content>
 </mat-card>
