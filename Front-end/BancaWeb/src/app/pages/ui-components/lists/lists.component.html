@@ -1,9 +1,9 @@
 <div class="container mt-5">
-    <h2 class="mb-4">BancaWeb BanQuito</h2>
+    <h2 class="mb-5 text-center">BancaWeb BanQuito</h2>
     
     <!-- Filtro Global -->
-    <form class="mb-4">
-        <div class="form-row">
+    <form class="mb-4 text-center">
+        <div class="form-row justify-content-center">
             <div class="form-group col-md-3">
                 <label for="numeroCuenta">Número de Cuenta</label>
                 <input type="text" class="form-control" id="numeroCuenta" placeholder="Ingrese número de cuenta">
@@ -30,8 +30,8 @@
     </form>
   
     <!-- Lista de Movimientos -->
-    <h3 class="mt-5">Lista de Movimientos</h3> <!-- Cambiado de mt-4 a mt-5 -->
-    <table class="table table-striped">
+    <h3 class="mt-5 mb-4 text-center">Lista de Movimientos</h3>
+    <table class="table table-striped mat-elevation-z8 mt-4">
         <thead>
             <tr>
                 <th>ID Movimiento</th>
@@ -43,29 +43,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>1001</td>
-                <td>Depósito</td>
-                <td>$1,000.00</td>
-                <td>2024-06-01</td>
-                <td>Depósito en efectivo</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>1002</td>
-                <td>Retiro</td>
-                <td>$200.00</td>
-                <td>2024-06-02</td>
-                <td>Retiro en cajero automático</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>1003</td>
-                <td>Transferencia</td>
-                <td>$500.00</td>
-                <td>2024-06-03</td>
-                <td>Transferencia a cuenta externa</td>
+            <tr *ngFor="let movimiento of movimientos">
+                <td>{{ movimiento.idMovimiento }}</td>
+                <td>{{ movimiento.idCuenta }}</td>
+                <td>{{ movimiento.tipoMovimiento }}</td>
+                <td>{{ movimiento.monto | currency }}</td>
+                <td>{{ movimiento.fecha | date }}</td>
+                <td>{{ movimiento.descripcion }}</td>
             </tr>
         </tbody>
     </table>

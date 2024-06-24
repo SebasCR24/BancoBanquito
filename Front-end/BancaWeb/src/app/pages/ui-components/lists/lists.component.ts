@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
 
-export interface Section {
-  name: string;
-  updated: Date;
+export interface Movimiento {
+  idMovimiento: number;
+  idCuenta: number;
+  tipoMovimiento: string;
+  monto: number;
+  fecha: string;
+  descripcion: string;
 }
 
 @Component({
@@ -11,32 +15,30 @@ export interface Section {
   styleUrls: ['./lists.component.scss']
 })
 export class AppListsComponent {
-  constructor() {}
-
-  typesOfShoes: string[] = ['Loafers', 'Sneakers'];
-
-  folders: Section[] = [
+  movimientos: Movimiento[] = [
     {
-      name: 'Photos',
-      updated: new Date('1/1/16'),
+      idMovimiento: 1,
+      idCuenta: 1001,
+      tipoMovimiento: 'Depósito',
+      monto: 1000.00,
+      fecha: '2024-06-01',
+      descripcion: 'Depósito en efectivo'
     },
     {
-      name: 'Recipes',
-      updated: new Date('1/17/16'),
+      idMovimiento: 2,
+      idCuenta: 1002,
+      tipoMovimiento: 'Retiro',
+      monto: 200.00,
+      fecha: '2024-06-02',
+      descripcion: 'Retiro en cajero automático'
     },
     {
-      name: 'Work',
-      updated: new Date('1/28/16'),
-    },
-  ];
-  notes: Section[] = [
-    {
-      name: 'Vacation Itinerary',
-      updated: new Date('2/20/16'),
-    },
-    {
-      name: 'Kitchen Remodel',
-      updated: new Date('1/18/16'),
-    },
+      idMovimiento: 3,
+      idCuenta: 1003,
+      tipoMovimiento: 'Transferencia',
+      monto: 500.00,
+      fecha: '2024-06-03',
+      descripcion: 'Transferencia a cuenta externa'
+    }
   ];
 }
