@@ -6,6 +6,8 @@ interface Payment {
   fecha: string;
   monto: number;
   estado: string;
+  comprobante: string;
+  cuentaBancaria: string;
 }
 
 @Component({
@@ -19,30 +21,38 @@ export class BadgeComponent {
     servicio: '',
     fecha: '',
     monto: 0,
-    estado: 'Pendiente'
+    estado: 'Pendiente',
+    comprobante: '',
+    cuentaBancaria: ''
   };
 
   pagos: Payment[] = [
     {
       empresa: 'ElectroAndes',
-      servicio: 'Recaudo',
+      servicio: 'Transferencia',
       fecha: '2024-01-15',
       monto: 1200,
-      estado: 'Pagado'
+      estado: 'Pagado',
+      comprobante: '123456',
+      cuentaBancaria: '1234-5678-9012-3456'
     },
     {
       empresa: 'Distribuidora Oriente',
-      servicio: 'Débito Automático',
+      servicio: 'Débito',
       fecha: '2024-02-10',
       monto: 850,
-      estado: 'Pendiente'
+      estado: 'Pendiente',
+      comprobante: '789012',
+      cuentaBancaria: '6543-2109-8765-4321'
     },
     {
       empresa: 'Inmobiliaria del Pacífico',
-      servicio: 'Recaudo',
+      servicio: 'Transferencia',
       fecha: '2024-03-05',
       monto: 500,
-      estado: 'Pagado'
+      estado: 'Pagado',
+      comprobante: '345678',
+      cuentaBancaria: '5678-9012-3456-7890'
     }
   ];
 
@@ -53,7 +63,9 @@ export class BadgeComponent {
       servicio: '',
       fecha: '',
       monto: 0,
-      estado: 'Pendiente'
+      estado: 'Pendiente',
+      comprobante: '',
+      cuentaBancaria: ''
     };
   }
 }
