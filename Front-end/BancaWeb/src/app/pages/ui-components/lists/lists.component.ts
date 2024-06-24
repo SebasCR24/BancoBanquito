@@ -8,7 +8,7 @@ export interface Section {
 @Component({
   selector: 'app-lists',
   templateUrl: './lists.component.html',
-  styleUrl: './lists.component.scss'
+  styleUrls: ['./lists.component.scss']
 })
 export class AppListsComponent {
   constructor() {}
