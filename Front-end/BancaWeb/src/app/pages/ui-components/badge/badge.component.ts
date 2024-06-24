@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 
 interface Payment {
   empresa: string;
@@ -15,7 +16,7 @@ interface Payment {
   templateUrl: './badge.component.html',
   styleUrls: ['./badge.component.scss']
 })
-export class BadgeComponent implements OnInit {
+export class BadgeComponent {
   payment: Payment = {
     empresa: '',
     servicio: '',
@@ -26,7 +27,7 @@ export class BadgeComponent implements OnInit {
     cuentaBancaria: ''
   };
 
-  pagos: Payment[] = [
+  pagos = new MatTableDataSource<Payment>([
     {
       empresa: 'ElectroAndes',
       servicio: 'Recaudo',
@@ -54,18 +55,17 @@ export class BadgeComponent implements OnInit {
       contrapartida: '345678',
       cuentaBancaria: '5678-9012-3456-7890'
     }
-  ];
+  ]);
 
-  ngOnInit() {
-    this.payment.fecha = new Date().toISOString().split('T')[0]; // Set the date to the current date
-  }
+  displayedColumns: string[] = ['empresa', 'servicio', 'contrapartida', 'fecha', 'monto', 'estado'];
 
   onSubmit() {
-    this.pagos.push({ ...this.payment, estado: 'Pagado' });
+    this.pagos.data.push({ ...this.payment, estado: 'Pagado' });
+    this.pagos._updateChangeSubscription(); // Refresh the table
     this.payment = {
       empresa: '',
       servicio: '',
-      fecha: new Date().toISOString().split('T')[0], // Reset to current date
+      fecha: '',
       monto: 0,
       estado: 'Pendiente',
       contrapartida: '',

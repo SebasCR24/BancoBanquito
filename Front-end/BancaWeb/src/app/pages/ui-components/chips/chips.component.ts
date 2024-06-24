@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 
 interface Transferencia {
   cuentaOrigen: string;
@@ -22,7 +23,7 @@ export class ChipsComponent {
     detalle: ''
   };
 
-  transferencias: Transferencia[] = [
+  transferencias = new MatTableDataSource<Transferencia>([
     {
       cuentaOrigen: '1234-5678-9012-3456',
       cuentaDestino: '6543-2109-8765-4321',
@@ -37,10 +38,13 @@ export class ChipsComponent {
       monto: 500,
       detalle: 'Transferencia personal'
     }
-  ];
+  ]);
+
+  displayedColumns: string[] = ['cuentaOrigen', 'cuentaDestino', 'nombreTitular', 'monto', 'detalle'];
 
   onSubmit() {
-    this.transferencias.push({ ...this.transferencia });
+    this.transferencias.data.push({ ...this.transferencia });
+    this.transferencias._updateChangeSubscription(); // Refresh the table
     this.transferencia = {
       cuentaOrigen: '',
       cuentaDestino: '',

@@ -1,44 +1,66 @@
-<div class="dashboard-container">
-  <div class="dashboard-header">
-    <h2>ACCESOS DIRECTOS</h2>
-    <div class="quick-access">
-      <button mat-button>
-        <img src="assets/images/backgrounds/transferencias.png" alt="Transferir dinero">
-        <span>Transferir dinero</span>
-      </button>
-      <button mat-button>
-        <img src="assets/images/backgrounds/pagos.png" alt="Realizar Pagos">
-        <span>Realizar Pagos</span>
-      </button>
-      <button mat-button>
-        <img src="assets/images/backgrounds/estadocuenta.png" alt="Estados de cuenta">
-        <span>Estados de cuenta</span>
-      </button>
+<div class="container mt-5">
+  <h2 class="mb-4 text-center">BancaWeb BanQuito</h2>
+  
+  <!-- Accesos Directos -->
+  <div class="row mb-4 text-center">
+    <div class="col-md-4">
+      <div class="shortcut-card">
+        <img src="assets/icons/transfer.svg" alt="Transferir dinero" class="shortcut-icon">
+        <h3 class="shortcut-title">Transferir dinero</h3>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="shortcut-card">
+        <img src="assets/icons/payments.svg" alt="Realizar Pagos" class="shortcut-icon">
+        <h3 class="shortcut-title">Realizar Pagos</h3>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="shortcut-card">
+        <img src="assets/icons/account-statement.svg" alt="Estados de cuenta" class="shortcut-icon">
+        <h3 class="shortcut-title">Estados de cuenta</h3>
+      </div>
     </div>
   </div>
-
-  <div class="transactions-section">
-    <h3>Últimos Movimientos</h3>
-    <div class="filter-dates-btn">
-      <label for="startDate">Desde:</label>
-      <input type="date" (change)="filterByDates(startDateInput.value, endDateInput.value)" #startDateInput>
-      <label for="endDate">Hasta:</label>
-      <input type="date" (change)="filterByDates(startDateInput.value, endDateInput.value)" #endDateInput>
-      <button mat-button (click)="filterByDates(startDateInput.value, endDateInput.value)">
-        <mat-icon>calendar_today</mat-icon> Filtrar por fechas
-      </button>
+  
+  <!-- Últimos Movimientos -->
+  <h3 class="mt-5 mb-4 text-center">Últimos Movimientos</h3>
+  <form class="mb-4 text-center">
+    <div class="form-row justify-content-center">
+      <div class="form-group col-md-3">
+        <label for="fechaDesde">Desde</label>
+        <input type="date" class="form-control" id="fechaDesde">
+      </div>
+      <div class="form-group col-md-3">
+        <label for="fechaHasta">Hasta</label>
+        <input type="date" class="form-control" id="fechaHasta">
+      </div>
     </div>
-
-    <div class="transaction-group" *ngFor="let group of filteredTransactionGroups">
-      <h4>{{ group.date | date: 'fullDate' }}</h4>
-      <div class="transaction" *ngFor="let transaction of group.transactions">
-        <div class="transaction-info">
-          <p>{{ transaction.description }}</p>
-          <p class="transaction-amount" [ngClass]="{'positive': transaction.amount > 0, 'negative': transaction.amount < 0}">
-            {{ transaction.amount | currency }}
-          </p>
-        </div>
-        <p class="transaction-balance">{{ transaction.balance | currency }}</p>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+  </form>
+  
+  <!-- Lista de Movimientos -->
+  <div class="movements-list">
+    <div class="movements-group">
+      <h4 class="movements-date">Sunday, June 23, 2024</h4>
+      <div class="movement-item">
+        <div class="movement-description">Transferencia Directa a Vilaña Sanchez Vanessa Alejandra</div>
+        <div class="movement-amount text-danger">- $7.00</div>
+      </div>
+      <div class="movement-item">
+        <div class="movement-description">Transferencia Directa de Loyaga Rosero Byron Alexis</div>
+        <div class="movement-amount text-success">$7.00</div>
+      </div>
+      <div class="movement-item">
+        <div class="movement-description">05099112--reg Reclamos--t3--039231803</div>
+        <div class="movement-amount text-success">$1.00</div>
+      </div>
+    </div>
+    <div class="movements-group">
+      <h4 class="movements-date">Wednesday, June 12, 2024</h4>
+      <div class="movement-item">
+        <div class="movement-description">Transferencia Directa a Garate Altamirano Edgar Danilo</div>
+        <div class="movement-amount text-danger">- $2.00</div>
       </div>
     </div>
   </div>

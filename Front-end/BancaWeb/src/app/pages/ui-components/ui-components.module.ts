@@ -9,9 +9,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatDatepickerModule } from '@angular/material/datepicker'; // Importa el módulo Datepicker
-import { MatNativeDateModule } from '@angular/material/core'; // Importa el módulo NativeDate
-import { MatFormFieldModule } from '@angular/material/form-field'; // Importa el módulo FormField
+import { MatTableModule } from '@angular/material/table';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { TablerIconsModule } from 'angular-tabler-icons';
 import * as TablerIcons from 'angular-tabler-icons/icons';
@@ -43,6 +44,7 @@ import { AppTooltipsComponent } from './tooltips/tooltips.component';
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    MatTableModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,

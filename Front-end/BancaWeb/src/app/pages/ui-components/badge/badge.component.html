@@ -7,8 +7,8 @@
       <form (ngSubmit)="onSubmit()" class="mb-4">
         <div class="row mb-3">
           <div class="form-group col-md-6">
-            <label for="empresa" class="mr-2">Empresa</label>
-            <mat-form-field>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Empresa</mat-label>
               <mat-select id="empresa" [(ngModel)]="payment.empresa" name="empresa" required>
                 <mat-option value="">Seleccione una empresa</mat-option>
                 <mat-option value="ElectroAndes">ElectroAndes</mat-option>
@@ -18,8 +18,8 @@
             </mat-form-field>
           </div>
           <div class="form-group col-md-6">
-            <label for="servicio" class="mr-2">Servicio</label>
-            <mat-form-field>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Servicio</mat-label>
               <mat-select id="servicio" [(ngModel)]="payment.servicio" name="servicio" required>
                 <mat-option value="">Seleccione un servicio</mat-option>
                 <mat-option value="Débito Automático">Débito Automático</mat-option>
@@ -30,23 +30,31 @@
         </div>
         <div class="row mb-3">
           <div class="form-group col-md-6">
-            <label for="contrapartida" class="mr-2">Número de Contrapartida</label>
-            <mat-form-field>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Número de Contrapartida</mat-label>
               <input matInput type="text" id="contrapartida" [(ngModel)]="payment.contrapartida" name="contrapartida" required>
             </mat-form-field>
           </div>
           <div class="form-group col-md-6">
-            <label for="fecha" class="mr-2">Fecha</label>
-            <mat-form-field>
-              <input matInput type="date" id="fecha" [(ngModel)]="payment.fecha" name="fecha" required disabled>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Fecha</mat-label>
+              <input matInput [matDatepicker]="picker" id="fecha" [(ngModel)]="payment.fecha" name="fecha" required>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
           </div>
         </div>
         <div class="row mb-3">
           <div class="form-group col-md-6">
-            <label for="monto" class="mr-2">Monto</label>
-            <mat-form-field>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Monto</mat-label>
               <input matInput type="number" id="monto" [(ngModel)]="payment.monto" name="monto" required>
+            </mat-form-field>
+          </div>
+          <div class="form-group col-md-6">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Cuenta Bancaria</mat-label>
+              <input matInput type="text" id="cuentaBancaria" [(ngModel)]="payment.cuentaBancaria" name="cuentaBancaria" required>
             </mat-form-field>
           </div>
         </div>
@@ -58,27 +66,40 @@
       </form>
 
       <!-- Tabla de Pagos Realizados -->
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Empresa</th>
-            <th>Servicio</th>
-            <th>Número de Contrapartida</th>
-            <th>Fecha</th>
-            <th>Monto</th>
-            <th>Estado</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let pago of pagos">
-            <td>{{ pago.empresa }}</td>
-            <td>{{ pago.servicio }}</td>
-            <td>{{ pago.contrapartida }}</td>
-            <td>{{ pago.fecha | date }}</td>
-            <td>{{ pago.monto | currency }}</td>
-            <td>{{ pago.estado }}</td>
-          </tr>
-        </tbody>
+      <h3 class="mt-5">Lista de Pagos Realizados</h3>
+      <table mat-table [dataSource]="pagos" class="mat-elevation-z8 mt-4">
+        <ng-container matColumnDef="empresa">
+          <th mat-header-cell *matHeaderCellDef> Empresa </th>
+          <td mat-cell *matCellDef="let pago"> {{pago.empresa}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="servicio">
+          <th mat-header-cell *matHeaderCellDef> Servicio </th>
+          <td mat-cell *matCellDef="let pago"> {{pago.servicio}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="contrapartida">
+          <th mat-header-cell *matHeaderCellDef> Número de Contrapartida </th>
+          <td mat-cell *matCellDef="let pago"> {{pago.contrapartida}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef> Fecha </th>
+          <td mat-cell *matCellDef="let pago"> {{pago.fecha | date}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="monto">
+          <th mat-header-cell *matHeaderCellDef> Monto </th>
+          <td mat-cell *matCellDef="let pago"> {{pago.monto | currency}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef> Estado </th>
+          <td mat-cell *matCellDef="let pago"> {{pago.estado}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     </div>
   </mat-card-content>
