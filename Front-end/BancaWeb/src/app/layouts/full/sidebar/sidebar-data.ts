@@ -23,7 +23,7 @@ export const navItems: NavItem[] = [
     route: '/ui-components/chips',
   },
   {
-    displayName: 'POSICION CONSOLIDADA',
+    displayName: 'ESTADO DE CUENTA',
     iconName: 'list',
     route: '/ui-components/lists',
   },
