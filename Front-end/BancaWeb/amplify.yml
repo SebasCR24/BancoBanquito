@@ -3,6 +3,8 @@ frontend:
   phases:
     preBuild:
       commands:
+        - nvm install 14
+        - nvm use 14
         - npm install -g @angular/cli
         - npm install
     build:
