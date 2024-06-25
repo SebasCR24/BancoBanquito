@@ -42,6 +42,16 @@
         <div class="row mb-3">
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Cuenta de Origen</mat-label>
+              <mat-select id="cuenta" [(ngModel)]="payment.cuenta" name="cuenta" required>
+                <mat-option value="">Seleccione una cuenta</mat-option>
+                <mat-option value="2205361970">2205361970</mat-option>
+                <mat-option value="0609861234">0609861234</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="form-group col-md-6">
+            <mat-form-field appearance="outline" class="full-width">
               <mat-label>Monto</mat-label>
               <input matInput type="number" id="monto" [(ngModel)]="payment.monto" name="monto" required>
             </mat-form-field>
@@ -74,7 +84,12 @@
 
         <ng-container matColumnDef="fecha">
           <th mat-header-cell *matHeaderCellDef> Fecha </th>
-          <td mat-cell *matCellDef="let pago"> {{pago.fecha | date}} </td>
+          <td mat-cell *matCellDef="let pago"> {{pago.fecha}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cuenta">
+          <th mat-header-cell *matHeaderCellDef> Número de Cuenta </th>
+          <td mat-cell *matCellDef="let pago"> {{pago.cuenta}} </td>
         </ng-container>
 
         <ng-container matColumnDef="monto">

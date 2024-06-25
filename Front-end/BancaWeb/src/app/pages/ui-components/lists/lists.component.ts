@@ -27,7 +27,7 @@ export class AppListsComponent {
     {
       idMovimiento: 2,
       idCuenta: 1002,
-      tipoMovimiento: 'Retiro',
+      tipoMovimiento: 'Efectivo',
       monto: 200.00,
       fecha: '2024-06-02',
       descripcion: 'Retiro en cajero automático'

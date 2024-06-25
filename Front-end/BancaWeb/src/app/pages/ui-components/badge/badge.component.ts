@@ -8,7 +8,7 @@ interface Payment {
   monto: number;
   estado: string;
   contrapartida: string;
-  cuentaBancaria: string;
+  cuenta: string; 
 }
 
 @Component({
@@ -24,40 +24,40 @@ export class BadgeComponent {
     monto: 0,
     estado: 'Pendiente',
     contrapartida: '',
-    cuentaBancaria: ''
+    cuenta: '' // Inicializar la nueva propiedad
   };
 
   pagos = new MatTableDataSource<Payment>([
     {
-      empresa: 'ElectroAndes',
-      servicio: 'Recaudo',
-      fecha: '2024-01-15',
+      empresa: 'Universidad de las Fuerzas Armadas',
+      servicio: 'Banca Web',
+      fecha: '15/06/2024',
       monto: 1200,
       estado: 'Pagado',
       contrapartida: '123456',
-      cuentaBancaria: '1234-5678-9012-3456'
+      cuenta: '0601076543'
     },
     {
-      empresa: 'Distribuidora Oriente',
-      servicio: 'Débito Automático',
-      fecha: '2024-02-10',
+      empresa: 'Empresa Eléctrica',
+      servicio: 'Banca Empresas',
+      fecha: '22/06/2024',
       monto: 850,
       estado: 'Pendiente',
       contrapartida: '789012',
-      cuentaBancaria: '6543-2109-8765-4321'
+      cuenta: '1108723645'
     },
     {
-      empresa: 'Inmobiliaria del Pacífico',
-      servicio: 'Recaudo',
-      fecha: '2024-03-05',
+      empresa: 'Agua Potable',
+      servicio: 'Ventanilla',
+      fecha: '24/06/2024',
       monto: 500,
       estado: 'Pagado',
       contrapartida: '345678',
-      cuentaBancaria: '5678-9012-3456-7890'
+      cuenta: '2205361970'
     }
   ]);
 
-  displayedColumns: string[] = ['empresa', 'servicio', 'contrapartida', 'fecha', 'monto', 'estado'];
+  displayedColumns: string[] = ['empresa', 'servicio', 'contrapartida', 'fecha', 'cuenta', 'monto', 'estado']; // Añadido 'cuenta'
 
   constructor() {
     this.payment.fecha = this.formatDate(new Date()); // Establecer la fecha actual con formato
@@ -80,8 +80,8 @@ export class BadgeComponent {
       monto: 0,
       estado: 'Pendiente',
       contrapartida: '',
-      cuentaBancaria: ''
+      cuenta: ''
     };
-    this.payment.fecha = new Date().toISOString().split('T')[0]; // Restablecer la fecha actual
+    this.payment.fecha = this.formatDate(new Date()); // Restablecer la fecha actual con formato
   }
 }

@@ -25,18 +25,18 @@ export class ChipsComponent {
 
   transferencias = new MatTableDataSource<Transferencia>([
     {
-      cuentaOrigen: '1234-5678-9012-3456',
-      cuentaDestino: '6543-2109-8765-4321',
+      cuentaOrigen: '2205361970',
+      cuentaDestino: '2208761234',
       nombreTitular: 'Juan Perez',
       monto: 1000,
-      detalle: 'Pago de servicios'
+      detalle: 'Préstamo familiar'
     },
     {
-      cuentaOrigen: '6543-2109-8765-4321',
-      cuentaDestino: '1234-5678-9012-3456',
+      cuentaOrigen: '0609861234',
+      cuentaDestino: '2208762309',
       nombreTitular: 'Maria Gomez',
       monto: 500,
-      detalle: 'Transferencia personal'
+      detalle: 'Pago de servicios básicos'
     }
   ]);
 
