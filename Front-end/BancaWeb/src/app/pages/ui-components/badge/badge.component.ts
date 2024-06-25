@@ -59,6 +59,17 @@ export class BadgeComponent {
 
   displayedColumns: string[] = ['empresa', 'servicio', 'contrapartida', 'fecha', 'monto', 'estado'];
 
+  constructor() {
+    this.payment.fecha = this.formatDate(new Date()); // Establecer la fecha actual con formato
+  }
+
+  formatDate(date: Date): string {
+    const day = ('0' + date.getDate()).slice(-2);
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const year = date.getFullYear().toString().slice(-4);
+    return `${day}/${month}/${year}`;
+  }
+
   onSubmit() {
     this.pagos.data.push({ ...this.payment, estado: 'Pagado' });
     this.pagos._updateChangeSubscription(); // Refresh the table
@@ -71,5 +82,6 @@ export class BadgeComponent {
       contrapartida: '',
       cuentaBancaria: ''
     };
+    this.payment.fecha = new Date().toISOString().split('T')[0]; // Restablecer la fecha actual
   }
 }
