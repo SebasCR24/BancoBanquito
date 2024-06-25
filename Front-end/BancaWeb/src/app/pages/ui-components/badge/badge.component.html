@@ -11,22 +11,19 @@
               <mat-label>Empresa</mat-label>
               <mat-select id="empresa" [(ngModel)]="payment.empresa" name="empresa" required>
                 <mat-option value="">Seleccione una empresa</mat-option>
-                <mat-option value="ElectroAndes">ElectroAndes</mat-option>
-                <mat-option value="Distribuidora Oriente">Distribuidora Oriente</mat-option>
-                <mat-option value="Inmobiliaria del Pacífico">Inmobiliaria del Pacífico</mat-option>
+                <mat-option value="ElectroAndes">Universidad de las Fuerzas Armadas</mat-option>
+                <mat-option value="Distribuidora Oriente">Empresa Eléctrica</mat-option>
+                <mat-option value="Inmobiliaria del Pacífico">Agua Potable</mat-option>
+                <mat-option value="Inmobiliaria del Pacífico">Declaración de Impuestos</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Servicio</mat-label>
-              <mat-select id="servicio" [(ngModel)]="payment.servicio" name="servicio" required>
-                <mat-option value="">Seleccione un servicio</mat-option>
-                <mat-option value="Débito Automático">Débito Automático</mat-option>
-                <mat-option value="Recaudo">Recaudo</mat-option>
-              </mat-select>
+              <input matInput readonly value="Banca Web">
             </mat-form-field>
-          </div>
+          </div>          
         </div>
         <div class="row mb-3">
           <div class="form-group col-md-6">
