@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import * as XLSX from 'xlsx';
 
 interface Payment {
   empresa: string;
@@ -59,6 +60,8 @@ export class BadgeComponent {
 
   displayedColumns: string[] = ['empresa', 'servicio', 'contrapartida', 'fecha', 'cuenta', 'monto', 'estado']; // Añadido 'cuenta'
 
+  orders: any[] = [];
+
   constructor() {
     this.payment.fecha = this.formatDate(new Date()); // Establecer la fecha actual con formato
   }
@@ -83,5 +86,26 @@ export class BadgeComponent {
       cuenta: ''
     };
     this.payment.fecha = this.formatDate(new Date()); // Restablecer la fecha actual con formato
+  }
+
+  onFileChange(event: any) {
+    const target: DataTransfer = <DataTransfer>(event.target);
+
+    if (target.files.length !== 1) {
+      throw new Error('No se pueden usar múltiples archivos');
+    }
+
+    const reader: FileReader = new FileReader();
+    reader.onload = (e: any) => {
+      const bstr: string = e.target.result;
+      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
+
+      const wsname: string = wb.SheetNames[0];
+      const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+
+      this.orders = <any>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
+    };
+
+    reader.readAsBinaryString(target.files[0]);
   }
 }

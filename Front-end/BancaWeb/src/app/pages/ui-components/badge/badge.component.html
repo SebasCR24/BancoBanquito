@@ -23,7 +23,7 @@
               <mat-label>Servicio</mat-label>
               <input matInput readonly value="Banca Web">
             </mat-form-field>
-          </div>          
+          </div>
         </div>
         <div class="row mb-3">
           <div class="form-group col-md-6">
@@ -31,13 +31,13 @@
               <mat-label>Número de Contrapartida</mat-label>
               <input matInput type="text" id="contrapartida" [(ngModel)]="payment.contrapartida" name="contrapartida" required maxlength="20">
             </mat-form-field>
-          </div>          
+          </div>
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Fecha</mat-label>
               <input matInput type="text" id="fecha" [(ngModel)]="payment.fecha" name="fecha" required readonly>
             </mat-form-field>
-          </div>                                
+          </div>
         </div>
         <div class="row mb-3">
           <div class="form-group col-md-6">
@@ -56,6 +56,15 @@
               <input matInput type="number" id="monto" [(ngModel)]="payment.monto" name="monto" required>
             </mat-form-field>
           </div>
+        </div>
+        <!-- Campo para cargar el archivo -->
+        <input type="file" (change)="onFileChange($event)" accept=".xlsx, .xls" />
+        <!-- Sección para mostrar las órdenes cargadas -->
+        <div *ngIf="orders.length > 0">
+          <h3>Órdenes Cargadas</h3>
+          <ul>
+            <li *ngFor="let order of orders">{{ order }}</li>
+          </ul>
         </div>
         <div class="row">
           <div class="col-md-12 text-right">
