@@ -28,6 +28,7 @@ import { AppNavItemComponent } from './layouts/full/sidebar/nav-item/nav-item.co
 import { LoginComponent } from './pages/authentication/login/login.component';
 import { RegistroComponent } from './pages/authentication/register/registro.component';
 import { ForgotPasswordComponent } from './pages/authentication/forgot-password/forgot-password.component';
+import { VerifyCodeComponent } from './pages/authentication/verify-code/verify-code.component'; // Importa VerifyCodeComponent
 
 // Import UI Components
 import { CrearUsuarioComponent } from './pages/ui-components/crear-usuario/crear-usuario.component';
@@ -46,9 +47,10 @@ import { NotificationBellComponent } from './pages/ui-components/notification-be
     LoginComponent,
     RegistroComponent,
     ForgotPasswordComponent,
+    VerifyCodeComponent, // Declara VerifyCodeComponent aquí
     CrearUsuarioComponent,
     ModificarUsuarioComponent,
-    NotificationBellComponent // Deja este componente aquí
+    NotificationBellComponent
   ],
   imports: [
     BrowserModule,

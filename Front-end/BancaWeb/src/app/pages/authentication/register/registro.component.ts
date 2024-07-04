@@ -6,17 +6,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./registro.component.scss']
 })
 export class RegistroComponent {
-  user = {
-    name: '',
-    email: '',
-    password: '',
-    dob: ''
-  };
+  ruc: string = '';
+  documento: string = '';
+  errorMessage: string = '';
 
   constructor() { }
 
-  onSubmit() {
-    // Lógica para registrar al usuario
-    console.log('Usuario registrado:', this.user);
+  register(): void {
+    // Lógica para el registro de la cuenta
+    if (this.ruc && this.documento) {
+      // Implementar la lógica para registrar la cuenta
+      console.log('Registro de cuenta con RUC:', this.ruc, 'y Documento:', this.documento);
+      this.errorMessage = ''; // Limpiar mensaje de error si lo hay
+    } else {
+      this.errorMessage = 'Por favor, ingrese todos los campos';
+    }
   }
 }
