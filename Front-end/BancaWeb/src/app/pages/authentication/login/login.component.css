@@ -22,41 +22,68 @@ body, html {
 }
 
 .bg-teal {
-  background-color: #017B8B;
+  background-color: #03B5CF;
   min-height: 70vh;
+}
+
+.right-section {
+  background-color: #03B5CF; /* Fondo azul */
+  height: 100%;
+  padding: 20px;
+  border-radius: 10px;
 }
 
 h2 {
   font-size: 2rem;
   margin-bottom: 20px;
   text-align: center;
+  color: white; /* Texto blanco */
 }
 
 p {
   text-align: center;
+  color: white; /* Texto blanco */
 }
 
 .form-group label {
-  color: #333;
+  color: black; /* Texto negro */
+}
+
+.forgot-link {
+  display: block;
+  text-align: right;
+  color: black; /* Texto negro */
+  margin-top: 5px;
 }
 
 .btn-primary {
-  background-color: #017B8B;
-  border-color: #017B8B;
+  background-color: #FCBE18;
+  border: none;
   width: 100%;
   padding: 10px;
   font-size: 1rem;
   margin-top: 20px;
+  color: black; /* Texto negro */
+  border-radius: 5px; /* Bordes redondeados */
 }
 
-.btn-outline-light {
-  border-color: white;
-  color: white;
+.btn-primary:hover {
+  color: white; /* Texto blanco al pasar el cursor */
 }
 
-.btn-outline-light:hover {
-  background-color: white;
-  color: #017B8B;
+.btn-secondary {
+  background-color: #bfe9ea;
+  border: none;
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  margin-top: 10px;
+  color: black; /* Texto negro */
+  border-radius: 5px; /* Bordes redondeados */
+}
+
+.btn-secondary:hover {
+  color: white; /* Texto blanco al pasar el cursor */
 }
 
 .image-container {
@@ -78,7 +105,7 @@ p {
 .links .link {
   display: block;
   margin: 5px 0;
-  color: #007bff;
+  color: #03B5CF;
   text-decoration: none;
 }
 
@@ -107,3 +134,17 @@ p {
   color: #333;
 }
 
+.forgot-password-button {
+  width: 100%;
+  padding: 12px; /* Aumenta el padding para el botón */
+  background-color: #03B5CF;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.forgot-password-button:hover {
+  background-color: #FCBE18;
+  border: 1px solid #03B5CF; /* Añadir borde al pasar el cursor */
+}

@@ -6,14 +6,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent {
-  user = {
-    email: ''
-  };
+  username: string = '';
+  errorMessage: string = '';
 
   constructor() { }
 
-  onSubmit() {
-    // Lógica para enviar el enlace de restablecimiento de contraseña
-    console.log('Enlace de restablecimiento enviado a:', this.user.email);
+  requestCode(): void {
+    // Lógica para solicitar el código de recuperación de contraseña
+    if (this.username) {
+      // Implementar la lógica para enviar el código de recuperación
+      console.log('Solicitud de código para el usuario:', this.username);
+      this.errorMessage = ''; // Limpiar mensaje de error si lo hay
+    } else {
+      this.errorMessage = 'Por favor, ingrese su nombre de usuario';
+    }
   }
 }
