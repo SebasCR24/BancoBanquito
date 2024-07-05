@@ -5,16 +5,16 @@ import { FullComponent } from './layouts/full/full.component';
 import { LoginComponent } from './pages/authentication/login/login.component';
 import { RegistroComponent } from './pages/authentication/register/registro.component';
 import { ForgotPasswordComponent } from './pages/authentication/forgot-password/forgot-password.component';
-import { VerifyCodeComponent } from './pages/authentication/verify-code/verify-code.component'; // Importar VerifyCodeComponent
+import { VerifyCodeComponent } from './pages/authentication/verify-code/verify-code.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component'; // Asegúrate de importar DashboardComponent
 import { AuthGuard } from './auth.guard';
-import { DashboardComponent } from './pages/dashboard/dashboard.component'; // Asegúrate de tener este componente
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistroComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'verify-code', component: VerifyCodeComponent }, // Añadir ruta para VerifyCodeComponent
+  { path: 'verify-code', component: VerifyCodeComponent },
   {
     path: '',
     component: FullComponent,
@@ -22,7 +22,7 @@ const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        component: DashboardComponent, // Añadir la ruta del Dashboard
+        component: DashboardComponent, // Asegúrate de que esta ruta esté configurada
         loadChildren: () =>
           import('./pages/pages.module').then((m) => m.PagesModule),
       },
