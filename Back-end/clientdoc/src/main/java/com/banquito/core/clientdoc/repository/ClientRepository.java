@@ -9,7 +9,7 @@ import com.banquito.core.clientdoc.model.Client;
 public interface ClientRepository extends MongoRepository<Client, String>{
 
     
-    Client findByIdentificationTypeAndIdentification(String identificationType, String identification);
+    Client findFirstByIdentificationTypeAndIdentification(String identificationType, String identification);
     
     Client findFirstByEmail(String email);
 

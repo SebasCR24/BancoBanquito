@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 public class Address {
 
     private String type;
-    private String Line1;
-    private String Line2;
+    private String line1;
+    private String line2;
     private Float latitude;
     private Float longitude;
     private Boolean isDefault;
-    private String State;
+    private String state;
 
 }
