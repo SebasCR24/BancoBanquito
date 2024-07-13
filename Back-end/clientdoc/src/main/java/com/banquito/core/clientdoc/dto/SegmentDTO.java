@@ -1,13 +1,13 @@
 package com.banquito.core.clientdoc.dto;
 
-import java.util.List;
+import lombok.Data;
 
-import com.banquito.core.clientdoc.model.Segment;
-
+@Data
 public class SegmentDTO {
 
-    public static List<SegmentDTO> from(List<Segment> segments) {
-        throw new UnsupportedOperationException("Unimplemented method 'from'");
-    }
+    private String code;
+    private String name;
+    private String clientType;
+    private String description;
 
 }
