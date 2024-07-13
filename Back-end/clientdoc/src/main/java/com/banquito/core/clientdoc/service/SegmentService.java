@@ -34,6 +34,7 @@ public class SegmentService {
     public void create(SegmentDTO dto) {
         log.info("Va a registrar el segmento: {}", dto);
         Segment segment = this.mapper.toPersistence(dto);
+        log.info("Se va a guardar el segmento: {}", segment);
         segment=this.segmentRepository.save(segment);
         log.info("Se creo el segmento: {}", segment);
     }   
