@@ -16,35 +16,24 @@ export class RegistroComponent {
   constructor(private router: Router) { }
 
   validateAndRegister(): void {
-    // Validar el RUC y la cuenta bancaria (simulación)
     if (this.ruc === '1234567890' && this.cuentaBancaria === '9876543210') {
       this.errorMessage = 'La empresa ya está registrada.';
       return;
     }
-
+  
     if (!this.termsAccepted) {
       this.errorMessage = 'Debe aceptar los Términos y Condiciones para continuar.';
       return;
     }
-
+  
     if (this.ruc && this.cuentaBancaria) {
-      // Lógica para registrar la empresa y el usuario
-      console.log('Registro de cuenta con RUC:', this.ruc);
-      this.successMessage = 'Registro exitoso. Se ha enviado una clave temporal al correo electrónico del administrador.';
-      this.errorMessage = '';
-
-      // Simulación de envío de clave aleatoria
-      const claveAleatoria = Math.random().toString(36).slice(-8);
-      console.log('Clave aleatoria generada:', claveAleatoria);
-
-      // Redirigir al dashboard después del registro
-      setTimeout(() => {
-        this.router.navigate(['/dashboard']);
-      }, 2000);
+      // Redirigir a la pantalla de registro de usuario administrador
+      this.router.navigate(['/admin-register']);
     } else {
       this.errorMessage = 'Por favor, complete todos los campos.';
     }
   }
+  
 
   showTerms(): void {
     const termsAndConditions = `
