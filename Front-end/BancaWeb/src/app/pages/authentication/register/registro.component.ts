@@ -9,9 +9,6 @@ import { Router } from '@angular/router';
 export class RegistroComponent {
   ruc: string = '';
   cuentaBancaria: string = '';
-  documento: string = '';
-  nombreAdmin: string = '';
-  correoAdmin: string = '';
   termsAccepted: boolean = false;
   errorMessage: string = '';
   successMessage: string = '';
@@ -30,9 +27,9 @@ export class RegistroComponent {
       return;
     }
 
-    if (this.ruc && this.cuentaBancaria && this.documento && this.nombreAdmin && this.correoAdmin) {
+    if (this.ruc && this.cuentaBancaria) {
       // Lógica para registrar la empresa y el usuario
-      console.log('Registro de cuenta con RUC:', this.ruc, 'y Documento:', this.documento);
+      console.log('Registro de cuenta con RUC:', this.ruc);
       this.successMessage = 'Registro exitoso. Se ha enviado una clave temporal al correo electrónico del administrador.';
       this.errorMessage = '';
 
@@ -50,6 +47,22 @@ export class RegistroComponent {
   }
 
   showTerms(): void {
-    alert('Términos y Condiciones: Aquí se describen los términos y condiciones...');
+    const termsAndConditions = `
+      Términos y Condiciones
+      Al registrarse en esta aplicación bancaria, usted acepta los siguientes términos y condiciones:
+      1. Aceptación de los Términos
+        Al acceder y utilizar esta aplicación, usted acepta cumplir y estar sujeto a estos términos y condiciones.
+      2. Responsabilidad del Usuario
+        Usted es responsable de mantener la confidencialidad de su cuenta y contraseña, así como de todas las actividades que ocurran bajo su cuenta.
+      3. Privacidad
+        Nos comprometemos a proteger su privacidad. Toda la información personal que nos proporcione será utilizada de acuerdo con nuestra política de privacidad.
+      4. Seguridad
+        Implementamos medidas de seguridad para proteger su información contra accesos no autorizados.
+      5. Modificaciones de los Términos
+        Nos reservamos el derecho de modificar estos términos y condiciones en cualquier momento. Las modificaciones serán efectivas inmediatamente después de su publicación.
+      6. Contacto
+        Si tiene alguna pregunta sobre estos términos y condiciones, por favor contáctenos a través de nuestro servicio de atención al cliente.
+    `;
+    alert(termsAndConditions);
   }
 }
