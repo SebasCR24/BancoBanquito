@@ -20,7 +20,9 @@
                 </div>
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" id="terms" [(ngModel)]="termsAccepted" name="termsAccepted">
-                  <label class="form-check-label" for="terms">Aceptar <a href="#" (click)="showTerms()">Términos y Condiciones</a></label>
+                  <label class="form-check-label" for="terms">
+                    Aceptar <a href="#" (click)="openTermsAndConditions()">Términos y Condiciones</a>
+                  </label>                                                     
                 </div>
                 <button type="submit" class="btn btn-primary btn-block" [disabled]="!termsAccepted">Continuar</button>
                 <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>

@@ -37,6 +37,9 @@ import { CrearUsuarioComponent } from './pages/ui-components/crear-usuario/crear
 import { ModificarUsuarioComponent } from './pages/ui-components/modificar-usuario/modificar-usuario.component';
 import { NotificationBellComponent } from './pages/ui-components/notification-bell/notification-bell.component';
 
+import { MatDialogModule } from '@angular/material/dialog';
+import { TermsAndConditionsComponent } from './pages/authentication/terms-and-conditions/terms-and-conditions.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +57,8 @@ import { NotificationBellComponent } from './pages/ui-components/notification-be
     VerifyPasswordComponent, 
     CrearUsuarioComponent,
     ModificarUsuarioComponent,
-    NotificationBellComponent
+    NotificationBellComponent,
+    TermsAndConditionsComponent // Añadir esto
   ],
   imports: [
     BrowserModule,
@@ -64,7 +68,8 @@ import { NotificationBellComponent } from './pages/ui-components/notification-be
     ReactiveFormsModule,
     AppRoutingModule,
     MaterialModule,
-    TablerIconsModule.pick(TablerIcons)
+    TablerIconsModule.pick(TablerIcons),
+    MatDialogModule // Añadir esto
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent]
