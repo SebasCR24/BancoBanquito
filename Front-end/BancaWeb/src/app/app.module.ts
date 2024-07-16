@@ -38,7 +38,6 @@ import { ModificarUsuarioComponent } from './pages/ui-components/modificar-usuar
 import { NotificationBellComponent } from './pages/ui-components/notification-bell/notification-bell.component';
 
 import { MatDialogModule } from '@angular/material/dialog';
-import { TermsAndConditionsComponent } from './pages/authentication/terms-and-conditions/terms-and-conditions.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +57,6 @@ import { TermsAndConditionsComponent } from './pages/authentication/terms-and-co
     CrearUsuarioComponent,
     ModificarUsuarioComponent,
     NotificationBellComponent,
-    TermsAndConditionsComponent // Añadir esto
   ],
   imports: [
     BrowserModule,

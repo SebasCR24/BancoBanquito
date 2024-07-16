@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { TermsAndConditionsComponent } from '../terms-and-conditions/terms-and-conditions.component';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-registro',
@@ -14,8 +14,9 @@ export class RegistroComponent {
   termsAccepted: boolean = false;
   errorMessage: string = '';
   successMessage: string = '';
+  termsModal: any;
 
-  constructor(private router: Router, public dialog: MatDialog) { }
+  constructor(private router: Router) { }
 
   validateAndRegister(): void {
     if (this.ruc === '1234567890' && this.cuentaBancaria === '9876543210') {
@@ -36,9 +37,15 @@ export class RegistroComponent {
     }
   }
 
-  openTermsAndConditions(): void {
-    this.dialog.open(TermsAndConditionsComponent, {
-      width: '500px'
-    });
+  openTermsAndConditions(event: Event): void {
+    event.preventDefault(); // Prevenir la redirección por defecto
+    this.termsModal = new bootstrap.Modal(document.getElementById('termsModal'), {});
+    this.termsModal.show();
+  }
+
+  closeTermsAndConditions(): void {
+    if (this.termsModal) {
+      this.termsModal.hide();
+    }
   }
 }
