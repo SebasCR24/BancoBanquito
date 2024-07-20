@@ -30,7 +30,7 @@ export class AdminRegisterComponent {
   
       // Redirigir a la pantalla de verificación de contraseña temporal
       setTimeout(() => {
-        this.router.navigate(['/verify-password']);
+        this.router.navigate(['/dashboard']);
       }, 2000);
     } else {
       this.errorMessage = 'Por favor, complete todos los campos.';
