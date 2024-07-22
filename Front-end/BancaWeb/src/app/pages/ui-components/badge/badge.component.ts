@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import * as Papa from 'papaparse';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -18,6 +17,8 @@ export class BadgeComponent {
   };
 
   cobros: any[] = [];
+  orders: any[] = [];
+  fileLoaded: boolean = false;
   displayedColumns: string[] = ['empresa', 'referencia', 'cuentaAcreditar', 'fechaInicio', 'fechaVencimiento', 'frecuenciaCobro'];
 
   onSubmit() {
@@ -30,6 +31,7 @@ export class BadgeComponent {
       fechaVencimiento: '',
       frecuenciaCobro: ''
     };
+    this.fileLoaded = false; // Reset fileLoaded after submitting
   }
 
   onFileChange(event: any) {
@@ -43,6 +45,7 @@ export class BadgeComponent {
         const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
         const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
         this.processData(jsonData);
+        this.fileLoaded = true; // Set fileLoaded to true after processing the file
       };
       fileReader.readAsArrayBuffer(file);
     }
@@ -59,5 +62,11 @@ export class BadgeComponent {
       });
       this.cobros.push(cobro);
     });
+  }
+
+  cancelFile(fileInput: HTMLInputElement) {
+    this.fileLoaded = false;
+    this.orders = [];
+    fileInput.value = ''; // Reset the file input
   }
 }

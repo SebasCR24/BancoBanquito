@@ -11,29 +11,25 @@
               <mat-label>Empresa</mat-label>
               <mat-select id="empresa" [(ngModel)]="payment.empresa" name="empresa" required>
                 <mat-option value="">Seleccione una empresa</mat-option>
-                <mat-option value="Universidad de las Fuerzas Armadas">Universidad de las Fuerzas Armadas</mat-option>
-                <mat-option value="Empresa Eléctrica">Empresa Eléctrica</mat-option>
-                <mat-option value="Agua Potable">Agua Potable</mat-option>
-                <mat-option value="Declaración de Impuestos">Declaración de Impuestos</mat-option>
+                <mat-option value="ElectroAndes">Universidad de las Fuerzas Armadas</mat-option>
+                <mat-option value="Distribuidora Oriente">Empresa Eléctrica</mat-option>
+                <mat-option value="Inmobiliaria del Pacífico">Agua Potable</mat-option>
+                <mat-option value="Inmobiliaria del Pacífico">Declaración de Impuestos</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Referencia</mat-label>
-              <input matInput type="text" id="referencia" [(ngModel)]="payment.referencia" name="referencia" required maxlength="20">
+              <mat-label>Servicio</mat-label>
+              <input matInput readonly value="Banca Web">
             </mat-form-field>
           </div>
         </div>
         <div class="row mb-3">
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Cuenta a Acreditar</mat-label>
-              <mat-select id="cuentaAcreditar" [(ngModel)]="payment.cuentaAcreditar" name="cuentaAcreditar" required>
-                <mat-option value="">Seleccione una cuenta</mat-option>
-                <mat-option value="2205361970">2205361970</mat-option>
-                <mat-option value="0609861234">0609861234</mat-option>
-              </mat-select>
+              <mat-label>Referencia</mat-label>
+              <input matInput type="text" id="referencia" [(ngModel)]="payment.referencia" name="referencia" required maxlength="20">
             </mat-form-field>
           </div>
           <div class="form-group col-md-6">
@@ -55,24 +51,28 @@
               <mat-label>Frecuencia de Cobro</mat-label>
               <mat-select id="frecuenciaCobro" [(ngModel)]="payment.frecuenciaCobro" name="frecuenciaCobro" required>
                 <mat-option value="">Seleccione una frecuencia</mat-option>
-                <mat-option value="Diaria">Diaria</mat-option>
-                <mat-option value="Semanal">Semanal</mat-option>
                 <mat-option value="Mensual">Mensual</mat-option>
+                <mat-option value="Trimestral">Trimestral</mat-option>
+                <mat-option value="Semestral">Semestral</mat-option>
+                <mat-option value="Anual">Anual</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
         </div>
-
         <!-- Campo para cargar el archivo -->
-        <div class="row mb-3">
-          <div class="form-group col-md-12">
-            <input type="file" (change)="onFileChange($event)" accept=".xlsx, .xls, .csv" />
-          </div>
+        <input #fileInput type="file" (change)="onFileChange($event)" accept=".xlsx, .xls" />
+        <!-- Sección para mostrar las órdenes cargadas -->
+        <div *ngIf="orders.length > 0">
+          <h3>Órdenes Cargadas</h3>
+          <ul>
+            <li *ngFor="let order of orders">{{ order }}</li>
+          </ul>
         </div>
-
-        <div class="row">
+        <!-- Botones de Realizar Cobro y Cancelar -->
+        <div *ngIf="fileLoaded" class="row">
           <div class="col-md-12 text-right">
-            <button mat-raised-button color="primary" type="submit">Realizar Cobro</button>
+            <button mat-raised-button color="primary" type="submit">Procesar</button>
+            <button mat-raised-button color="warn" type="button" (click)="cancelFile(fileInput)">Cancelar</button>
           </div>
         </div>
       </form>
