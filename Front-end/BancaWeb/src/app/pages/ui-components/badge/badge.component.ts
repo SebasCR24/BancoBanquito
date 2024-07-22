@@ -1,16 +1,6 @@
 import { Component } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import * as Papa from 'papaparse';
 import * as XLSX from 'xlsx';
-
-interface Payment {
-  empresa: string;
-  servicio: string;
-  fecha: string;
-  monto: number;
-  estado: string;
-  contrapartida: string;
-  cuenta: string; 
-}
 
 @Component({
   selector: 'app-badge',
@@ -18,94 +8,56 @@ interface Payment {
   styleUrls: ['./badge.component.scss']
 })
 export class BadgeComponent {
-  payment: Payment = {
+  payment: any = {
     empresa: '',
-    servicio: '',
-    fecha: '',
-    monto: 0,
-    estado: 'Pendiente',
-    contrapartida: '',
-    cuenta: '' // Inicializar la nueva propiedad
+    referencia: '',
+    cuentaAcreditar: '',
+    fechaInicio: '',
+    fechaVencimiento: '',
+    frecuenciaCobro: ''
   };
 
-  pagos = new MatTableDataSource<Payment>([
-    {
-      empresa: 'Universidad de las Fuerzas Armadas',
-      servicio: 'Banca Web',
-      fecha: '15/06/2024',
-      monto: 1200,
-      estado: 'Pagado',
-      contrapartida: '123456',
-      cuenta: '0601076543'
-    },
-    {
-      empresa: 'Empresa Eléctrica',
-      servicio: 'Banca Empresas',
-      fecha: '22/06/2024',
-      monto: 850,
-      estado: 'Pendiente',
-      contrapartida: '789012',
-      cuenta: '1108723645'
-    },
-    {
-      empresa: 'Agua Potable',
-      servicio: 'Ventanilla',
-      fecha: '24/06/2024',
-      monto: 500,
-      estado: 'Pagado',
-      contrapartida: '345678',
-      cuenta: '2205361970'
-    }
-  ]);
-
-  displayedColumns: string[] = ['empresa', 'servicio', 'contrapartida', 'fecha', 'cuenta', 'monto', 'estado']; // Añadido 'cuenta'
-
-  orders: any[] = [];
-
-  constructor() {
-    this.payment.fecha = this.formatDate(new Date()); // Establecer la fecha actual con formato
-  }
-
-  formatDate(date: Date): string {
-    const day = ('0' + date.getDate()).slice(-2);
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const year = date.getFullYear().toString().slice(-4);
-    return `${day}/${month}/${year}`;
-  }
+  cobros: any[] = [];
+  displayedColumns: string[] = ['empresa', 'referencia', 'cuentaAcreditar', 'fechaInicio', 'fechaVencimiento', 'frecuenciaCobro'];
 
   onSubmit() {
-    this.pagos.data.push({ ...this.payment, estado: 'Pagado' });
-    this.pagos._updateChangeSubscription(); // Refresh the table
+    this.cobros.push({ ...this.payment });
     this.payment = {
       empresa: '',
-      servicio: '',
-      fecha: '',
-      monto: 0,
-      estado: 'Pendiente',
-      contrapartida: '',
-      cuenta: ''
+      referencia: '',
+      cuentaAcreditar: '',
+      fechaInicio: '',
+      fechaVencimiento: '',
+      frecuenciaCobro: ''
     };
-    this.payment.fecha = this.formatDate(new Date()); // Restablecer la fecha actual con formato
   }
 
   onFileChange(event: any) {
-    const target: DataTransfer = <DataTransfer>(event.target);
-
-    if (target.files.length !== 1) {
-      throw new Error('No se pueden usar múltiples archivos');
+    const file = event.target.files[0];
+    if (file) {
+      const fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        const data = new Uint8Array(fileReader.result as ArrayBuffer);
+        const arr = Array.from(data, x => String.fromCharCode(x)).join("");
+        const workbook = XLSX.read(arr, { type: "binary" });
+        const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+        const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+        this.processData(jsonData);
+      };
+      fileReader.readAsArrayBuffer(file);
     }
+  }
 
-    const reader: FileReader = new FileReader();
-    reader.onload = (e: any) => {
-      const bstr: string = e.target.result;
-      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
-
-      const wsname: string = wb.SheetNames[0];
-      const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-
-      this.orders = <any>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
-    };
-
-    reader.readAsBinaryString(target.files[0]);
+  processData(data: any) {
+    // Asumiendo que la primera fila contiene los encabezados
+    const headers = data[0];
+    const rows = data.slice(1);
+    rows.forEach((row: any) => {
+      const cobro: any = {};
+      headers.forEach((header: string, index: number) => {
+        cobro[header.toLowerCase()] = row[index];
+      });
+      this.cobros.push(cobro);
+    });
   }
 }
