@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common'; // Importa CommonModule
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,13 +30,14 @@ import { LoginComponent } from './pages/authentication/login/login.component';
 import { RegistroComponent } from './pages/authentication/register/registro.component';
 import { ForgotPasswordComponent } from './pages/authentication/forgot-password/forgot-password.component';
 import { VerifyCodeComponent } from './pages/authentication/verify-code/verify-code.component';
-import { AdminRegisterComponent } from './pages/authentication/admin-register/admin-register.component'; // Importa AdminRegisterComponent
+import { AdminRegisterComponent } from './pages/authentication/admin-register/admin-register.component';
 import { VerifyPasswordComponent } from './pages/authentication/verify-password/verify-password.component';
 
 // Import UI Components
 import { CrearUsuarioComponent } from './pages/ui-components/crear-usuario/crear-usuario.component';
 import { ModificarUsuarioComponent } from './pages/ui-components/modificar-usuario/modificar-usuario.component';
 import { NotificationBellComponent } from './pages/ui-components/notification-bell/notification-bell.component';
+import { PositionConsolidatedComponent } from './pages/position-consolidated/position-consolidated.component';
 
 import { MatDialogModule } from '@angular/material/dialog';
 
@@ -53,10 +55,11 @@ import { MatDialogModule } from '@angular/material/dialog';
     ForgotPasswordComponent,
     VerifyCodeComponent,
     AdminRegisterComponent,
-    VerifyPasswordComponent, 
+    VerifyPasswordComponent,
     CrearUsuarioComponent,
     ModificarUsuarioComponent,
     NotificationBellComponent,
+    PositionConsolidatedComponent, // Añadir PositionConsolidatedComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     AppRoutingModule,
     MaterialModule,
     TablerIconsModule.pick(TablerIcons),
-    MatDialogModule // Añadir esto
+    MatDialogModule,
+    CommonModule // Añadir CommonModule
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent]

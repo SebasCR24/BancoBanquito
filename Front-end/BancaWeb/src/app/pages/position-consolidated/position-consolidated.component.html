@@ -1,0 +1,19 @@
+<div class="position-consolidated">
+    <div class="summary-cards">
+      <div *ngFor="let balance of balances" class="card">
+        <h3>{{ balance.type }}</h3>
+        <p>{{ balance.amount | currency }}</p>
+      </div>
+    </div>
+  
+    <div class="chart-container">
+      <h2>Distribución de Saldos</h2>
+      <canvas id="balancePieChart"></canvas>
+    </div>
+  
+    <div class="chart-container">
+      <h2>Evolución de Saldos</h2>
+      <canvas id="balanceLineChart"></canvas>
+    </div>
+  </div>
+  

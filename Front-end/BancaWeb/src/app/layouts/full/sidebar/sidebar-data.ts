@@ -13,6 +13,11 @@ export const navItems: NavItem[] = [
     navCap: 'MENU',
   },
   {
+    displayName: 'POSICIÓN CONSOLIDADA',
+    iconName: 'poker-chip',
+    route: '/position-consolidated',
+  },
+  {
     displayName: 'PAGOS',
     iconName: 'rosette',
     route: '/ui-components/badge',

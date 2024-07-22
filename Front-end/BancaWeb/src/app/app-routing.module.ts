@@ -7,9 +7,10 @@ import { ForgotPasswordComponent } from './pages/authentication/forgot-password/
 import { VerifyCodeComponent } from './pages/authentication/verify-code/verify-code.component';
 import { AdminRegisterComponent } from './pages/authentication/admin-register/admin-register.component';
 import { VerifyPasswordComponent } from './pages/authentication/verify-password/verify-password.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component'; // Asegúrate de importar DashboardComponent
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AuthGuard } from './auth.guard';
 import { FirstLoginGuard } from './first-login.guard';
+import { PositionConsolidatedComponent } from './pages/position-consolidated/position-consolidated.component'; // Importa el nuevo componente
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -30,6 +31,11 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: () =>
           import('./pages/pages.module').then((m) => m.PagesModule),
+      },
+      {
+        path: 'position-consolidated',
+        component: PositionConsolidatedComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'ui-components',
