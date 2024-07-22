@@ -118,8 +118,12 @@ p {
   align-items: center;
 }
 
+.input-group .form-control {
+  flex: 1; /* Esto asegura que el input ocupe todo el espacio disponible */
+}
+
 .input-group-append {
-  margin-left: -40px; /* Ajusta este valor según sea necesario para posicionar correctamente el icono */
+  margin-left: -50px; /* Ajusta este valor según sea necesario para posicionar correctamente el botón */
 }
 
 .input-group-append button {
@@ -127,6 +131,7 @@ p {
   background: none;
   cursor: pointer;
   padding: 0;
+  margin-left: -10px; /* Ajusta el margen izquierdo para mover el botón más a la izquierda */
 }
 
 .input-group-append button i {

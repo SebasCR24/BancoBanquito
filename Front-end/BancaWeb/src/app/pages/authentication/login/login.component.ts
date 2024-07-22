@@ -1,26 +1,30 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../../auth.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../auth.service'; // Ajusta la ruta según tu estructura
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'] // Asegúrate de que la ruta sea correcta
 })
 export class LoginComponent {
   username: string = '';
   password: string = '';
   errorMessage: string = '';
-  passwordFieldType: string = 'password';
+  passwordFieldType: string = 'password'; // Definimos la propiedad aquí
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
-  login() {
-    if (!this.authService.login(this.username, this.password)) {
-      this.errorMessage = 'Invalid credentials';
+  login(): void {
+    if (this.authService.login(this.username, this.password)) {
+      this.errorMessage = '';
+    } else {
+      this.errorMessage = 'Credenciales incorrectas. Por favor, intenta de nuevo.';
     }
   }
 
-  togglePasswordVisibility() {
+  // Método para alternar la visibilidad de la contraseña
+  togglePasswordFieldType(): void {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 }

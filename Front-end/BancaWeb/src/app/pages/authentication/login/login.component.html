@@ -19,12 +19,17 @@
                   <label for="password">Ingresa tu contraseña:</label>
                   <div class="input-group">
                     <input [type]="passwordFieldType" class="form-control" id="password" placeholder="Contraseña" [(ngModel)]="password" name="password">
+                    <div class="input-group-append">
+                      <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordFieldType()">
+                        {{ passwordFieldType === 'password' ? 'Mostrar' : 'Ocultar' }}
+                      </button>
+                    </div>
                   </div>
                   <a routerLink="/forgot-password" class="forgot-link">¿Olvidó su contraseña?</a>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block login-button">Ingresar</button>
                 <button type="button" class="btn btn-secondary btn-block register-button" routerLink="/register">Afíliate a banca empresas</button>
-                <div *ngIf="errorMessage">{{ errorMessage }}</div>
+                <div *ngIf="errorMessage" class="alert alert-danger mt-2">{{ errorMessage }}</div>
               </form>
             </div>
           </div>

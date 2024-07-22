@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../auth.service'; // Ajusta la ruta según tu estructura
 
 @Component({
   selector: 'app-admin-register',
@@ -13,7 +14,7 @@ export class AdminRegisterComponent {
   errorMessage: string = '';
   successMessage: string = '';
 
-  constructor(private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   generateRandomPassword(): string {
     return Math.random().toString(36).slice(-8);
@@ -25,15 +26,16 @@ export class AdminRegisterComponent {
       // Simular el envío del correo electrónico
       console.log(`Enviando clave aleatoria: ${this.claveAleatoria} al correo: ${this.correoAdmin}`);
       // Lógica para registrar la empresa y el usuario administrador
+      this.authService.registerAdmin(this.correoAdmin, this.claveAleatoria);
       this.successMessage = 'Registro exitoso. Se ha enviado una clave temporal al correo electrónico del administrador.';
       this.errorMessage = '';
-  
-      // Redirigir a la pantalla de verificación de contraseña temporal
+      
+      // Redirigir al dashboard después de mostrar el mensaje de éxito
       setTimeout(() => {
         this.router.navigate(['/dashboard']);
-      }, 2000);
+      }, 3000); // 4 segundos de retraso para permitir que el mensaje de éxito se muestre
     } else {
       this.errorMessage = 'Por favor, complete todos los campos.';
     }
-  }  
+  }
 }

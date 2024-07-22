@@ -8,6 +8,8 @@ export class AuthService {
 
   private readonly FIRST_LOGIN_KEY = 'firstLogin';
   private readonly USERS_KEY = 'users';
+  private readonly DEFAULT_USERNAME = 'admin';
+  private readonly DEFAULT_PASSWORD = 'admin';
 
   constructor(private router: Router) { }
 
@@ -20,14 +22,37 @@ export class AuthService {
       localStorage.setItem('currentUser', JSON.stringify(user));
 
       if (!user.firstLoginCompleted) {
-        localStorage.setItem(this.FIRST_LOGIN_KEY, 'true');
         this.router.navigate(['/verify-password']);
       } else {
         this.router.navigate(['/dashboard']);
       }
       return true;
     }
+
+    // Si no hay usuarios registrados, usamos las credenciales quemadas
+    if (username === this.DEFAULT_USERNAME && password === this.DEFAULT_PASSWORD) {
+      localStorage.setItem('isLoggedIn', 'true');
+      const defaultUser = { username: this.DEFAULT_USERNAME, password: this.DEFAULT_PASSWORD, firstLoginCompleted: false };
+      localStorage.setItem('currentUser', JSON.stringify(defaultUser));
+      localStorage.setItem(this.USERS_KEY, JSON.stringify([defaultUser]));
+      this.router.navigate(['/verify-password']);
+      return true;
+    }
+
     return false;
+  }
+
+  registerAdmin(username: string, password: string): void {
+    const users = this.getUsers();
+    users.push({
+      username: username,
+      password: password,
+      firstLoginCompleted: true // Se considera completado para evitar verify-password después del registro
+    });
+    localStorage.setItem(this.USERS_KEY, JSON.stringify(users));
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('currentUser', JSON.stringify({ username, password, firstLoginCompleted: true }));
+    this.router.navigate(['/dashboard']); // Redirigir al dashboard después del registro
   }
 
   logout() {
@@ -41,7 +66,8 @@ export class AuthService {
   }
 
   isFirstLogin(): boolean {
-    return localStorage.getItem(this.FIRST_LOGIN_KEY) === 'true';
+    const currentUser = JSON.parse(localStorage.getItem('currentUser')!);
+    return !currentUser.firstLoginCompleted;
   }
 
   completeFirstLogin(newPassword: string): void {
@@ -53,7 +79,6 @@ export class AuthService {
       users[userIndex].password = newPassword;
       users[userIndex].firstLoginCompleted = true;
       localStorage.setItem(this.USERS_KEY, JSON.stringify(users));
-      localStorage.setItem(this.FIRST_LOGIN_KEY, 'false');
       localStorage.setItem('currentUser', JSON.stringify(users[userIndex]));
     }
   }

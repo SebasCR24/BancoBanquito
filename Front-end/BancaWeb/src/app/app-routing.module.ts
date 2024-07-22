@@ -27,7 +27,7 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-        canActivate: [FirstLoginGuard],
+        canActivate: [FirstLoginGuard, AuthGuard], // Asegúrate de que el guardián esté configurado aquí
         loadChildren: () =>
           import('./pages/pages.module').then((m) => m.PagesModule),
       },
