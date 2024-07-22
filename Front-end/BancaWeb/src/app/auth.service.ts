@@ -6,10 +6,8 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  private readonly FIRST_LOGIN_KEY = 'firstLogin';
   private readonly USERS_KEY = 'users';
-  private readonly DEFAULT_USERNAME = 'admin';
-  private readonly DEFAULT_PASSWORD = 'admin';
+  private readonly FIRST_LOGIN_KEY = 'firstLogin';
 
   constructor(private router: Router) { }
 
@@ -30,9 +28,9 @@ export class AuthService {
     }
 
     // Si no hay usuarios registrados, usamos las credenciales quemadas
-    if (username === this.DEFAULT_USERNAME && password === this.DEFAULT_PASSWORD) {
+    if (username === 'admin' && password === 'admin') {
       localStorage.setItem('isLoggedIn', 'true');
-      const defaultUser = { username: this.DEFAULT_USERNAME, password: this.DEFAULT_PASSWORD, firstLoginCompleted: false };
+      const defaultUser = { username: 'admin', password: 'admin', firstLoginCompleted: false };
       localStorage.setItem('currentUser', JSON.stringify(defaultUser));
       localStorage.setItem(this.USERS_KEY, JSON.stringify([defaultUser]));
       this.router.navigate(['/verify-password']);
@@ -80,6 +78,7 @@ export class AuthService {
       users[userIndex].firstLoginCompleted = true;
       localStorage.setItem(this.USERS_KEY, JSON.stringify(users));
       localStorage.setItem('currentUser', JSON.stringify(users[userIndex]));
+      localStorage.setItem(this.FIRST_LOGIN_KEY, 'false'); // Actualizamos el estado de primer inicio de sesión
     }
   }
 

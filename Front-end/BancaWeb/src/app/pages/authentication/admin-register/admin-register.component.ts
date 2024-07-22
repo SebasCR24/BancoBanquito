@@ -29,11 +29,11 @@ export class AdminRegisterComponent {
       this.authService.registerAdmin(this.correoAdmin, this.claveAleatoria);
       this.successMessage = 'Registro exitoso. Se ha enviado una clave temporal al correo electrónico del administrador.';
       this.errorMessage = '';
-      
-      // Redirigir al dashboard después de mostrar el mensaje de éxito
+
+      // Mostrar el mensaje de éxito y luego redirigir al dashboard
       setTimeout(() => {
         this.router.navigate(['/dashboard']);
-      }, 3000); // 4 segundos de retraso para permitir que el mensaje de éxito se muestre
+      }, 6000); // 6 segundos de retraso para permitir que el mensaje de éxito se muestre
     } else {
       this.errorMessage = 'Por favor, complete todos los campos.';
     }

@@ -7,7 +7,7 @@ import { ForgotPasswordComponent } from './pages/authentication/forgot-password/
 import { VerifyCodeComponent } from './pages/authentication/verify-code/verify-code.component';
 import { AdminRegisterComponent } from './pages/authentication/admin-register/admin-register.component';
 import { VerifyPasswordComponent } from './pages/authentication/verify-password/verify-password.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component'; // Asegúrate de importar DashboardComponent
 import { AuthGuard } from './auth.guard';
 import { FirstLoginGuard } from './first-login.guard';
 
@@ -27,7 +27,7 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-        canActivate: [FirstLoginGuard, AuthGuard], // Asegúrate de que el guardián esté configurado aquí
+        canActivate: [AuthGuard],
         loadChildren: () =>
           import('./pages/pages.module').then((m) => m.PagesModule),
       },

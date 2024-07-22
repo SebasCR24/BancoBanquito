@@ -5,7 +5,7 @@ import { AuthService } from '../../../auth.service'; // Ajusta la ruta según tu
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'] // Asegúrate de que la ruta sea correcta
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   username: string = '';
