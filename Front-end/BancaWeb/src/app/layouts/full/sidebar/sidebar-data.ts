@@ -18,13 +18,13 @@ export const navItems: NavItem[] = [
     route: '/position-consolidated',
   },
   {
-    displayName: 'PAGOS',
-    iconName: 'rosette',
+    displayName: 'COBROS',
+    iconName: 'cash', 
     route: '/ui-components/badge',
   },
   {
-    displayName: 'TRANSFERENCIAS',
-    iconName: 'poker-chip',
+    displayName: 'RECAUDOS',
+    iconName: 'coins',  
     route: '/ui-components/chips',
   },
   {
