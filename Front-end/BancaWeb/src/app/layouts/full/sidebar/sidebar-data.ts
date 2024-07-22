@@ -14,7 +14,7 @@ export const navItems: NavItem[] = [
   },
   {
     displayName: 'POSICIÓN CONSOLIDADA',
-    iconName: 'poker-chip',
+    iconName: 'chart-pie',
     route: '/position-consolidated',
   },
   {
