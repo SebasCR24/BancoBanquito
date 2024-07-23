@@ -79,4 +79,18 @@ export class BadgeComponent {
     this.orders = [];
     fileInput.value = ''; // Reset the file input
   }
+
+  processFile(fileInput: HTMLInputElement) {
+    // Aquí procesarás el archivo y mostrarás el mensaje de éxito
+    this.snackBar.open('Cobro realizado de manera exitosa', 'Cerrar', {
+      duration: 3000, // Duración del snackbar en milisegundos
+      verticalPosition: 'top', // Posición vertical
+      horizontalPosition: 'center' // Posición horizontal
+    });
+
+    // Resetear el estado del archivo después de procesarlo
+    this.fileLoaded = false;
+    this.orders = [];
+    fileInput.value = ''; // Reset the file input
+  }
 }
