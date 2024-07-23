@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import * as XLSX from 'xlsx';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-badge',
@@ -21,6 +22,8 @@ export class BadgeComponent {
   fileLoaded: boolean = false;
   displayedColumns: string[] = ['empresa', 'referencia', 'cuentaAcreditar', 'fechaInicio', 'fechaVencimiento', 'frecuenciaCobro'];
 
+  constructor(private snackBar: MatSnackBar) {}
+
   onSubmit() {
     this.cobros.push({ ...this.payment });
     this.payment = {
@@ -32,6 +35,13 @@ export class BadgeComponent {
       frecuenciaCobro: ''
     };
     this.fileLoaded = false; // Reset fileLoaded after submitting
+
+    // Mostrar mensaje de confirmación
+    this.snackBar.open('Cobro realizado de manera exitosa', 'Cerrar', {
+      duration: 3000, // Duración del snackbar en milisegundos
+      verticalPosition: 'top', // Posición vertical
+      horizontalPosition: 'center' // Posición horizontal
+    });
   }
 
   onFileChange(event: any) {
