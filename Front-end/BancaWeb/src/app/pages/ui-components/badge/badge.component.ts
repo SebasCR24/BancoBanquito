@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 @Component({
   selector: 'app-badge',
@@ -20,7 +22,7 @@ export class BadgeComponent {
   cobros: any[] = [];
   orders: any[] = [];
   fileLoaded: boolean = false;
-  displayedColumns: string[] = ['empresa', 'referencia', 'cuentaAcreditar', 'fechaInicio', 'fechaVencimiento', 'frecuenciaCobro'];
+  displayedColumns: string[] = ['empresa', 'referencia', 'cuentaAcreditar', 'fechaInicio', 'fechaVencimiento', 'frecuenciaCobro', 'acciones'];
 
   constructor(private snackBar: MatSnackBar) {}
 
@@ -81,16 +83,57 @@ export class BadgeComponent {
   }
 
   processFile(fileInput: HTMLInputElement) {
-    // Aquí procesarás el archivo y mostrarás el mensaje de éxito
+    this.fileLoaded = false;
+    this.orders = [];
+    fileInput.value = ''; // Reset the file input
+
     this.snackBar.open('Cobro realizado de manera exitosa', 'Cerrar', {
       duration: 3000, // Duración del snackbar en milisegundos
       verticalPosition: 'top', // Posición vertical
       horizontalPosition: 'center' // Posición horizontal
     });
+  }
 
-    // Resetear el estado del archivo después de procesarlo
-    this.fileLoaded = false;
-    this.orders = [];
-    fileInput.value = ''; // Reset the file input
+  exportAllToExcel() {
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.cobros);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Cobros');
+    XLSX.writeFile(wb, 'cobros.xlsx');
+  }
+
+  exportToExcel(cobro: any) {
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet([cobro]);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Cobro');
+    XLSX.writeFile(wb, 'cobro.xlsx');
+  }
+
+  exportAllToPDF() {
+    const doc = new jsPDF();
+    const col = ['Empresa', 'Referencia', 'Cuenta a Acreditar', 'Fecha de Inicio', 'Fecha de Vencimiento', 'Frecuencia de Cobro'];
+    const rows: any[] = [];
+
+    this.cobros.forEach(cobro => {
+      const temp = [cobro.empresa, cobro.referencia, cobro.cuentaAcreditar, cobro.fechaInicio, cobro.fechaVencimiento, cobro.frecuenciaCobro];
+      rows.push(temp);
+    });
+
+    (doc as any).autoTable({
+      head: [col],
+      body: rows
+    });
+    doc.save('cobros.pdf');
+  }
+
+  exportToPDF(cobro: any) {
+    const doc = new jsPDF();
+    const col = ['Empresa', 'Referencia', 'Cuenta a Acreditar', 'Fecha de Inicio', 'Fecha de Vencimiento', 'Frecuencia de Cobro'];
+    const rows: any[] = [[cobro.empresa, cobro.referencia, cobro.cuentaAcreditar, cobro.fechaInicio, cobro.fechaVencimiento, cobro.frecuenciaCobro]];
+
+    (doc as any).autoTable({
+      head: [col],
+      body: rows
+    });
+    doc.save('cobro.pdf');
   }
 }
