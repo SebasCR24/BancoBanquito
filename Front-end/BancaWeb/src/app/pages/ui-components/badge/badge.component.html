@@ -4,12 +4,12 @@
   </mat-card-header>
   <mat-card-content class="b-t-1">
     <div class="container mt-4">
-      <form (ngSubmit)="onSubmit()" class="mb-4">
+      <form [formGroup]="cobroForm" (ngSubmit)="onSubmit()" class="mb-4">
         <div class="row mb-3">
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Empresa</mat-label>
-              <mat-select id="empresa" [(ngModel)]="payment.empresa" name="empresa" required>
+              <mat-select formControlName="empresa" required>
                 <mat-option value="">Seleccione una empresa</mat-option>
                 <mat-option value="Universidad de las Fuerzas Armadas">Universidad de las Fuerzas Armadas</mat-option>
                 <mat-option value="Empresa Eléctrica">Empresa Eléctrica</mat-option>
@@ -21,7 +21,7 @@
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Referencia</mat-label>
-              <input matInput type="text" id="referencia" [(ngModel)]="payment.referencia" name="referencia" required maxlength="20">
+              <input matInput type="text" formControlName="referencia" required maxlength="40">
             </mat-form-field>
           </div>
         </div>
@@ -29,7 +29,7 @@
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Cuenta a Acreditar</mat-label>
-              <mat-select id="cuentaAcreditar" [(ngModel)]="payment.cuentaAcreditar" name="cuentaAcreditar" required>
+              <mat-select formControlName="cuentaAcreditar" required>
                 <mat-option value="">Seleccione una cuenta</mat-option>
                 <mat-option value="2205361970">2205361970</mat-option>
                 <mat-option value="0609861234">0609861234</mat-option>
@@ -39,7 +39,7 @@
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Fecha de Inicio</mat-label>
-              <input matInput [matDatepicker]="inicioPicker" [(ngModel)]="payment.fechaInicio" name="fechaInicio" required>
+              <input matInput [matDatepicker]="inicioPicker" formControlName="fechaInicio" required>
               <mat-datepicker-toggle matSuffix [for]="inicioPicker"></mat-datepicker-toggle>
               <mat-datepicker touchUi="true" #inicioPicker></mat-datepicker>
             </mat-form-field>
@@ -49,7 +49,7 @@
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Fecha de Vencimiento</mat-label>
-              <input matInput [matDatepicker]="vencimientoPicker" [(ngModel)]="payment.fechaVencimiento" name="fechaVencimiento" required>
+              <input matInput [matDatepicker]="vencimientoPicker" formControlName="fechaVencimiento" required>
               <mat-datepicker-toggle matSuffix [for]="vencimientoPicker"></mat-datepicker-toggle>
               <mat-datepicker touchUi="true" #vencimientoPicker></mat-datepicker>
             </mat-form-field>
@@ -57,7 +57,7 @@
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Frecuencia de Cobro</mat-label>
-              <mat-select id="frecuenciaCobro" [(ngModel)]="payment.frecuenciaCobro" name="frecuenciaCobro" required>
+              <mat-select formControlName="frecuenciaCobro" required>
                 <mat-option value="">Seleccione una frecuencia</mat-option>
                 <mat-option value="Diario">Diario</mat-option>
                 <mat-option value="Semanal">Semanal</mat-option>
@@ -67,82 +67,80 @@
           </div>
         </div>
         <!-- Campo para cargar el archivo -->
-        <input #fileInput type="file" (change)="onFileChange($event)" accept=".xlsx, .xls" />
-        <div *ngIf="fileLoaded" class="d-flex justify-content-end mt-2">
+        <div class="row mb-3">
+          <div class="form-group col-md-12">
+            <input #fileInput type="file" (change)="onFileChange($event)" accept=".xlsx, .xls" />
+          </div>
+        </div>
+        <div class="d-flex justify-content-end mt-2">
           <button mat-raised-button color="primary" type="button" (click)="processFile(fileInput)">Procesar</button>
           <button mat-raised-button color="warn" type="button" (click)="cancelFile(fileInput)" class="ml-2">Cancelar</button>
         </div>
-        <h3 class="mt-5">Lista de Cobros Realizados</h3>
-        <button mat-raised-button color="primary" (click)="exportAllToExcel()">Exportar Todo a Excel</button>
-        <button mat-raised-button color="accent" (click)="exportAllToPDF()">Exportar Todo a PDF</button>
-        
-        <!-- Contenedor con desplazamiento horizontal -->
-        <div class="table-responsive">
-          <table mat-table [dataSource]="cobros" class="mat-elevation-z8 mt-4 wide-table">
-            <ng-container matColumnDef="empresa">
-              <th mat-header-cell *matHeaderCellDef> Empresa </th>
-              <td mat-cell *matCellDef="let cobro"> {{cobro.empresa}} </td>
-            </ng-container>
-            <ng-container matColumnDef="referencia">
-              <th mat-header-cell *matHeaderCellDef> Referencia </th>
-              <td mat-cell *matCellDef="let cobro"> {{cobro.referencia}} </td>
-            </ng-container>
-            <ng-container matColumnDef="nombresDelCliente">
-              <th mat-header-cell *matHeaderCellDef> Nombres del Cliente </th>
-              <td mat-cell *matCellDef="let cobro"> {{cobro.nombresDelCliente}} </td>
-            </ng-container>
-            <ng-container matColumnDef="tipoDeIdentificacion">
-              <th mat-header-cell *matHeaderCellDef> Tipo de Identificación </th>
-              <td mat-cell *matCellDef="let cobro"> {{cobro.tipoDeIdentificacion}} </td>
-            </ng-container>
-            <ng-container matColumnDef="identificacion">
-              <th mat-header-cell *matHeaderCellDef> Identificación </th>
-              <td mat-cell *matCellDef="let cobro"> {{cobro.identificacion}} </td>
-            </ng-container>
-            <ng-container matColumnDef="cuentaDelCliente">
-              <th mat-header-cell *matHeaderCellDef> Cuenta del Cliente </th>
-              <td mat-cell *matCellDef="let cobro"> {{cobro.cuentaDelCliente}} </td>
-            </ng-container>
-            <ng-container matColumnDef="monto">
-              <th mat-header-cell *matHeaderCellDef> Monto </th>
-              <td mat-cell *matCellDef="let cobro"> {{cobro.monto}} </td>
-            </ng-container>
-            <ng-container matColumnDef="fechaDeInicio">
-              <th mat-header-cell *matHeaderCellDef> Fecha de Inicio </th>
-              <td mat-cell *matCellDef="let cobro"> {{cobro.fechaDeInicio | date}} </td>
-            </ng-container>
-            <ng-container matColumnDef="fechaDeVencimiento">
-              <th mat-header-cell *matHeaderCellDef> Fecha de Vencimiento </th>
-              <td mat-cell *matCellDef="let cobro"> {{cobro.fechaDeVencimiento | date}} </td>
-            </ng-container>
-            <ng-container matColumnDef="cuentaAcreditar">
-              <th mat-header-cell *matHeaderCellDef> Cuenta a Acreditar </th>
-              <td mat-cell *matCellDef="let cobro"> {{cobro.cuentaAcreditar}} </td>
-            </ng-container>
-            <ng-container matColumnDef="tipo">
-              <th mat-header-cell *matHeaderCellDef> Tipo </th>
-              <td mat-cell *matCellDef="let cobro"> {{cobro.tipo}} </td>
-            </ng-container>
-            <ng-container matColumnDef="frecuencia">
-              <th mat-header-cell *matHeaderCellDef> Frecuencia </th>
-              <td mat-cell *matCellDef="let cobro"> {{cobro.frecuencia}} </td>
-            </ng-container>
-            <ng-container matColumnDef="cancelado">
-              <th mat-header-cell *matHeaderCellDef> Cancelado </th>
-              <td mat-cell *matCellDef="let cobro"> {{cobro.cancelado ? 'Sí' : 'No'}} </td>
-            </ng-container>
-            <ng-container matColumnDef="acciones">
-              <th mat-header-cell *matHeaderCellDef> Acciones </th>
-              <td mat-cell *matCellDef="let cobro">
-                <button mat-button color="primary" class="action-button" (click)="exportToExcel(cobro)">Exportar a Excel</button>
-                <button mat-button color="accent" class="action-button" (click)="exportToPDF(cobro)">Exportar a PDF</button>
-              </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
-        </div>
       </form>
+
+      <h3 class="mt-5">Lista de Cobros Realizados</h3>
+      <button mat-raised-button color="primary" (click)="exportAllToExcel()">Exportar Todo a Excel</button>
+      <button mat-raised-button color="accent" (click)="exportAllToPDF()">Exportar Todo a PDF</button>
+      
+      <!-- Contenedor con desplazamiento horizontal -->
+      <div class="table-responsive">
+        <table mat-table [dataSource]="cobros" class="mat-elevation-z8 mt-4 wide-table">
+          <ng-container matColumnDef="empresa">
+            <th mat-header-cell *matHeaderCellDef> Empresa </th>
+            <td mat-cell *matCellDef="let cobro"> {{cobro.empresa}} </td>
+          </ng-container>
+          <ng-container matColumnDef="referencia">
+            <th mat-header-cell *matHeaderCellDef> Referencia </th>
+            <td mat-cell *matCellDef="let cobro"> {{cobro.referencia}} </td>
+          </ng-container>
+          <ng-container matColumnDef="nombresDelCliente">
+            <th mat-header-cell *matHeaderCellDef> Nombres del Cliente </th>
+            <td mat-cell *matCellDef="let cobro"> {{cobro.nombresDelCliente}} </td>
+          </ng-container>
+          <ng-container matColumnDef="tipoDeIdentificacion">
+            <th mat-header-cell *matHeaderCellDef> Tipo de Identificación </th>
+            <td mat-cell *matCellDef="let cobro"> {{cobro.tipoDeIdentificacion}} </td>
+          </ng-container>
+          <ng-container matColumnDef="identificacion">
+            <th mat-header-cell *matHeaderCellDef> Identificación </th>
+            <td mat-cell *matCellDef="let cobro"> {{cobro.identificacion}} </td>
+          </ng-container>
+          <ng-container matColumnDef="cuentaDelCliente">
+            <th mat-header-cell *matHeaderCellDef> Cuenta del Cliente </th>
+            <td mat-cell *matCellDef="let cobro"> {{cobro.cuentaDelCliente}} </td>
+          </ng-container>
+          <ng-container matColumnDef="monto">
+            <th mat-header-cell *matHeaderCellDef> Monto </th>
+            <td mat-cell *matCellDef="let cobro"> {{cobro.monto}} </td>
+          </ng-container>
+          <ng-container matColumnDef="fechaInicio">
+            <th mat-header-cell *matHeaderCellDef> Fecha de Inicio </th>
+            <td mat-cell *matCellDef="let cobro"> {{cobro.fechaInicio | date}} </td>
+          </ng-container>
+          <ng-container matColumnDef="fechaVencimiento">
+            <th mat-header-cell *matHeaderCellDef> Fecha de Vencimiento </th>
+            <td mat-cell *matCellDef="let cobro"> {{cobro.fechaVencimiento | date}} </td>
+          </ng-container>
+          <ng-container matColumnDef="cuentaAcreditar">
+            <th mat-header-cell *matHeaderCellDef> Cuenta a Acreditar </th>
+            <td mat-cell *matCellDef="let cobro"> {{cobro.cuentaAcreditar}} </td>
+          </ng-container>
+          <ng-container matColumnDef="tipo">
+            <th mat-header-cell *matHeaderCellDef> Tipo </th>
+            <td mat-cell *matCellDef="let cobro"> {{cobro.tipo}} </td>
+          </ng-container>
+          <ng-container matColumnDef="frecuenciaCobro">
+            <th mat-header-cell *matHeaderCellDef> Frecuencia </th>
+            <td mat-cell *matCellDef="let cobro"> {{cobro.frecuenciaCobro}} </td>
+          </ng-container>
+          <ng-container matColumnDef="cancelado">
+            <th mat-header-cell *matHeaderCellDef> Cancelado </th>
+            <td mat-cell *matCellDef="let cobro"> {{cobro.cancelado ? 'Sí' : 'No'}} </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
     </div>
   </mat-card-content>
 </mat-card>

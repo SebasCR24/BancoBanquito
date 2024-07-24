@@ -1,29 +1,36 @@
-import { Component } from '@angular/core';
-import * as XLSX from 'xlsx';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import { MatTableDataSource } from '@angular/material/table';
+
+interface Cobro {
+  empresa: string;
+  referencia: string;
+  nombresDelCliente: string;
+  tipoDeIdentificacion: string;
+  identificacion: string;
+  cuentaDelCliente: string;
+  monto: number;
+  fechaInicio: string; // Use 'fechaInicio' to match the form control name
+  fechaVencimiento: string; // Use 'fechaVencimiento' to match the form control name
+  cuentaAcreditar: string;
+  tipo: string;
+  frecuenciaCobro: string; // Use 'frecuenciaCobro' to match the form control name
+  cancelado: boolean;
+}
 
 @Component({
   selector: 'app-badge',
   templateUrl: './badge.component.html',
   styleUrls: ['./badge.component.scss']
 })
-export class BadgeComponent {
-  payment: any = {
-    empresa: '',
-    referencia: '',
-    cuentaAcreditar: '',
-    fechaInicio: '',
-    fechaVencimiento: '',
-    frecuenciaCobro: ''
-  };
-
-  cobros: any[] = [];
-  orders: any[] = [];
+export class BadgeComponent implements OnInit {
+  cobroForm: FormGroup;
+  cobros = new MatTableDataSource<Cobro>([]);
   fileLoaded: boolean = false;
-
-  // Agregar todas las columnas necesarias
   displayedColumns: string[] = [
     'empresa',
     'referencia',
@@ -32,35 +39,46 @@ export class BadgeComponent {
     'identificacion',
     'cuentaDelCliente',
     'monto',
-    'fechaDeInicio',
-    'fechaDeVencimiento',
+    'fechaInicio',
+    'fechaVencimiento',
     'cuentaAcreditar',
     'tipo',
-    'frecuencia',
-    'cancelado',
-    'acciones'
+    'frecuenciaCobro',
+    'cancelado'
   ];
 
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(private fb: FormBuilder, private snackBar: MatSnackBar) {
+    this.cobroForm = this.fb.group({
+      empresa: ['', Validators.required],
+      referencia: ['', [Validators.required, Validators.maxLength(20)]],
+      cuentaAcreditar: ['', Validators.required],
+      fechaInicio: ['', Validators.required],
+      fechaVencimiento: ['', Validators.required],
+      frecuenciaCobro: ['', Validators.required],
+      nombresDelCliente: [''],
+      tipoDeIdentificacion: [''],
+      identificacion: [''],
+      cuentaDelCliente: [''],
+      monto: [''],
+      cancelado: [false]
+    });
+  }
+
+  ngOnInit(): void {}
 
   onSubmit() {
-    this.cobros.push({ ...this.payment });
-    this.payment = {
-      empresa: '',
-      referencia: '',
-      cuentaAcreditar: '',
-      fechaInicio: '',
-      fechaVencimiento: '',
-      frecuenciaCobro: ''
-    };
-    this.fileLoaded = false; // Reset fileLoaded after submitting
+    if (this.cobroForm.valid) {
+      this.cobros.data.push({ ...this.cobroForm.value });
+      this.cobros._updateChangeSubscription(); // Refresh the table
+      this.cobroForm.reset();
+      this.fileLoaded = false; // Reset fileLoaded after submitting
 
-    // Mostrar mensaje de confirmación
-    this.snackBar.open('Cobro realizado de manera exitosa', 'Cerrar', {
-      duration: 3000, // Duración del snackbar en milisegundos
-      verticalPosition: 'top', // Posición vertical
-      horizontalPosition: 'center' // Posición horizontal
-    });
+      this.snackBar.open('Cobro realizado de manera exitosa', 'Cerrar', {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center'
+      });
+    }
   }
 
   onFileChange(event: any) {
@@ -81,7 +99,6 @@ export class BadgeComponent {
   }
 
   processData(data: any) {
-    // Asumiendo que la primera fila contiene los encabezados
     const headers = data[0];
     const rows = data.slice(1);
     rows.forEach((row: any) => {
@@ -89,61 +106,71 @@ export class BadgeComponent {
       headers.forEach((header: string, index: number) => {
         cobro[header.toLowerCase()] = row[index];
       });
-      this.cobros.push(cobro);
+      this.cobros.data.push(cobro);
     });
+    this.cobros._updateChangeSubscription();
   }
 
   cancelFile(fileInput: HTMLInputElement) {
     this.fileLoaded = false;
-    this.orders = [];
+    this.cobros.data = [];
     fileInput.value = ''; // Reset the file input
   }
 
   processFile(fileInput: HTMLInputElement) {
-    this.fileLoaded = false;
-    this.orders = [];
+    this.onSubmit(); // Call onSubmit to save the form data
     fileInput.value = ''; // Reset the file input
-
-    this.snackBar.open('Cobro realizado de manera exitosa', 'Cerrar', {
-      duration: 3000, // Duración del snackbar en milisegundos
-      verticalPosition: 'top', // Posición vertical
-      horizontalPosition: 'center' // Posición horizontal
+    this.snackBar.open('Archivo procesado y cobro realizado de manera exitosa', 'Cerrar', {
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'center'
     });
   }
 
   exportAllToExcel() {
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.cobros);
+    const dataToExport = this.cobros.data.map(cobro => {
+      return {
+        Empresa: cobro.empresa,
+        Referencia: cobro.referencia,
+        'Nombres del Cliente': cobro.nombresDelCliente,
+        'Tipo de Identificación': cobro.tipoDeIdentificacion,
+        Identificación: cobro.identificacion,
+        'Cuenta del Cliente': cobro.cuentaDelCliente,
+        Monto: cobro.monto,
+        'Fecha de Inicio': cobro.fechaInicio,
+        'Fecha de Vencimiento': cobro.fechaVencimiento,
+        'Cuenta a Acreditar': cobro.cuentaAcreditar,
+        Tipo: cobro.tipo,
+        Frecuencia: cobro.frecuenciaCobro,
+        Cancelado: cobro.cancelado ? 'Sí' : 'No'
+      };
+    });
+
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(dataToExport);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Cobros');
     XLSX.writeFile(wb, 'cobros.xlsx');
   }
 
-  exportToExcel(cobro: any) {
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet([cobro]);
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Cobro');
-    XLSX.writeFile(wb, 'cobro.xlsx');
-  }
-
   exportAllToPDF() {
     const doc = new jsPDF();
-    const col = ['Referencia', 'Nombres del Cliente', 'Tipo de Identificación', 'Identificación', 'Cuenta del Cliente', 'Monto', 'Fecha de Inicio', 'Fecha de Vencimiento', 'Cuenta a Acreditar', 'Tipo', 'Frecuencia', 'Cancelado'];
+    const col = ['Empresa', 'Referencia', 'Nombres del Cliente', 'Tipo de Identificación', 'Identificación', 'Cuenta del Cliente', 'Monto', 'Fecha de Inicio', 'Fecha de Vencimiento', 'Cuenta a Acreditar', 'Tipo', 'Frecuencia', 'Cancelado'];
     const rows: any[] = [];
 
-    this.cobros.forEach(cobro => {
+    this.cobros.data.forEach(cobro => {
       const temp = [
         cobro.empresa,
-        cobro.referencia, 
-        cobro.nombresDelCliente, 
-        cobro.tipoDeIdentificacion, 
-        cobro.identificacion, 
-        cobro.cuentaDelCliente, 
-        cobro.monto, 
-        cobro.fechaDeInicio, 
-        cobro.fechaDeVencimiento, 
-        cobro.cuentaAcreditar, 
-        cobro.tipo, 
-        cobro.frecuencia, 
+        cobro.referencia,
+        cobro.nombresDelCliente,
+        cobro.tipoDeIdentificacion,
+        cobro.identificacion,
+        cobro.cuentaDelCliente,
+        cobro.monto,
+        cobro.fechaInicio,
+        cobro.fechaVencimiento,
+        cobro.cuentaAcreditar,
+        cobro.tipo,
+        cobro.frecuenciaCobro,
         cobro.cancelado ? 'Sí' : 'No'
       ];
       rows.push(temp);
@@ -154,31 +181,5 @@ export class BadgeComponent {
       body: rows
     });
     doc.save('cobros.pdf');
-  }
-
-  exportToPDF(cobro: any) {
-    const doc = new jsPDF();
-    const col = ['Referencia', 'Nombres del Cliente', 'Tipo de Identificación', 'Identificación', 'Cuenta del Cliente', 'Monto', 'Fecha de Inicio', 'Fecha de Vencimiento', 'Cuenta a Acreditar', 'Tipo', 'Frecuencia', 'Cancelado'];
-    const rows: any[] = [[
-      cobro.empresa,
-      cobro.referencia, 
-      cobro.nombresDelCliente, 
-      cobro.tipoDeIdentificacion, 
-      cobro.identificacion, 
-      cobro.cuentaDelCliente, 
-      cobro.monto, 
-      cobro.fechaDeInicio, 
-      cobro.fechaDeVencimiento, 
-      cobro.cuentaAcreditar, 
-      cobro.tipo, 
-      cobro.frecuencia, 
-      cobro.cancelado ? 'Sí' : 'No'
-    ]];
-
-    (doc as any).autoTable({
-      head: [col],
-      body: rows
-    });
-    doc.save('cobro.pdf');
   }
 }

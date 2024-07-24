@@ -1,73 +1,103 @@
 <mat-card class="cardWithShadow theme-card">
   <mat-card-header>
-    <mat-card-title class="m-b-0">Realizar Transferencias</mat-card-title>
+    <mat-card-title class="m-b-0">Realizar Recaudo</mat-card-title>
   </mat-card-header>
   <mat-card-content class="b-t-1">
     <div class="container mt-4">
-      <form (ngSubmit)="onSubmit()" class="mb-4">
+      <form [formGroup]="transferenciaForm" (ngSubmit)="onSubmit()" class="mb-4">
         <div class="row mb-3">
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Cuenta de Origen</mat-label>
-              <mat-select id="cuentaOrigen" [(ngModel)]="transferencia.cuentaOrigen" name="cuentaOrigen" required>
-                <mat-option value="">Seleccione una cuenta</mat-option>
-                <mat-option value="2205361970">2205361970</mat-option>
-                <mat-option value="0609861234">0609861234</mat-option>
-              </mat-select>
+              <mat-label>Nombres</mat-label>
+              <input matInput formControlName="nombres" required>
             </mat-form-field>
           </div>
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Cuenta de Destino</mat-label>
-              <input matInput type="text" id="cuentaDestino" [(ngModel)]="transferencia.cuentaDestino" name="cuentaDestino" required>
+              <mat-label>Cédula</mat-label>
+              <input matInput formControlName="cedula" required>
             </mat-form-field>
           </div>
         </div>
         <div class="row mb-3">
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Nombre del Titular</mat-label>
-              <input matInput type="text" id="nombreTitular" [(ngModel)]="transferencia.nombreTitular" name="nombreTitular" required>
+              <mat-label>Número de Contrato</mat-label>
+              <input matInput formControlName="numeroContrato" required>
             </mat-form-field>
           </div>
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Monto</mat-label>
-              <input matInput type="number" id="monto" [(ngModel)]="transferencia.monto" name="monto" required>
+              <input matInput type="number" formControlName="monto" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="form-group col-md-6">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Fecha de Inicio</mat-label>
+              <input matInput [matDatepicker]="inicioPicker" formControlName="fechaInicio" required>
+              <mat-datepicker-toggle matSuffix [for]="inicioPicker"></mat-datepicker-toggle>
+              <mat-datepicker touchUi="true" #inicioPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="form-group col-md-6">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Fecha de Vencimiento</mat-label>
+              <input matInput [matDatepicker]="vencimientoPicker" formControlName="fechaVencimiento" required>
+              <mat-datepicker-toggle matSuffix [for]="vencimientoPicker"></mat-datepicker-toggle>
+              <mat-datepicker touchUi="true" #vencimientoPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="form-group col-md-6">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Cuenta a Acreditar</mat-label>
+              <input matInput formControlName="cuentaAcreditar" required>
+            </mat-form-field>
+          </div>
+          <div class="form-group col-md-6">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Contrapartida</mat-label>
+              <input matInput formControlName="contrapartida" required>
             </mat-form-field>
           </div>
         </div>
         <div class="row mb-3">
           <div class="form-group col-md-12">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Detalle de Pago</mat-label>
-              <textarea matInput id="detalle" [(ngModel)]="transferencia.detalle" name="detalle" rows="3" required></textarea>
+              <mat-label>Descripción</mat-label>
+              <textarea matInput formControlName="descripcion" rows="3" required></textarea>
             </mat-form-field>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12 text-right">
-            <button mat-raised-button color="primary" type="submit">Realizar Transferencia</button>
+            <button mat-raised-button color="primary" type="submit">Guardar</button>
           </div>
         </div>
       </form>
 
-      <!-- Tabla de Transferencias Realizadas -->
-      <h3 class="mt-5">Lista de Transferencias Realizadas</h3>
+      <!-- Tabla de Recaudos Realizados -->
+      <h3 class="mt-5">Lista de Recaudos Realizados</h3>
+      <button mat-raised-button color="primary" (click)="exportAllToExcel()">Exportar Todo a Excel</button>
+      <button mat-raised-button color="accent" (click)="exportAllToPDF()">Exportar Todo a PDF</button>
       <table mat-table [dataSource]="transferencias" class="mat-elevation-z8 mt-4">
-        <ng-container matColumnDef="cuentaOrigen">
-          <th mat-header-cell *matHeaderCellDef> Cuenta de Origen </th>
-          <td mat-cell *matCellDef="let transferencia"> {{transferencia.cuentaOrigen}} </td>
+        <ng-container matColumnDef="nombres">
+          <th mat-header-cell *matHeaderCellDef> Nombres </th>
+          <td mat-cell *matCellDef="let transferencia"> {{transferencia.nombres}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="cuentaDestino">
-          <th mat-header-cell *matHeaderCellDef> Cuenta de Destino </th>
-          <td mat-cell *matCellDef="let transferencia"> {{transferencia.cuentaDestino}} </td>
+        <ng-container matColumnDef="cedula">
+          <th mat-header-cell *matHeaderCellDef> Cédula </th>
+          <td mat-cell *matCellDef="let transferencia"> {{transferencia.cedula}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="nombreTitular">
-          <th mat-header-cell *matHeaderCellDef> Nombre del Titular </th>
-          <td mat-cell *matCellDef="let transferencia"> {{transferencia.nombreTitular}} </td>
+        <ng-container matColumnDef="numeroContrato">
+          <th mat-header-cell *matHeaderCellDef> Número de Contrato </th>
+          <td mat-cell *matCellDef="let transferencia"> {{transferencia.numeroContrato}} </td>
         </ng-container>
 
         <ng-container matColumnDef="monto">
@@ -75,9 +105,29 @@
           <td mat-cell *matCellDef="let transferencia"> {{transferencia.monto | currency}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="detalle">
-          <th mat-header-cell *matHeaderCellDef> Detalle </th>
-          <td mat-cell *matCellDef="let transferencia"> {{transferencia.detalle}} </td>
+        <ng-container matColumnDef="fechaInicio">
+          <th mat-header-cell *matHeaderCellDef> Fecha de Inicio </th>
+          <td mat-cell *matCellDef="let transferencia"> {{transferencia.fechaInicio | date}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fechaVencimiento">
+          <th mat-header-cell *matHeaderCellDef> Fecha de Vencimiento </th>
+          <td mat-cell *matCellDef="let transferencia"> {{transferencia.fechaVencimiento | date}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cuentaAcreditar">
+          <th mat-header-cell *matHeaderCellDef> Cuenta a Acreditar </th>
+          <td mat-cell *matCellDef="let transferencia"> {{transferencia.cuentaAcreditar}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="contrapartida">
+          <th mat-header-cell *matHeaderCellDef> Contrapartida </th>
+          <td mat-cell *matCellDef="let transferencia"> {{transferencia.contrapartida}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="descripcion">
+          <th mat-header-cell *matHeaderCellDef> Descripción </th>
+          <td mat-cell *matCellDef="let transferencia"> {{transferencia.descripcion}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
