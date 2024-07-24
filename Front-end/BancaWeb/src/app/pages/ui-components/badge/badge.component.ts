@@ -22,7 +22,24 @@ export class BadgeComponent {
   cobros: any[] = [];
   orders: any[] = [];
   fileLoaded: boolean = false;
-  displayedColumns: string[] = ['empresa', 'referencia', 'cuentaAcreditar', 'fechaInicio', 'fechaVencimiento', 'frecuenciaCobro', 'acciones'];
+
+  // Agregar todas las columnas necesarias
+  displayedColumns: string[] = [
+    'empresa',
+    'referencia',
+    'nombresDelCliente',
+    'tipoDeIdentificacion',
+    'identificacion',
+    'cuentaDelCliente',
+    'monto',
+    'fechaDeInicio',
+    'fechaDeVencimiento',
+    'cuentaAcreditar',
+    'tipo',
+    'frecuencia',
+    'cancelado',
+    'acciones'
+  ];
 
   constructor(private snackBar: MatSnackBar) {}
 
@@ -110,11 +127,25 @@ export class BadgeComponent {
 
   exportAllToPDF() {
     const doc = new jsPDF();
-    const col = ['Empresa', 'Referencia', 'Cuenta a Acreditar', 'Fecha de Inicio', 'Fecha de Vencimiento', 'Frecuencia de Cobro'];
+    const col = ['Referencia', 'Nombres del Cliente', 'Tipo de Identificación', 'Identificación', 'Cuenta del Cliente', 'Monto', 'Fecha de Inicio', 'Fecha de Vencimiento', 'Cuenta a Acreditar', 'Tipo', 'Frecuencia', 'Cancelado'];
     const rows: any[] = [];
 
     this.cobros.forEach(cobro => {
-      const temp = [cobro.empresa, cobro.referencia, cobro.cuentaAcreditar, cobro.fechaInicio, cobro.fechaVencimiento, cobro.frecuenciaCobro];
+      const temp = [
+        cobro.empresa,
+        cobro.referencia, 
+        cobro.nombresDelCliente, 
+        cobro.tipoDeIdentificacion, 
+        cobro.identificacion, 
+        cobro.cuentaDelCliente, 
+        cobro.monto, 
+        cobro.fechaDeInicio, 
+        cobro.fechaDeVencimiento, 
+        cobro.cuentaAcreditar, 
+        cobro.tipo, 
+        cobro.frecuencia, 
+        cobro.cancelado ? 'Sí' : 'No'
+      ];
       rows.push(temp);
     });
 
@@ -127,8 +158,22 @@ export class BadgeComponent {
 
   exportToPDF(cobro: any) {
     const doc = new jsPDF();
-    const col = ['Empresa', 'Referencia', 'Cuenta a Acreditar', 'Fecha de Inicio', 'Fecha de Vencimiento', 'Frecuencia de Cobro'];
-    const rows: any[] = [[cobro.empresa, cobro.referencia, cobro.cuentaAcreditar, cobro.fechaInicio, cobro.fechaVencimiento, cobro.frecuenciaCobro]];
+    const col = ['Referencia', 'Nombres del Cliente', 'Tipo de Identificación', 'Identificación', 'Cuenta del Cliente', 'Monto', 'Fecha de Inicio', 'Fecha de Vencimiento', 'Cuenta a Acreditar', 'Tipo', 'Frecuencia', 'Cancelado'];
+    const rows: any[] = [[
+      cobro.empresa,
+      cobro.referencia, 
+      cobro.nombresDelCliente, 
+      cobro.tipoDeIdentificacion, 
+      cobro.identificacion, 
+      cobro.cuentaDelCliente, 
+      cobro.monto, 
+      cobro.fechaDeInicio, 
+      cobro.fechaDeVencimiento, 
+      cobro.cuentaAcreditar, 
+      cobro.tipo, 
+      cobro.frecuencia, 
+      cobro.cancelado ? 'Sí' : 'No'
+    ]];
 
     (doc as any).autoTable({
       head: [col],

@@ -29,6 +29,7 @@
   .full-width {
     width: 100%;
   }
+  
 
   .btn-primary {
     background-color: #3a86ff;
@@ -37,6 +38,14 @@
       background-color: #0056b3;
       border-color: #0056b3;
     }
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+  
+  .wide-table th.mat-header-cell, .wide-table td.mat-cell {
+    min-width: 150px; /* Puedes ajustar este valor según sea necesario */
   }
 
   .mat-elevation-z8 {
