@@ -12,10 +12,13 @@ export class AuthService {
   constructor(private router: Router) { }
 
   login(username: string, password: string): boolean {
+
+
     const users = this.getUsers();
     const user = users.find(u => u.username === username && u.password === password);
-
+    
     if (user) {
+
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('currentUser', JSON.stringify(user));
 
@@ -41,16 +44,19 @@ export class AuthService {
   }
 
   registerAdmin(username: string, password: string): void {
+
     const users = this.getUsers();
     users.push({
       username: username,
       password: password,
       firstLoginCompleted: true // Se considera completado para evitar verify-password después del registro
     });
+
     localStorage.setItem(this.USERS_KEY, JSON.stringify(users));
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.setItem('currentUser', JSON.stringify({ username, password, firstLoginCompleted: true }));
     this.router.navigate(['/dashboard']); // Redirigir al dashboard después del registro
+
   }
 
   logout() {
@@ -71,7 +77,6 @@ export class AuthService {
   completeFirstLogin(newPassword: string): void {
     const currentUser = JSON.parse(localStorage.getItem('currentUser')!);
     const users = this.getUsers();
-
     const userIndex = users.findIndex(u => u.username === currentUser.username);
     if (userIndex !== -1) {
       users[userIndex].password = newPassword;
@@ -85,4 +90,6 @@ export class AuthService {
   private getUsers(): any[] {
     return JSON.parse(localStorage.getItem(this.USERS_KEY) || '[]');
   }
+
+
 }

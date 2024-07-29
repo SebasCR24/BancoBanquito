@@ -36,7 +36,7 @@
             "styles": [
               "src/styles.scss",
               "src/assets/scss/style.scss",
-              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"  
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
             "scripts": []
           },
@@ -69,6 +69,7 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "proxyConfig": "src/proxy.conf.json",
           "configurations": {
             "production": {
               "browserTarget": "testApp:build:production"

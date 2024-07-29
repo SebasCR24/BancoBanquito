@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { registerables } from 'chart.js';
+import { CompanyService } from './../../../services/company.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 declare var bootstrap: any;
@@ -8,7 +11,8 @@ declare var bootstrap: any;
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.scss']
 })
-export class RegistroComponent {
+
+export class RegistroComponent implements OnInit {
   ruc: string = '';
   cuentaBancaria: string = '';
   termsAccepted: boolean = false;
@@ -16,9 +20,31 @@ export class RegistroComponent {
   successMessage: string = '';
   termsModal: any;
 
-  constructor(private router: Router) { }
+  loginForm!: FormGroup;
+  submitted = false;
+  username: string = '';
+  password: string = '';
+  companyService:any;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private company:CompanyService
+  ) {
+    this.companyService = company;
+  }
+
+
+  ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      ruc: ['', Validators.required],
+      cuentaBancaria: ['', Validators.required],
+    });
+  }
+
 
   validateAndRegister(): void {
+
     if (this.ruc === '1234567890' && this.cuentaBancaria === '9876543210') {
       this.errorMessage = 'La empresa ya está registrada.';
       return;
@@ -30,8 +56,19 @@ export class RegistroComponent {
     }
 
     if (this.ruc && this.cuentaBancaria) {
-      // Redirigir a la pantalla de registro de usuario administrador
-      this.router.navigate(['/admin-register']);
+      this.companyService.registerCompany(this.ruc,this.cuentaBancaria).subscribe(
+        (res:any) => {
+          if (res.status === 'success') {
+            console.log('se registro nueva compania');
+            this.router.navigate(['/admin-register']);
+          } else {
+            console.error('error al registrar compania');
+          }
+        },
+        (error:any) => {
+          console.error('Error al cargar cobros:', error);
+        }
+      );
     } else {
       this.errorMessage = 'Por favor, complete todos los campos.';
     }

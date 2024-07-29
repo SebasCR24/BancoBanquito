@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../auth.service'; // Ajusta la ruta según tu estructura
+import { AuthService } from '../../../services/auth.service'; // Ajusta la ruta según tu estructura
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-admin-register',
@@ -13,14 +14,18 @@ export class AdminRegisterComponent {
   claveAleatoria: string = '';
   errorMessage: string = '';
   successMessage: string = '';
+  userService:any;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router,userService: UserService) {
+    this.userService = userService;
+   }
 
   generateRandomPassword(): string {
     return Math.random().toString(36).slice(-8);
   }
 
   registerAdmin(): void {
+
     if (this.nombreAdmin && this.correoAdmin) {
       this.claveAleatoria = this.generateRandomPassword();
       // Simular el envío del correo electrónico

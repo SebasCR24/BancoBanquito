@@ -1,15 +1,24 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class ComisionService {
 
-  private apiUrl = 'http://tu-api-url/api/users';
+  private apiUrl = environment.CoreCobros_commission;
+  private header = {
+    headers: new HttpHeaders({
+      //'x-token':  environment.x_token,
+      Accept: 'application/json',
+    }),
+  };
+  constructor(private http: HttpClient) {
 
-  constructor(private http: HttpClient) { }
+  }
+
 
   getUsers(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
@@ -27,4 +36,9 @@ export class UserService {
   disableUser(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
+
+  comission(commisionId:any):Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/companies/commision/${commisionId}`);
+  }
+
 }
