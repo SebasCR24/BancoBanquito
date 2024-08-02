@@ -30,8 +30,15 @@ export class CobroService {
     return this.http.get<any>(`${this.apiUrl}/collections/by-order/${id}`)
   }
   
-  crearOrder(data:any):Observable<any>{
-    return this.http.post<any>(`${this.apiUrl}/orders`,data,this.header)
+
+  crearOrder(file: File, orden:any): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    formData.append('order', new Blob([JSON.stringify(orden)], {
+      type: "application/json"
+    }));
+
+    return this.http.post<any>(`${this.apiUrl}/orders`,formData)
   }
 
   paymentByCuenta(cuenta:any):Observable<any>{

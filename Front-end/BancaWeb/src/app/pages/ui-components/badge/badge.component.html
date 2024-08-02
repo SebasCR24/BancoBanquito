@@ -8,20 +8,18 @@
         <div class="row mb-3">
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Empresa</mat-label>
-              <mat-select formControlName="empresa" required>
-                <mat-option value="">Seleccione una empresa</mat-option>
-                <mat-option value="Universidad de las Fuerzas Armadas">Universidad de las Fuerzas Armadas</mat-option>
-                <mat-option value="Empresa Eléctrica">Empresa Eléctrica</mat-option>
-                <mat-option value="Agua Potable">Agua Potable</mat-option>
-                <mat-option value="Declaración de Impuestos">Declaración de Impuestos</mat-option>
-              </mat-select>
+              <mat-label>uniqueId</mat-label>
+              <input matInput type="text" formControlName="uniqueId" required maxlength="40">
             </mat-form-field>
           </div>
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Referencia</mat-label>
-              <input matInput type="text" formControlName="referencia" required maxlength="40">
+              <mat-label>serviceId</mat-label>
+              <mat-select formControlName="serviceId" required>
+                <mat-option value="">Seleccione un servicio</mat-option>
+                <mat-option value="1">Cobro</mat-option>
+                <mat-option value="2">Recaudo</mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
         </div>
@@ -29,17 +27,17 @@
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Cuenta a Acreditar</mat-label>
-              <mat-select formControlName="cuentaAcreditar" required>
+              <mat-select formControlName="accountId" required>
                 <mat-option value="">Seleccione una cuenta</mat-option>
-                <mat-option value="2205361970">2205361970</mat-option>
-                <mat-option value="0609861234">0609861234</mat-option>
+                <mat-option value="1">2205361970</mat-option>
+                <mat-option value="2">0609861234</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Fecha de Inicio</mat-label>
-              <input matInput [matDatepicker]="inicioPicker" formControlName="fechaInicio" required>
+              <input matInput [matDatepicker]="inicioPicker" formControlName="startDate" required>
               <mat-datepicker-toggle matSuffix [for]="inicioPicker"></mat-datepicker-toggle>
               <mat-datepicker touchUi="true" #inicioPicker></mat-datepicker>
             </mat-form-field>
@@ -49,20 +47,23 @@
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Fecha de Vencimiento</mat-label>
-              <input matInput [matDatepicker]="vencimientoPicker" formControlName="fechaVencimiento" required>
+              <input matInput [matDatepicker]="vencimientoPicker" formControlName="endDate" required>
               <mat-datepicker-toggle matSuffix [for]="vencimientoPicker"></mat-datepicker-toggle>
               <mat-datepicker touchUi="true" #vencimientoPicker></mat-datepicker>
             </mat-form-field>
           </div>
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Frecuencia de Cobro</mat-label>
-              <mat-select formControlName="frecuenciaCobro" required>
-                <mat-option value="">Seleccione una frecuencia</mat-option>
-                <mat-option value="Diario">Diario</mat-option>
-                <mat-option value="Semanal">Semanal</mat-option>
-                <mat-option value="Mensual">Mensual</mat-option>
-              </mat-select>
+              <mat-label>Monto total</mat-label>
+              <input matInput type="text" formControlName="totalAmount" required maxlength="40">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="form-group col-md-6">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Descripcion</mat-label>
+              <textarea matInput type="text" formControlName="description" required maxlength="40"></textarea>
             </mat-form-field>
           </div>
         </div>
@@ -73,7 +74,7 @@
           </div>
         </div>
         <div class="d-flex justify-content-end mt-2">
-          <button mat-raised-button color="primary" type="button" (click)="processFile(fileInput)">Procesar</button>
+          <button mat-raised-button color="primary" type="button" (click)="uploadFile()">Procesar</button>
           <button mat-raised-button color="warn" type="button" (click)="cancelFile(fileInput)" class="ml-2">Cancelar</button>
         </div>
       </form>
@@ -85,13 +86,13 @@
       <!-- Contenedor con desplazamiento horizontal -->
       <div class="table-responsive">
         <table mat-table [dataSource]="cobros" class="mat-elevation-z8 mt-4 wide-table">
-          <ng-container matColumnDef="empresa">
-            <th mat-header-cell *matHeaderCellDef> Empresa </th>
-            <td mat-cell *matCellDef="let cobro"> {{cobro.empresa}} </td>
+          <ng-container matColumnDef="uniqueId">
+            <th mat-header-cell *matHeaderCellDef> uniqueId </th>
+            <td mat-cell *matCellDef="let cobro"> {{cobro.uniqueId}} </td>
           </ng-container>
-          <ng-container matColumnDef="referencia">
-            <th mat-header-cell *matHeaderCellDef> Referencia </th>
-            <td mat-cell *matCellDef="let cobro"> {{cobro.referencia}} </td>
+          <ng-container matColumnDef="serviceId">
+            <th mat-header-cell *matHeaderCellDef> serviceId </th>
+            <td mat-cell *matCellDef="let cobro"> {{cobro.serviceId}} </td>
           </ng-container>
           <ng-container matColumnDef="nombresDelCliente">
             <th mat-header-cell *matHeaderCellDef> Nombres del Cliente </th>
@@ -113,29 +114,33 @@
             <th mat-header-cell *matHeaderCellDef> Monto </th>
             <td mat-cell *matCellDef="let cobro"> {{cobro.monto}} </td>
           </ng-container>
-          <ng-container matColumnDef="fechaInicio">
+          <ng-container matColumnDef="startDate">
             <th mat-header-cell *matHeaderCellDef> Fecha de Inicio </th>
-            <td mat-cell *matCellDef="let cobro"> {{cobro.fechaInicio | date}} </td>
+            <td mat-cell *matCellDef="let cobro"> {{cobro.startDate | date}} </td>
           </ng-container>
-          <ng-container matColumnDef="fechaVencimiento">
+          <ng-container matColumnDef="endDate">
             <th mat-header-cell *matHeaderCellDef> Fecha de Vencimiento </th>
-            <td mat-cell *matCellDef="let cobro"> {{cobro.fechaVencimiento | date}} </td>
+            <td mat-cell *matCellDef="let cobro"> {{cobro.endDate | date}} </td>
           </ng-container>
-          <ng-container matColumnDef="cuentaAcreditar">
+          <ng-container matColumnDef="accountId">
             <th mat-header-cell *matHeaderCellDef> Cuenta a Acreditar </th>
-            <td mat-cell *matCellDef="let cobro"> {{cobro.cuentaAcreditar}} </td>
+            <td mat-cell *matCellDef="let cobro"> {{cobro.accountId}} </td>
           </ng-container>
           <ng-container matColumnDef="tipo">
             <th mat-header-cell *matHeaderCellDef> Tipo </th>
             <td mat-cell *matCellDef="let cobro"> {{cobro.tipo}} </td>
           </ng-container>
-          <ng-container matColumnDef="frecuenciaCobro">
+          <ng-container matColumnDef="totalAmount">
             <th mat-header-cell *matHeaderCellDef> Frecuencia </th>
-            <td mat-cell *matCellDef="let cobro"> {{cobro.frecuenciaCobro}} </td>
+            <td mat-cell *matCellDef="let cobro"> {{cobro.totalAmount}} </td>
           </ng-container>
-          <ng-container matColumnDef="cancelado">
-            <th mat-header-cell *matHeaderCellDef> Cancelado </th>
-            <td mat-cell *matCellDef="let cobro"> {{cobro.cancelado ? 'Sí' : 'No'}} </td>
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> description </th>
+            <td mat-cell *matCellDef="let cobro"> {{cobro.description}} </td>
+          </ng-container>
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> status </th>
+            <td mat-cell *matCellDef="let cobro"> {{cobro.status}} </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
