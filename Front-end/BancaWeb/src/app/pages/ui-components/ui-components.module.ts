@@ -27,6 +27,7 @@ import { AppMenuComponent } from './menu/menu.component';
 import { AppTooltipsComponent } from './tooltips/tooltips.component';
 
 import { ServiceePipe } from 'src/app/pipes/servicioPipe';
+import { EstadoPipe } from 'src/app/pipes/estadoPipe';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ServiceePipe } from 'src/app/pipes/servicioPipe';
     AppListsComponent,
     AppMenuComponent,
     AppTooltipsComponent,
-    ServiceePipe
+    ServiceePipe,
+    EstadoPipe
   ],
   imports: [
     CommonModule,

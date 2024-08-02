@@ -6,8 +6,12 @@
         <div class="form-row justify-content-center">
             <div class="form-group col-md-3">
                 <label for="serviceId">Tipo de servicio</label>
-                <select class="form-control" id="accountId" formControlName="serviceId">
-                    <option *ngFor="let service of services" [value]="1"> {{ service.name }}</option>
+                <select class="form-control" id="accountId" formControlName="serviceId" >
+                    <option value="" disabled selected>Seleccione...</option>
+                    <!-- <option *ngFor="let service of services" [value]="1"> {{ service.name }}</option> -->
+                    <option value="1">Cobro </option>        
+                    <option  value="2">Recaudo</option>        
+    
                 </select>
             </div>
             <div class="form-group col-md-3">
@@ -21,6 +25,7 @@
             <div class="form-group col-md-3">
                 <label for="accountId">Numero de cuenta</label>
                 <select class="form-control" id="accountId" formControlName="accountId">
+                    <option value="" disabled selected>Seleccione...</option>
                     <option *ngFor="let account of accounts" [value]="1"> {{ account.codeInternalAccount }}</option>
                 </select>
             </div>
@@ -57,7 +62,7 @@
                 <td>{{ movimiento.endDate}}</td>
                 <td>{{ movimiento.totalAmount}}</td>
                 <td>{{ movimiento.description }}</td>
-                <td>{{ movimiento.status}}</td>
+                <td>{{ movimiento.status |estado}}</td>
                 <td> <button class="btn btn-secondary" (click)="obtainItems(movimiento.serviceId, movimiento.orderId)">Items</button></td>
                 <td >
                     <div *ngIf="movimiento.status == 'PEN'">
