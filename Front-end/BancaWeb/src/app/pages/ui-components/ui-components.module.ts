@@ -26,13 +26,16 @@ import { AppListsComponent } from './lists/lists.component';
 import { AppMenuComponent } from './menu/menu.component';
 import { AppTooltipsComponent } from './tooltips/tooltips.component';
 
+import { ServiceePipe } from 'src/app/pipes/servicioPipe';
+
 @NgModule({
   declarations: [
     BadgeComponent,
     ChipsComponent,
     AppListsComponent,
     AppMenuComponent,
-    AppTooltipsComponent
+    AppTooltipsComponent,
+    ServiceePipe
   ],
   imports: [
     CommonModule,

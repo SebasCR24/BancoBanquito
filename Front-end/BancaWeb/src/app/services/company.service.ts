@@ -30,6 +30,9 @@ export class CompanyService {
     return this.http.get<any[]>(this.apiUrl);
   }
 
+  getCompanyById(id:any): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/companies/${id}`);
+  }
   // Métodos para crear, editar y deshabilitar usuarios
   createUser(user: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, user);

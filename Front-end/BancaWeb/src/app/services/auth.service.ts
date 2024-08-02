@@ -1,15 +1,31 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private apiUrl = environment.CoreCobros_company;
+  private header = {
+    headers: new HttpHeaders({
+      //'x-token':  environment.x_token,
+      Accept: 'application/json',
+    }),
+  };
+
 
   private readonly USERS_KEY = 'users';
   private readonly FIRST_LOGIN_KEY = 'firstLogin';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http: HttpClient) { }
+
+  login2(datos:any): Observable<any[]> {
+    return this.http.post<any>(`${this.apiUrl}/users/login`,datos)
+  }
 
   login(username: string, password: string): boolean {
 

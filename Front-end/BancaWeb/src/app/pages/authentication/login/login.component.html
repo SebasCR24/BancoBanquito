@@ -10,15 +10,15 @@
             <div class="col-md-6 d-flex flex-column justify-content-center align-items-center p-5 right-section">
               <h2>¡Bienvenido a tu Banca Empresas!</h2>
               <p>Inicia sesión para continuar</p>
-              <form class="w-100" (submit)="login()">
+              <form class="w-100" (ngSubmit)="login()" [formGroup]="loginForm">
                 <div class="form-group">
-                  <label for="username">Ingresa tu usuario:</label>
-                  <input type="text" class="form-control" id="username" placeholder="Usuario" [(ngModel)]="username" name="username">
+                  <label for="user">Ingresa tu usuario:</label>
+                  <input type="text" class="form-control" id="user" placeholder="Usuario" formControlName="user">
                 </div>
                 <div class="form-group">
                   <label for="password">Ingresa tu contraseña:</label>
                   <div class="input-group">
-                    <input [type]="passwordFieldType" class="form-control" id="password" placeholder="Contraseña" [(ngModel)]="password" name="password">
+                    <input [type]="passwordFieldType" class="form-control" id="password" placeholder="Contraseña" formControlName="password">
                     <div class="input-group-append">
                       <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordFieldType()">
                         {{ passwordFieldType === 'password' ? 'Mostrar' : 'Ocultar' }}
@@ -29,8 +29,9 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
                 <button type="button" class="btn btn-secondary btn-block" routerLink="/register">Afíliate a banca empresas</button>
-                <div *ngIf="errorMessage">{{ errorMessage }}</div>
+                <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
               </form>
+              
             </div>
           </div>
         </div>
