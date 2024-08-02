@@ -22,6 +22,7 @@ export class AppListsComponent  implements OnInit {
   listForm: FormGroup;
   services:any;
   accounts:any;
+  payments:any;
   movimientos:any;
 
 
@@ -61,7 +62,7 @@ export class AppListsComponent  implements OnInit {
     this.cobroService.paymentByCuenta(3).subscribe(
       response => {
         console.log('Se obtieron los pagos hacia la cuenta', response);
-        this.accounts=response
+        this.payments=response
       },
       error => {
         console.error('No se obtieron los pagos hacia la cuenta', error);

@@ -12,7 +12,9 @@
               <mat-select formControlName="serviceId" required>
                 <mat-option value="">Seleccione un servicio</mat-option>
                 <!-- [value]="service.uniqueId" -->
-                <mat-option *ngFor="let service of services" [value]="1"> {{ service.name }}</mat-option>        
+                <!-- <mat-option *ngFor="let service of services" [value]="1"> {{ service.name }}</mat-option>         -->
+                <mat-option [value]="1">Cobro </mat-option>        
+                <mat-option  [value]="2">Recaudo</mat-option>        
               </mat-select>
             </mat-form-field>
           </div>
