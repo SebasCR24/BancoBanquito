@@ -57,9 +57,21 @@ export class AppListsComponent  implements OnInit {
        
       }
     );
+
+    this.cobroService.paymentByCuenta(3).subscribe(
+      response => {
+        console.log('Se obtieron los pagos hacia la cuenta', response);
+        this.accounts=response
+      },
+      error => {
+        console.error('No se obtieron los pagos hacia la cuenta', error);
+       
+      }
+    );
   }
 
   onSubmit() {
+
     let serviceId=this.listForm.value.serviceId
     let accountId=this.listForm.value.accountId
     let startDate=this.listForm.value.startDate
@@ -76,31 +88,47 @@ export class AppListsComponent  implements OnInit {
       }
     );
   }
+
+
+  obtainItems(servicio:any, ordenId:any){
+    console.log('id ',ordenId);
+    console.log('servicio ',servicio);
+
+    if(servicio==1){
+      this.cobroService.obtainItemAutomaticCollection(ordenId).subscribe(
+        response => {
+          console.log('Se obtieron automatic collection', response);
+        },
+        error => {
+          console.error('No se obtuvieron ordenes', error);
+        
+        }
+      );
+    }
+    else{
+      this.cobroService.obtainItemCollection(ordenId).subscribe(
+        response => {
+          console.log('Se obtieron item collection', response);
+        },
+        error => {
+          console.error('No se obtuvieron ordenes', error);
+         
+        }
+      );
+    }
+  }
+
+
+  cambioEstado(uniqueId:any, estado:any){
+    this.cobroService.cambioEstadoOrder(uniqueId, estado).subscribe(
+      response => {
+        console.log('Se cambio de estado a activo', response);
+      },
+      error => {
+        console.error('No se se cambio de estado', error);
+      }
+    );
+  }
+
   
-  // movimientos: Movimiento[] = [
-  //   {
-  //     idMovimiento: 1,
-  //     idCuenta: 1001,
-  //     tipoMovimiento: 'Depósito',
-  //     monto: 1000.00,
-  //     fecha: '2024-06-01',
-  //     descripcion: 'Depósito en efectivo'
-  //   },
-  //   {
-  //     idMovimiento: 2,
-  //     idCuenta: 1002,
-  //     tipoMovimiento: 'Efectivo',
-  //     monto: 200.00,
-  //     fecha: '2024-06-02',
-  //     descripcion: 'Retiro en cajero automático'
-  //   },
-  //   {
-  //     idMovimiento: 3,
-  //     idCuenta: 1003,
-  //     tipoMovimiento: 'Transferencia',
-  //     monto: 500.00,
-  //     fecha: '2024-06-03',
-  //     descripcion: 'Transferencia a cuenta externa'
-  //   }
-  // ];
 }

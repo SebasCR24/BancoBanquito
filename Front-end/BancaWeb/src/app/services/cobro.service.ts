@@ -18,16 +18,22 @@ export class CobroService {
 
   }
 
+
+
   cambioEstadoOrder(nrOrder:any,status:any):Observable<any>{
-    return this.http.put<any>(`${this.apiUrl}orders/${nrOrder}/status?status=${status}`,this.header)
+    return this.http.put<any>(`${this.apiUrl}/orders/${nrOrder}/status?status=${status}`,this.header)
   }
 
   automaticDebitByOrder(id:any):Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/debitAuto/by-order/${id}`)
   }
 
-  collectionByOrder(id:any):Observable<any>{
+  obtainItemCollection(id:any):Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/collections/by-order/${id}`)
+  }
+
+  obtainItemAutomaticCollection(id:any):Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/automaticDebits/by-order/${id}`)
   }
 
   getOrderByServiceAndDate(serviceId:any, accountId:any, startDate:any, endDate:any ):Observable<any>{
