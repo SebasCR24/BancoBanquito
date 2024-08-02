@@ -1,6 +1,6 @@
 <mat-card class="cardWithShadow theme-card">
   <mat-card-header>
-    <mat-card-title class="m-b-0">Realizar Cobros</mat-card-title>
+    <mat-card-title class="m-b-0">Realizar Movimiento</mat-card-title>
   </mat-card-header>
   <mat-card-content class="b-t-1">
     <div class="container mt-4">
@@ -77,7 +77,7 @@
 
 
 
-      <!--  -->
+      <!--  
       <h3 class="mt-5">Lista de Cobros Realizados</h3>
 
       <form [formGroup]="listForm" (ngSubmit)="onSubmit()" class="mb-4">
@@ -87,7 +87,7 @@
               <mat-label>serviceId</mat-label>
               <mat-select formControlName="serviceId" required>
                 <mat-option value="">Seleccione un servicio</mat-option>
-                <!-- [value]="service.uniqueId" -->
+                 [value]="service.uniqueId" 
                 <mat-option *ngFor="let service of services" [value]="1"> {{ service.name }}</mat-option>        
               </mat-select>
             </mat-form-field>
@@ -97,7 +97,7 @@
               <mat-label>Cuenta a Acreditar</mat-label>
               <mat-select formControlName="accountId" required>
                 <mat-option value="">Seleccione una cuenta</mat-option> 
-                <!-- [value]="account.uniqueId" -->
+                 [value]="account.uniqueId" 
                 <mat-option *ngFor="let account of accounts" [value]="1"> {{ account.codeInternalAccount }}</mat-option>        
               </mat-select>
             </mat-form-field>
@@ -130,9 +130,9 @@
 
 
       <button mat-raised-button color="primary" (click)="exportAllToExcel()">Exportar Todo a Excel</button>
-      <button mat-raised-button color="accent" (click)="exportAllToPDF()">Exportar Todo a PDF</button>
+      <button mat-raised-button color="accent" (click)="exportAllToPDF()">Exportar Todo a PDF</button> -->
       
-      <!-- Contenedor con desplazamiento horizontal -->
+      <!-- Contenedor con desplazamiento horizontal 
       <div class="table-responsive">
         <table mat-table [dataSource]="cobros" class="mat-elevation-z8 mt-4 wide-table">
           <ng-container matColumnDef="uniqueId">
@@ -194,7 +194,7 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-      </div>
+      </div>-->
     </div>
   </mat-card-content>
 </mat-card>
