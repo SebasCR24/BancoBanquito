@@ -29,51 +29,51 @@ export class LoginComponent {
   }
 
 
-  // login(): void {
-  //   this.authService.login2(this.loginForm.value).pipe(
-  //     switchMap(response => {
-  //       // Guardar el resultado del login en localStorage
-  //       localStorage.setItem('usuario', JSON.stringify(response));
-  
-  //       this.response=response
-  //       // Obtener la empresa solo si el login es exitoso
-  //       if (response && this.response.companyId) {
-  //         return forkJoin({
-  //           loginResponse: of(response), // Emite el resultado del login
-  //           companyResponse: this.companyService.getCompanyById(this.response.companyId)
-  //         });
-  //       } else {
-  //         // Manejar el caso en que no se obtiene companyId
-  //         return of({
-  //           loginResponse: response,
-  //           companyResponse: null
-  //         });
-  //       }
-  //     })
-  //   ).subscribe(
-  //     ({ loginResponse, companyResponse }) => {
-  //       // Guardar la empresa en localStorage solo si se obtiene
-  //       if (companyResponse) {
-  //         localStorage.setItem('empresa', JSON.stringify(companyResponse));
-  //       }
-  
-  //       // Redirigir al dashboard después de almacenar en localStorage
-  //       this.router.navigate(['/dashboard']);
-  //     },
-  //     error => {
-  //       this.errorMessage = 'Credenciales incorrectas. Por favor, intenta de nuevo.';
-  //       console.error('Usuario o clave incorrectos', error);
-  //     }
-  //   );
-  // }
-
   login(): void {
-    if (this.authService.login(this.username, this.password)) {
-      this.errorMessage = '';
-    } else {
-      this.errorMessage = 'Credenciales incorrectas. Por favor, intenta de nuevo.';
-    }
+    this.authService.login2(this.loginForm.value).pipe(
+      switchMap(response => {
+        // Guardar el resultado del login en localStorage
+        localStorage.setItem('usuario', JSON.stringify(response));
+  
+        this.response=response
+        // Obtener la empresa solo si el login es exitoso
+        if (response && this.response.companyId) {
+          return forkJoin({
+            loginResponse: of(response), // Emite el resultado del login
+            companyResponse: this.companyService.getCompanyById(this.response.companyId)
+          });
+        } else {
+          // Manejar el caso en que no se obtiene companyId
+          return of({
+            loginResponse: response,
+            companyResponse: null
+          });
+        }
+      })
+    ).subscribe(
+      ({ loginResponse, companyResponse }) => {
+        // Guardar la empresa en localStorage solo si se obtiene
+        if (companyResponse) {
+          localStorage.setItem('empresa', JSON.stringify(companyResponse));
+        }
+  
+        // Redirigir al dashboard después de almacenar en localStorage
+        this.router.navigate(['/dashboard']);
+      },
+      error => {
+        this.errorMessage = 'Credenciales incorrectas. Por favor, intenta de nuevo.';
+        console.error('Usuario o clave incorrectos', error);
+      }
+    );
   }
+
+  // login(): void {
+  //   if (this.authService.login(this.username, this.password)) {
+  //     this.errorMessage = '';
+  //   } else {
+  //     this.errorMessage = 'Credenciales incorrectas. Por favor, intenta de nuevo.';
+  //   }
+  // }
 
   
 
