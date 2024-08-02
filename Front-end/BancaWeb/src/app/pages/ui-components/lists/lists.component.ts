@@ -94,7 +94,7 @@ export class AppListsComponent  implements OnInit {
     console.log('id ',ordenId);
     console.log('servicio ',servicio);
 
-    if(servicio==1){
+    if(servicio==2){
       this.cobroService.obtainItemAutomaticCollection(ordenId).subscribe(
         response => {
           console.log('Se obtieron automatic collection', response);
