@@ -18,6 +18,9 @@ export class SidebarComponent implements OnInit {
   logout() {
     // Aquí puedes añadir la lógica para cerrar la sesión, por ejemplo, eliminar el token de autenticación
     console.log('Cerrar Sesión');
+    localStorage.removeItem('usuario');
+    localStorage.removeItem('empresa');
+
     // Redirigir a la página de login
     this.router.navigate(['/login']);
   }
