@@ -29,7 +29,10 @@ export class CobroService {
   collectionByOrder(id:any):Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/collections/by-order/${id}`)
   }
-  
+
+  getOrderByServiceAndDate(serviceId:any, accountId:any, startDate:any, endDate:any ):Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/orders/search?serviceId=${serviceId}&accountId=${accountId}&startDate=${startDate}&endDate=${endDate}`)
+  }  
 
   crearOrder(file: File, orden:any): Observable<any> {
     const formData = new FormData();
