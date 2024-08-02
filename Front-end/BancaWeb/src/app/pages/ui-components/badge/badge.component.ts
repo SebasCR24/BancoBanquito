@@ -26,6 +26,8 @@ interface Cobro {
 })
 export class BadgeComponent implements OnInit {
   cobroForm: FormGroup;
+  listForm: FormGroup;
+
   cobros = new MatTableDataSource<Cobro>([]);
   fileLoaded: boolean = false;
   selectedFile: File | null = null;
@@ -55,6 +57,30 @@ export class BadgeComponent implements OnInit {
       description: [''],
       status: [''],
     });
+
+    this.listForm = this.fb.group({
+      serviceId: ['', Validators.required],
+      accountId:  ['', Validators.required],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required]
+    });
+  }
+
+  getOrder(){
+    let serviceId=this.listForm.value.serviceId
+    let accountId=this.listForm.value.accountId
+    let startDate=this.listForm.value.startDate
+    let endtDate=this.listForm.value.endtDate
+
+    this.cobroService.getOrderByServiceAndDate(serviceId,accountId, startDate, endtDate).subscribe(
+      response => {
+        console.log('Se obtieron ordenes', response);
+      },
+      error => {
+        console.error('No se obtuvieron ordenes', error);
+       
+      }
+    );
   }
 
   ngOnInit(): void {
@@ -82,7 +108,9 @@ export class BadgeComponent implements OnInit {
     
   }
 
-  onSubmit() {}
+  onSubmit() {
+    this.getOrder()
+  }
 
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
