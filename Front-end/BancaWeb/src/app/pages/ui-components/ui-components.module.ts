@@ -25,6 +25,7 @@ import { ChipsComponent } from './chips/chips.component';
 import { AppListsComponent } from './lists/lists.component';
 import { AppMenuComponent } from './menu/menu.component';
 import { AppTooltipsComponent } from './tooltips/tooltips.component';
+import { ItemsComponent } from './items/items.component';
 
 import { ServiceePipe } from 'src/app/pipes/servicioPipe';
 import { EstadoPipe } from 'src/app/pipes/estadoPipe';
@@ -37,7 +38,8 @@ import { EstadoPipe } from 'src/app/pipes/estadoPipe';
     AppMenuComponent,
     AppTooltipsComponent,
     ServiceePipe,
-    EstadoPipe
+    EstadoPipe,
+    ItemsComponent
   ],
   imports: [
     CommonModule,
@@ -54,6 +56,7 @@ import { EstadoPipe } from 'src/app/pipes/estadoPipe';
     MatNativeDateModule,
     MatFormFieldModule,
     TablerIconsModule.pick(TablerIcons),
+    
   ]
 })
 export class UicomponentsModule { }
