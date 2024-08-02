@@ -1,0 +1,41 @@
+<div class="container mt-5">
+    <h2 class="mb-5 text-center">Banca Web Empresas - BanQuito</h2>
+    
+ 
+    <!-- Lista de Movimientos -->
+    <h3 class="mt-5 mb-4 text-center">Lista de Items Asociados</h3>
+    <table class="table table-striped mat-elevation-z8 mt-4">
+        <thead>
+            <tr>
+                <th>Servicio</th>
+                <th>Cuenta</th>
+                <th>Fecha de inicio</th>
+                <th>Fecha de fin</th>
+                <th>Monto</th>
+                <th>Descripcion</th>
+                <th>Estado</th>
+                <th>Items</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let movimiento of movimientos">
+                <td>{{ movimiento.serviceId | servicee }}</td>
+                <td>{{ movimiento.accountId }}</td>
+                <td>{{ movimiento.startDate }}</td>
+                <td>{{ movimiento.endDate}}</td>
+                <td>{{ movimiento.totalAmount}}</td>
+                <td>{{ movimiento.description }}</td>
+                <td>{{ movimiento.status |estado}}</td>
+                <td> <button class="btn btn-secondary" (click)="obtainItems(movimiento.serviceId, movimiento.orderId)">Items</button></td>
+                <td >
+                    <div *ngIf="movimiento.status == 'PEN'">
+                        <button class="btn btn-success" (click)="cambioEstado(movimiento.uniqueId, 'ACT')">Aprobar</button>
+                        <button class="btn btn-danger" (click)="cambioEstado(movimiento.uniqueId, 'EXP')">Rechazar</button>    
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+  

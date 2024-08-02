@@ -14,11 +14,11 @@ export interface Movimiento {
 }
 
 @Component({
-  selector: 'app-lists',
-  templateUrl: './lists.component.html',
-  styleUrls: ['./lists.component.scss']
+  selector: 'app-items',
+  templateUrl: './items.component.html',
+  styleUrls: ['./items.component.scss']
 })
-export class AppListsComponent  implements OnInit {
+export class ItemsComponent  implements OnInit {
   listForm: FormGroup;
   services:any;
   accounts:any;
