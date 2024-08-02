@@ -6,6 +6,7 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { MatTableDataSource } from '@angular/material/table';
 import { CobroService } from 'src/app/services/cobro.service';
+import { CompanyService } from 'src/app/services/company.service';
 
 interface Cobro {
   uniqueId: string;
@@ -28,6 +29,10 @@ export class BadgeComponent implements OnInit {
   cobros = new MatTableDataSource<Cobro>([]);
   fileLoaded: boolean = false;
   selectedFile: File | null = null;
+  accounts:any;
+  services:any;
+
+
   displayedColumns: string[] = [
   'uniqueId',
   'serviceId',
@@ -39,7 +44,7 @@ export class BadgeComponent implements OnInit {
   'status',
     ];
 
-  constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private cobroService:CobroService) {
+  constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private cobroService:CobroService, private companyService:CompanyService) {
     this.cobroForm = this.fb.group({
       uniqueId: [''],
       serviceId: [''],
@@ -52,7 +57,30 @@ export class BadgeComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.companyService.getAccounts().subscribe(
+      response => {
+        console.log('Se obtieron cuentas de la empresa', response);
+        this.accounts=response
+      },
+      error => {
+        console.error('No se obtuvieron cuentas de la empresa', error);
+       
+      }
+    );
+
+    this.companyService.getServices().subscribe(
+      response => {
+        console.log('Se obtieron servicios disponibles', response);
+        this.services=response
+      },
+      error => {
+        console.error('No se obtuvieron servicios', error);
+       
+      }
+    );
+    
+  }
 
   onSubmit() {}
 
@@ -62,9 +90,24 @@ export class BadgeComponent implements OnInit {
     }
   }
 
+  generateRandomString(): string {
+    const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    const charsetLength = charset.length;
+    
+    for (let i = 0; i < 5; i++) {
+      const randomIndex = Math.floor(Math.random() * charsetLength);
+      result += charset[randomIndex];
+    }
+    
+    return result;
+  }
+
   uploadFile() {
     if (this.selectedFile) {
       this.cobroForm.value.status='PEN'
+      this.cobroForm.value.uniqueId='ORD'+this.generateRandomString()
+
       this.cobroService.crearOrder(this.selectedFile, this.cobroForm.value).subscribe(
         response => {
           console.log('Archivo y datos subidos con éxito', response);

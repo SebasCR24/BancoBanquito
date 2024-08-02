@@ -8,32 +8,27 @@
         <div class="row mb-3">
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>uniqueId</mat-label>
-              <input matInput type="text" formControlName="uniqueId" required maxlength="40">
+              <mat-label>serviceId</mat-label>
+              <mat-select formControlName="serviceId" required>
+                <mat-option value="">Seleccione un servicio</mat-option>
+                <!-- [value]="service.uniqueId" -->
+                <mat-option *ngFor="let service of services" [value]="1"> {{ service.name }}</mat-option>        
+              </mat-select>
             </mat-form-field>
           </div>
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>serviceId</mat-label>
-              <mat-select formControlName="serviceId" required>
-                <mat-option value="">Seleccione un servicio</mat-option>
-                <mat-option value="1">Cobro</mat-option>
-                <mat-option value="2">Recaudo</mat-option>
+              <mat-label>Cuenta a Acreditar</mat-label>
+              <mat-select formControlName="accountId" required>
+                <mat-option value="">Seleccione una cuenta</mat-option> 
+                <!-- [value]="account.uniqueId" -->
+                <mat-option *ngFor="let account of accounts" [value]="1"> {{ account.codeInternalAccount }}</mat-option>        
               </mat-select>
             </mat-form-field>
           </div>
         </div>
         <div class="row mb-3">
-          <div class="form-group col-md-6">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Cuenta a Acreditar</mat-label>
-              <mat-select formControlName="accountId" required>
-                <mat-option value="">Seleccione una cuenta</mat-option>
-                <mat-option value="1">2205361970</mat-option>
-                <mat-option value="2">0609861234</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
+          
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Fecha de Inicio</mat-label>
@@ -42,8 +37,6 @@
               <mat-datepicker touchUi="true" #inicioPicker></mat-datepicker>
             </mat-form-field>
           </div>
-        </div>
-        <div class="row mb-3">
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Fecha de Vencimiento</mat-label>
@@ -52,14 +45,14 @@
               <mat-datepicker touchUi="true" #vencimientoPicker></mat-datepicker>
             </mat-form-field>
           </div>
+        </div>
+        <div class="row mb-3">
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Monto total</mat-label>
               <input matInput type="text" formControlName="totalAmount" required maxlength="40">
             </mat-form-field>
           </div>
-        </div>
-        <div class="row mb-3">
           <div class="form-group col-md-6">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Descripcion</mat-label>
@@ -67,6 +60,7 @@
             </mat-form-field>
           </div>
         </div>
+       
         <!-- Campo para cargar el archivo -->
         <div class="row mb-3">
           <div class="form-group col-md-12">

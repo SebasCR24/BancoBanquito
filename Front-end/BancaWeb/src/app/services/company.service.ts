@@ -18,6 +18,13 @@ export class CompanyService {
 
   }
 
+  getServices(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/servicees`);
+  }
+
+  getAccounts(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/accounts`);
+  }
 
   getUsers(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
