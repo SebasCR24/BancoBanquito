@@ -24,7 +24,6 @@ export class AppListsComponent  implements OnInit {
   accounts:any;
   payments:any;
   movimientos:any;
-  empresa:any;
 
 
   constructor(private fb: FormBuilder,private cobroService:CobroService, private companyService:CompanyService, private router: Router){
@@ -35,15 +34,6 @@ export class AppListsComponent  implements OnInit {
       startDate: ['', Validators.required],
       endDate: ['', Validators.required]
     });
-
-    const empresa2 = localStorage.getItem('empresa');
-
-    if (empresa2) {
-      this.empresa = JSON.parse(empresa2);
-    } else {
-      this.empresa = null;
-    }
-
   }
 
   ngOnInit():void{
@@ -58,7 +48,7 @@ export class AppListsComponent  implements OnInit {
     //   }
     // );
 
-    this.companyService.getAccounts(this.empresa.uniqueId).subscribe(
+    this.companyService.getAccounts().subscribe(
       response => {
         console.log('Se obtieron cuentas de la empresa', response);
         this.accounts=response

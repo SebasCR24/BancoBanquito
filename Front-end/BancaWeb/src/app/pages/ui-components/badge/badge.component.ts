@@ -33,6 +33,7 @@ export class BadgeComponent implements OnInit {
   selectedFile: File | null = null;
   accounts:any;
   services:any;
+  empresa:any;
 
 
   displayedColumns: string[] = [
@@ -64,6 +65,17 @@ export class BadgeComponent implements OnInit {
       startDate: ['', Validators.required],
       endDate: ['', Validators.required]
     });
+
+    const empresa2 = localStorage.getItem('empresa');
+
+    if (empresa2) {
+      this.empresa = JSON.parse(empresa2);
+    } else {
+      this.empresa = null;
+    }
+
+
+    
   }
 
   getOrder(){
@@ -84,7 +96,7 @@ export class BadgeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.companyService.getAccounts().subscribe(
+    this.companyService.getAccounts(this.empresa.uniqueId).subscribe(
       response => {
         console.log('Se obtieron cuentas de la empresa', response);
         this.accounts=response
@@ -95,16 +107,16 @@ export class BadgeComponent implements OnInit {
       }
     );
 
-    this.companyService.getServices().subscribe(
-      response => {
-        console.log('Se obtieron servicios disponibles', response);
-        this.services=response
-      },
-      error => {
-        console.error('No se obtuvieron servicios', error);
+    // this.companyService.getServices().subscribe(
+    //   response => {
+    //     console.log('Se obtieron servicios disponibles', response);
+    //     this.services=response
+    //   },
+    //   error => {
+    //     console.error('No se obtuvieron servicios', error);
        
-      }
-    );
+    //   }
+    // );
     
   }
 
@@ -139,7 +151,7 @@ export class BadgeComponent implements OnInit {
       this.cobroService.crearOrder(this.selectedFile, this.cobroForm.value).subscribe(
         response => {
           console.log('Archivo y datos subidos con éxito', response);
-          this.snackBar.open('Cobro realizado de manera exitosa', 'Cerrar', {
+          this.snackBar.open('Orden cargada de manera exitosa', 'Cerrar', {
             duration: 3000,
             verticalPosition: 'top',
             horizontalPosition: 'center'
@@ -147,7 +159,7 @@ export class BadgeComponent implements OnInit {
         },
         error => {
           console.error('Error al subir el archivo y los datos', error);
-          this.snackBar.open('Error al realizar el cobro', 'Cerrar', {
+          this.snackBar.open('Error al cargar orden', 'Cerrar', {
             duration: 3000,
             verticalPosition: 'top',
             horizontalPosition: 'center'

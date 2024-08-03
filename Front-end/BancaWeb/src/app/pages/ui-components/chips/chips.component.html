@@ -1,138 +1,81 @@
-<mat-card class="cardWithShadow theme-card">
-  <mat-card-header>
-    <mat-card-title class="m-b-0">Realizar Recaudo</mat-card-title>
-  </mat-card-header>
-  <mat-card-content class="b-t-1">
-    <div class="container mt-4">
-      <form [formGroup]="transferenciaForm" (ngSubmit)="onSubmit()" class="mb-4">
-        <div class="row mb-3">
-          <div class="form-group col-md-6">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Nombres</mat-label>
-              <input matInput formControlName="nombres" required>
-            </mat-form-field>
-          </div>
-          <div class="form-group col-md-6">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Cédula</mat-label>
-              <input matInput formControlName="cedula" required>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="form-group col-md-6">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Número de Contrato</mat-label>
-              <input matInput formControlName="numeroContrato" required>
-            </mat-form-field>
-          </div>
-          <div class="form-group col-md-6">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Monto</mat-label>
-              <input matInput type="number" formControlName="monto" required>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="form-group col-md-6">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Fecha de Inicio</mat-label>
-              <input matInput [matDatepicker]="inicioPicker" formControlName="fechaInicio" required>
-              <mat-datepicker-toggle matSuffix [for]="inicioPicker"></mat-datepicker-toggle>
-              <mat-datepicker touchUi="true" #inicioPicker></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div class="form-group col-md-6">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Fecha de Vencimiento</mat-label>
-              <input matInput [matDatepicker]="vencimientoPicker" formControlName="fechaVencimiento" required>
-              <mat-datepicker-toggle matSuffix [for]="vencimientoPicker"></mat-datepicker-toggle>
-              <mat-datepicker touchUi="true" #vencimientoPicker></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="form-group col-md-6">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Cuenta a Acreditar</mat-label>
-              <input matInput formControlName="cuentaAcreditar" required>
-            </mat-form-field>
-          </div>
-          <div class="form-group col-md-6">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Contrapartida</mat-label>
-              <input matInput formControlName="contrapartida" required>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="form-group col-md-12">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Descripción</mat-label>
-              <textarea matInput formControlName="descripcion" rows="3" required></textarea>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 text-right">
-            <button mat-raised-button color="primary" type="submit">Guardar</button>
-          </div>
-        </div>
-      </form>
+<div class="container mt-5">
+  <h2 class="mb-5 text-center">Banca Web Empresas - BanQuito</h2>
 
-      <!-- Tabla de Recaudos Realizados -->
-      <h3 class="mt-5">Lista de Recaudos Realizados</h3>
-      <button mat-raised-button color="primary" (click)="exportAllToExcel()">Exportar Todo a Excel</button>
+  <button mat-raised-button color="primary" (click)="exportAllToExcel()">Exportar Todo a Excel</button>
       <button mat-raised-button color="accent" (click)="exportAllToPDF()">Exportar Todo a PDF</button>
-      <table mat-table [dataSource]="transferencias" class="mat-elevation-z8 mt-4">
-        <ng-container matColumnDef="nombres">
-          <th mat-header-cell *matHeaderCellDef> Nombres </th>
-          <td mat-cell *matCellDef="let transferencia"> {{transferencia.nombres}} </td>
-        </ng-container>
+  
+  <!-- Filtro Global -->
+  <form [formGroup]="listForm" (ngSubmit)="onSubmit()" class="mb-4 text-center">
+      <div class="form-row justify-content-center">
+          <div class="form-group col-md-3">
+              <label for="serviceId">Tipo de servicio</label>
+              <select class="form-control" id="accountId" formControlName="serviceId" >
+                  <option value="" disabled selected>Seleccione...</option>
+                  <!-- <option *ngFor="let service of services" [value]="1"> {{ service.name }}</option> -->   
+                  <!-- <option [value]="'LEY0053994'">Cobro </option>        
+                  <option  [value]="'JXM0025321'">Recaudo</option>        -->
+                  <option [value]="1">Cobro </option>        
+                  <option  [value]="2">Recaudo</option> 
+              </select>
+          </div>
+          <div class="form-group col-md-3">
+              <label for="fechaDesde">Fecha Desde</label>
+              <input type="date" class="form-control" id="fechaDesde" formControlName="startDate">
+          </div>
+          <div class="form-group col-md-3">
+              <label for="fechaHasta">Fecha Hasta</label>
+              <input type="date" class="form-control" id="fechaHasta" formControlName="endDate">
+          </div>
+          <div class="form-group col-md-3">
+              <label for="accountId">Numero de cuenta</label>
+              <select class="form-control" id="accountId" formControlName="accountId">
+                  <option value="" disabled selected>Seleccione...</option>
+                  <option *ngFor="let account of accounts" [value]="1"> {{ account.codeInternalAccount }}</option>
+              </select>
+          </div>
+      </div>
+      <div class="row justify-content-center">
+          <div class="col-auto">
+            <button mat-raised-button color="primary" type="submit">Buscar</button>
+          </div>
+        </div>              
+  </form>
+  
 
-        <ng-container matColumnDef="cedula">
-          <th mat-header-cell *matHeaderCellDef> Cédula </th>
-          <td mat-cell *matCellDef="let transferencia"> {{transferencia.cedula}} </td>
-        </ng-container>
+  <!-- Lista de Movimientos -->
+  <h3 class="mt-5 mb-4 text-center">Lista de Movimientos</h3>
+  <table class="table table-striped mat-elevation-z8 mt-4">
+      <thead>
+          <tr>
+              <th>Servicio</th>
+              <th>Cuenta</th>
+              <th>Fecha de inicio</th>
+              <th>Fecha de fin</th>
+              <th>Monto</th>
+              <th>Descripcion</th>
+              <th>Estado</th>
+              <th>Items</th>
+              <th>Acción</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let movimiento of movimientos">
+              <td>{{ movimiento.serviceId | servicee }}</td>
+              <td>{{ movimiento.accountId }}</td>
+              <td>{{ movimiento.startDate }}</td>
+              <td>{{ movimiento.endDate}}</td>
+              <td>{{ movimiento.totalAmount}}</td>
+              <td>{{ movimiento.description }}</td>
+              <td>{{ movimiento.status |estado}}</td>
+              <td> <button class="btn btn-secondary" (click)="obtainItems(movimiento.serviceId, movimiento.orderId)">Items</button></td>
+              <td >
+                  <div *ngIf="movimiento.status == 'PEN'">
+                      <button class="btn btn-success" (click)="cambioEstado(movimiento.uniqueId, 'ACT')">Aprobar</button>
+                      <button class="btn btn-danger" (click)="cambioEstado(movimiento.uniqueId, 'EXP')">Rechazar</button>    
+                  </div>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</div>
 
-        <ng-container matColumnDef="numeroContrato">
-          <th mat-header-cell *matHeaderCellDef> Número de Contrato </th>
-          <td mat-cell *matCellDef="let transferencia"> {{transferencia.numeroContrato}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="monto">
-          <th mat-header-cell *matHeaderCellDef> Monto </th>
-          <td mat-cell *matCellDef="let transferencia"> {{transferencia.monto | currency}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="fechaInicio">
-          <th mat-header-cell *matHeaderCellDef> Fecha de Inicio </th>
-          <td mat-cell *matCellDef="let transferencia"> {{transferencia.fechaInicio | date}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="fechaVencimiento">
-          <th mat-header-cell *matHeaderCellDef> Fecha de Vencimiento </th>
-          <td mat-cell *matCellDef="let transferencia"> {{transferencia.fechaVencimiento | date}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="cuentaAcreditar">
-          <th mat-header-cell *matHeaderCellDef> Cuenta a Acreditar </th>
-          <td mat-cell *matCellDef="let transferencia"> {{transferencia.cuentaAcreditar}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="contrapartida">
-          <th mat-header-cell *matHeaderCellDef> Contrapartida </th>
-          <td mat-cell *matCellDef="let transferencia"> {{transferencia.contrapartida}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="descripcion">
-          <th mat-header-cell *matHeaderCellDef> Descripción </th>
-          <td mat-cell *matCellDef="let transferencia"> {{transferencia.descripcion}} </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-    </div>
-  </mat-card-content>
-</mat-card>
