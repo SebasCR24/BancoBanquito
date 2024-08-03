@@ -57,6 +57,7 @@ export class AppListsComponent  implements OnInit {
        
     //   }
     // );
+    
 
     this.companyService.getAccounts(this.empresa.uniqueId).subscribe(
       response => {
@@ -82,22 +83,19 @@ export class AppListsComponent  implements OnInit {
   }
 
   onSubmit() {
-
-    let serviceId=this.listForm.value.serviceId
     let accountId=this.listForm.value.accountId
-    let startDate=this.listForm.value.startDate
-    let endDate=this.listForm.value.endDate
 
-    this.cobroService.getOrderByServiceAndDate(serviceId,accountId, startDate, endDate).subscribe(
+    this.cobroService.paymentByCuenta(23).subscribe(
       response => {
-        console.log('Se obtieron ordenes', response);
-        this.movimientos=response;
+        console.log('Se obtieron los pagos hacia la cuenta', response);
+        this.payments=response
       },
       error => {
-        console.error('No se obtuvieron ordenes', error);
+        console.error('No se obtieron los pagos hacia la cuenta', error);
        
       }
     );
+
   }
 
 

@@ -51,6 +51,6 @@ export class CobroService {
   }
 
   paymentByCuenta(cuenta:any):Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}/payments/records/${cuenta}`);
+    return this.http.get<any>(`${this.apiUrl}/payments/by-item-collection/${cuenta}`);
   }
 }

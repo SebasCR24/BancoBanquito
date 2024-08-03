@@ -142,19 +142,18 @@ export class ChipsComponent  implements OnInit {
           this.transferencias.data.push({ ...movimiento });
 
         })
-        this.transferencias._updateChangeSubscription(); // Refresh the table
-  
-        // Mostrar mensaje de confirmación
-        this.snackBar.open('Recaudo procesado exitosamente', 'Cerrar', {
-          duration: 3000, // Duración del snackbar en milisegundos
-          verticalPosition: 'top', // Posición vertical
-          horizontalPosition: 'center' // Posición horizontal
-        });
+        this.transferencias._updateChangeSubscription(); 
 
       },
       error => {
         console.error('No se obtuvieron ordenes', error);
-       
+
+        this.snackBar.open('No se obtuvieron ordenes con los parámetros ingresados', 'Cerrar', {
+          duration: 3000, // Duración del snackbar en milisegundos
+          verticalPosition: 'top', // Posición vertical
+          horizontalPosition: 'center' // Posición horizontal
+        });
+      
       }
     );
   }

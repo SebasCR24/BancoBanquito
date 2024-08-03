@@ -1,9 +1,13 @@
 <div class="container mt-5">
   <h2 class="mb-5 text-center">Banca Web Empresas - BanQuito</h2>
+  <h3 class="mt-5 mb-4 text-center">Reportes</h3>
+
 
   <button mat-raised-button color="primary" (click)="exportAllToExcel()">Exportar Todo a Excel</button>
       <button mat-raised-button color="accent" (click)="exportAllToPDF()">Exportar Todo a PDF</button>
-  
+  <br>
+  <br>
+
   <!-- Filtro Global -->
   <form [formGroup]="listForm" (ngSubmit)="onSubmit()" class="mb-4 text-center">
       <div class="form-row justify-content-center">
@@ -43,8 +47,8 @@
   
 
   <!-- Lista de Movimientos -->
-  <h3 class="mt-5 mb-4 text-center">Lista de Movimientos</h3>
-  <table class="table table-striped mat-elevation-z8 mt-4">
+   
+  <table *ngIf="movimientos" class="table table-striped mat-elevation-z8 mt-4">
       <thead>
           <tr>
               <th>Servicio</th>

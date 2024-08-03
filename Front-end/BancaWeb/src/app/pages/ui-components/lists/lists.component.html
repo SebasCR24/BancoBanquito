@@ -1,28 +1,12 @@
 <div class="container mt-5">
     <h2 class="mb-5 text-center">Banca Web Empresas - BanQuito</h2>
-    
+    <h3 class="mt-5 mb-4 text-center">Lista de Movimientos</h3>
+    <br>
+    <br>
     <!-- Filtro Global -->
     <form [formGroup]="listForm" (ngSubmit)="onSubmit()" class="mb-4 text-center">
         <div class="form-row justify-content-center">
-            <div class="form-group col-md-3">
-                <label for="serviceId">Tipo de servicio</label>
-                <select class="form-control" id="accountId" formControlName="serviceId" >
-                    <option value="" disabled selected>Seleccione...</option>
-                    <!-- <option *ngFor="let service of services" [value]="1"> {{ service.name }}</option> -->   
-                    <!-- <option [value]="'LEY0053994'">Cobro </option>        
-                    <option  [value]="'JXM0025321'">Recaudo</option>        -->
-                    <option [value]="1">Cobro </option>        
-                    <option  [value]="2">Recaudo</option> 
-                </select>
-            </div>
-            <div class="form-group col-md-3">
-                <label for="fechaDesde">Fecha Desde</label>
-                <input type="date" class="form-control" id="fechaDesde" formControlName="startDate">
-            </div>
-            <div class="form-group col-md-3">
-                <label for="fechaHasta">Fecha Hasta</label>
-                <input type="date" class="form-control" id="fechaHasta" formControlName="endDate">
-            </div>
+            
             <div class="form-group col-md-3">
                 <label for="accountId">Numero de cuenta</label>
                 <select class="form-control" id="accountId" formControlName="accountId">
@@ -40,37 +24,23 @@
     
   
     <!-- Lista de Movimientos -->
-    <h3 class="mt-5 mb-4 text-center">Lista de Movimientos</h3>
-    <table class="table table-striped mat-elevation-z8 mt-4">
+    <table *ngIf="payments" class="table table-striped mat-elevation-z8 mt-4">
         <thead>
             <tr>
-                <th>Servicio</th>
-                <th>Cuenta</th>
-                <th>Fecha de inicio</th>
-                <th>Fecha de fin</th>
+                <th>Tipo de pago</th>
+                <th>Fecha de pago</th>
+                <th>Saldo pendiente</th>
+                <th>Canal</th>
                 <th>Monto</th>
-                <th>Descripcion</th>
-                <th>Estado</th>
-                <th>Items</th>
-                <th>Acción</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let movimiento of movimientos">
-                <td>{{ movimiento.serviceId | servicee }}</td>
-                <td>{{ movimiento.accountId }}</td>
-                <td>{{ movimiento.startDate }}</td>
-                <td>{{ movimiento.endDate}}</td>
-                <td>{{ movimiento.totalAmount}}</td>
-                <td>{{ movimiento.description }}</td>
-                <td>{{ movimiento.status |estado}}</td>
-                <td> <button class="btn btn-secondary" (click)="obtainItems(movimiento.serviceId, movimiento.orderId)">Items</button></td>
-                <td >
-                    <div *ngIf="movimiento.status == 'PEN'">
-                        <button class="btn btn-success" (click)="cambioEstado(movimiento.uniqueId, 'ACT')">Aprobar</button>
-                        <button class="btn btn-danger" (click)="cambioEstado(movimiento.uniqueId, 'EXP')">Rechazar</button>    
-                    </div>
-                </td>
+            <tr *ngFor="let movimiento of payments">
+                <td>{{ movimiento.paymentType}}</td>
+                <td>{{ movimiento.paymentDate }}</td>
+                <td>{{ movimiento.outstandingBalance }}</td>
+                <td>{{ movimiento.channel}}</td>
+                <td>{{ movimiento.collectionAmount}}</td>
             </tr>
         </tbody>
     </table>
