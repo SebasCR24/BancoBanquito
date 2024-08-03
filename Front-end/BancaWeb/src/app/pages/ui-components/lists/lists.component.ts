@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CobroService } from 'src/app/services/cobro.service';
 import { CompanyService } from 'src/app/services/company.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { Router } from '@angular/router';
 
 export interface Movimiento {
   idMovimiento: number;
@@ -26,7 +26,7 @@ export class AppListsComponent  implements OnInit {
   movimientos:any;
 
 
-  constructor(private fb: FormBuilder,private cobroService:CobroService, private companyService:CompanyService){
+  constructor(private fb: FormBuilder,private cobroService:CobroService, private companyService:CompanyService, private router: Router){
 
     this.listForm = this.fb.group({
       serviceId: ['', Validators.required],
@@ -92,32 +92,11 @@ export class AppListsComponent  implements OnInit {
 
 
   obtainItems(servicio:any, ordenId:any){
-    console.log('id ',ordenId);
-    console.log('servicio ',servicio);
+    this.router.navigate(['/ui-components/items', servicio, ordenId]);
+    // console.log('id ',ordenId);
+    // console.log('servicio ',servicio);
 
-    if(servicio==2){
-      this.cobroService.obtainItemCollection(ordenId).subscribe(
-        response => {
-          console.log('Se obtieron item collection', response);
-        },
-        error => {
-          console.error('No se obtuvieron ordenes', error);
-         
-        }
-      );
 
-    }
-    else{
-      this.cobroService.obtainItemAutomaticCollection(ordenId).subscribe(
-        response => {
-          console.log('Se obtieron automatic collection', response);
-        },
-        error => {
-          console.error('No se obtuvieron ordenes', error);
-        
-        }
-      );
-    }
   }
 
 

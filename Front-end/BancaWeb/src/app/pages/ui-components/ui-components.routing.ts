@@ -12,6 +12,5 @@ export const UiComponentsRoutes: Routes = [
   { path: 'lists', component: AppListsComponent },
   { path: 'menu', component: AppMenuComponent },
   { path: 'tooltips', component: AppTooltipsComponent },
-  { path: 'items/:id', component: ItemsComponent }
-
+  { path: 'items/:servicio/:ordenId', component: ItemsComponent }
 ];
