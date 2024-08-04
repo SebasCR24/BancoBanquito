@@ -33,6 +33,7 @@ export class ChipsComponent  implements OnInit {
   payments:any;
   movimientos:any;
   empresa:any;
+  usuario:any;
   transferencias:any;
 
   constructor(private snackBar: MatSnackBar, private fb: FormBuilder,private cobroService:CobroService, private companyService:CompanyService, private router: Router) {
@@ -45,11 +46,18 @@ export class ChipsComponent  implements OnInit {
     });
 
     const empresa2 = localStorage.getItem('empresa');
+    const usuario2 = localStorage.getItem('usuario');
 
     if (empresa2) {
       this.empresa = JSON.parse(empresa2);
     } else {
       this.empresa = null;
+    }
+
+    if (usuario2) {
+      this.usuario = JSON.parse(usuario2);
+    } else {
+      this.usuario = null;
     }
   }
 
@@ -109,17 +117,6 @@ export class ChipsComponent  implements OnInit {
       },
       error => {
         console.error('No se obtuvieron cuentas de la empresa', error);
-       
-      }
-    );
-
-    this.cobroService.paymentByCuenta(3).subscribe(
-      response => {
-        console.log('Se obtieron los pagos hacia la cuenta', response);
-        this.payments=response
-      },
-      error => {
-        console.error('No se obtieron los pagos hacia la cuenta', error);
        
       }
     );

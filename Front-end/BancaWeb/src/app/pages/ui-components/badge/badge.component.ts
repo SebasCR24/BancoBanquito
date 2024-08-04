@@ -57,6 +57,7 @@ export class BadgeComponent implements OnInit {
       totalAmount: [''],
       description: [''],
       status: [''],
+      companyUid: [''],
     });
 
     this.listForm = this.fb.group({
@@ -146,6 +147,7 @@ export class BadgeComponent implements OnInit {
   uploadFile() {
     if (this.selectedFile) {
       this.cobroForm.value.status='PEN'
+      this.cobroForm.value.companyUid=this.empresa.uniqueId
       this.cobroForm.value.uniqueId='ORD'+this.generateRandomString()
 
       this.cobroService.crearOrder(this.selectedFile, this.cobroForm.value).subscribe(

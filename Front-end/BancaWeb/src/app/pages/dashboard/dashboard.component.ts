@@ -18,7 +18,7 @@ export class DashboardComponent {
     if (usuario2) {
       this.usuario = JSON.parse(usuario2);
     } else {
-      this.empresa = null;
+      this.usuario = null;
     }
 
     if (empresa2) {

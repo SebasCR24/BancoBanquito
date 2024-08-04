@@ -57,6 +57,6 @@ export class ItemsComponent implements OnInit {
 
 
   regresar(){
-    this.router.navigate(['/ui-components/lists']);
+    this.router.navigate(['/ui-components/movimientos']);
   }
 }

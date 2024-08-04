@@ -73,7 +73,7 @@
               <td>{{ movimiento.status |estado}}</td>
               <td> <button class="btn btn-secondary" (click)="obtainItems(movimiento.serviceId, movimiento.orderId)">Items</button></td>
               <td >
-                  <div *ngIf="movimiento.status == 'PEN'">
+                  <div *ngIf="movimiento.status == 'PEN' && usuario.role=='APR' ">
                       <button class="btn btn-success" (click)="cambioEstado(movimiento.uniqueId, 'ACT')">Aprobar</button>
                       <button class="btn btn-danger" (click)="cambioEstado(movimiento.uniqueId, 'EXP')">Rechazar</button>    
                   </div>

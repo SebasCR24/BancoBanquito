@@ -18,14 +18,15 @@ export const navItems: NavItem[] = [
     route: '/position-consolidated',
   },
   {
-    displayName: 'COBROS / RECAUDOS',
+    displayName: 'Carga de órdenes',
     iconName: 'cash', 
     route: '/ui-components/badge',
+    showIf: 'ADM'
   },
   {
     displayName: 'MOVIMIENTOS',
     iconName: 'list',
-    route: '/ui-components/lists',
+    route: '/ui-components/movimientos',
   },
   {
     displayName: 'REPORTES',
