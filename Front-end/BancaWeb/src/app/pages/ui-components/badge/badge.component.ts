@@ -1,23 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import * as XLSX from 'xlsx';
-import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import { MatTableDataSource } from '@angular/material/table';
 import { CobroService } from 'src/app/services/cobro.service';
 import { CompanyService } from 'src/app/services/company.service';
-
-interface Cobro {
-  uniqueId: string;
-  serviceId: string;
-  accountId: string;
-  startDate: string;
-  endDate: string;
-  totalAmount: number;
-  description: string;
-  status: string;
-}
 
 @Component({
   selector: 'app-badge',
@@ -26,26 +12,10 @@ interface Cobro {
 })
 export class BadgeComponent implements OnInit {
   cobroForm: FormGroup;
-  listForm: FormGroup;
-
-  cobros = new MatTableDataSource<Cobro>([]);
   fileLoaded: boolean = false;
   selectedFile: File | null = null;
   accounts:any;
-  services:any;
   empresa:any;
-
-
-  displayedColumns: string[] = [
-  'uniqueId',
-  'serviceId',
-  'accountId',
-  'startDate',
-  'endDate',
-  'totalAmount',
-  'description',
-  'status',
-    ];
 
   constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private cobroService:CobroService, private companyService:CompanyService) {
     this.cobroForm = this.fb.group({
@@ -60,40 +30,12 @@ export class BadgeComponent implements OnInit {
       companyUid: [''],
     });
 
-    this.listForm = this.fb.group({
-      serviceId: ['', Validators.required],
-      accountId:  ['', Validators.required],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required]
-    });
-
     const empresa2 = localStorage.getItem('empresa');
-
     if (empresa2) {
       this.empresa = JSON.parse(empresa2);
     } else {
       this.empresa = null;
     }
-
-
-    
-  }
-
-  getOrder(){
-    let serviceId=this.listForm.value.serviceId
-    let accountId=this.listForm.value.accountId
-    let startDate=this.listForm.value.startDate
-    let endtDate=this.listForm.value.endtDate
-
-    this.cobroService.getOrderByServiceAndDate(serviceId,accountId, startDate, endtDate).subscribe(
-      response => {
-        console.log('Se obtieron ordenes', response);
-      },
-      error => {
-        console.error('No se obtuvieron ordenes', error);
-       
-      }
-    );
   }
 
   ngOnInit(): void {
@@ -104,25 +46,11 @@ export class BadgeComponent implements OnInit {
       },
       error => {
         console.error('No se obtuvieron cuentas de la empresa', error);
-       
       }
-    );
-
-    // this.companyService.getServices().subscribe(
-    //   response => {
-    //     console.log('Se obtieron servicios disponibles', response);
-    //     this.services=response
-    //   },
-    //   error => {
-    //     console.error('No se obtuvieron servicios', error);
-       
-    //   }
-    // );
-    
+    );    
   }
 
   onSubmit() {
-    this.getOrder()
   }
 
   onFileChange(event: any) {
@@ -140,7 +68,6 @@ export class BadgeComponent implements OnInit {
       const randomIndex = Math.floor(Math.random() * charsetLength);
       result += charset[randomIndex];
     }
-    
     return result;
   }
 
@@ -174,54 +101,7 @@ export class BadgeComponent implements OnInit {
 
   cancelFile(fileInput: HTMLInputElement) {
     this.fileLoaded = false;
-    this.cobros.data = [];
     fileInput.value = ''; 
   }
 
-
-  exportAllToExcel() {
-    const dataToExport = this.cobros.data.map(cobro => {
-      return {
-        'Id del cobro': cobro.uniqueId,
-        'Id del servicio': cobro.serviceId,
-        'Cuenta': cobro.accountId,
-        'Fecha de inicio': cobro.startDate,
-        'Fecha de fin': cobro.endDate,
-        'Monto total': cobro.totalAmount,
-        'Descripcion': cobro.description,
-        'Estado': cobro.status
-      };
-    });
-
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(dataToExport);
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Cobros');
-    XLSX.writeFile(wb, 'COBROS.xlsx');
-  }
-
-  exportAllToPDF() {
-    const doc = new jsPDF();
-    const col = ['Empresa', 'Referencia', 'Nombres del Cliente', 'Tipo de Identificación', 'Identificación', 'Cuenta del Cliente', 'Monto', 'Fecha de Inicio', 'Fecha de Vencimiento', 'Cuenta a Acreditar', 'Tipo', 'Frecuencia', 'Cancelado'];
-    const rows: any[] = [];
-
-    this.cobros.data.forEach(cobro => {
-      const temp = [
-        cobro.uniqueId,
-        cobro.serviceId,
-        cobro.accountId,
-        cobro.startDate,
-        cobro.endDate,
-        cobro.totalAmount,
-        cobro.description,
-        cobro.status
-      ];
-      rows.push(temp);
-    });
-
-    (doc as any).autoTable({
-      head: [col],
-      body: rows
-    });
-    doc.save('COBROS.pdf');
-  }
 }

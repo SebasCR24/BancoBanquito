@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 export class ItemsComponent implements OnInit {
   servicio: any;
   ordenId: any;
-
   items:any;
 
   constructor(private route: ActivatedRoute, private cobroService:CobroService, private router: Router) {}
@@ -20,38 +19,30 @@ export class ItemsComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.servicio = params['servicio'];
-      this.ordenId = params['ordenId'];
-      
-      console.log('Servicio:', this.servicio);
-      console.log('Orden ID:', this.ordenId);
-      
+      this.ordenId = params['ordenId'];      
 
       if(this.servicio==2){
-      this.cobroService.obtainItemCollection(this.ordenId).subscribe(
-        response => {
-          console.log('Se obtieron item collection', response);
-          this.items= response;
-        },
-        error => {
-          console.error('No se obtuvieron ordenes', error);
-         
-        }
-      );
-
-    }
-    else{
-      this.cobroService.obtainItemAutomaticCollection(this.ordenId).subscribe(
-        response => {
-          console.log('Se obtieron automatic collection', response);
-          this.items= response;
-
-        },
-        error => {
-          console.error('No se obtuvieron ordenes', error);
-        
-        }
-      );
-    }
+        this.cobroService.obtainItemCollection(this.ordenId).subscribe(
+          response => {
+            console.log('Se obtieron item collection', response);
+            this.items= response;
+          },
+          error => {
+            console.error('No se obtuvieron ordenes', error);
+          }
+        );
+      }
+      else{
+        this.cobroService.obtainItemAutomaticCollection(this.ordenId).subscribe(
+          response => {
+            console.log('Se obtieron automatic collection', response);
+            this.items= response;
+          },
+          error => {
+            console.error('No se obtuvieron ordenes', error);
+          }
+        );
+      }
     });
   }
 

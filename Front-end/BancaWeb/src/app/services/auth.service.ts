@@ -24,6 +24,8 @@ export class AuthService {
   constructor(private router: Router, private http: HttpClient) { }
 
   login2(datos:any): Observable<any[]> {
+    localStorage.setItem('isLoggedIn', 'true');
+
     return this.http.post<any>(`${this.apiUrl}/users/login`,datos)
   }
 

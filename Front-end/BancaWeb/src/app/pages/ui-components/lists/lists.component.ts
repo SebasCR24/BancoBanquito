@@ -5,15 +5,6 @@ import { AccountService } from 'src/app/services/account.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-export interface Movimiento {
-  idMovimiento: number;
-  idCuenta: number;
-  tipoMovimiento: string;
-  monto: number;
-  fecha: string;
-  descripcion: string;
-}
-
 @Component({
   selector: 'app-lists',
   templateUrl: './lists.component.html',
@@ -21,21 +12,16 @@ export interface Movimiento {
 })
 export class AppListsComponent  implements OnInit {
   listForm: FormGroup;
-  services:any;
   accounts:any;
   accountValue:any;
   payments:any;
-  movimientos:any;
   empresa:any;
 
 
   constructor(private fb: FormBuilder,private cobroService:CobroService, private companyService:CompanyService, private router: Router, private accountService:AccountService){
 
     this.listForm = this.fb.group({
-      serviceId: ['', Validators.required],
       accountId:  ['', Validators.required],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required]
     });
 
     const empresa2 = localStorage.getItem('empresa');
@@ -48,18 +34,7 @@ export class AppListsComponent  implements OnInit {
 
   }
 
-  ngOnInit():void{
-    // this.companyService.getServices().subscribe(
-    //   response => {
-    //     console.log('Se obtieron servicios disponibles', response);
-    //     this.services=response
-    //   },
-    //   error => {
-    //     console.error('No se obtuvieron servicios', error);
-       
-    //   }
-    // );
-    
+  ngOnInit():void{ 
 
     this.companyService.getAccounts(this.empresa.uniqueId).subscribe(
       response => {
@@ -71,20 +46,11 @@ export class AppListsComponent  implements OnInit {
        
       }
     );
-
-    this.cobroService.paymentByCuenta(3).subscribe(
-      response => {
-        console.log('Se obtieron los pagos hacia la cuenta', response);
-        this.payments=response
-      },
-      error => {
-        console.error('No se obtieron los pagos hacia la cuenta', error);
-       
-      }
-    );
   }
 
   onSubmit() {
+    
+    //USO CUANDO SE TENGAN LAS MISMAS CUENTAS DE MONGO EN EL CORE
     let accountId=this.listForm.value.accountId
 
     this.accountService.obtainAccount(1234567890).subscribe(
@@ -109,29 +75,11 @@ export class AppListsComponent  implements OnInit {
        
       }
     );
-
-    // this.cobroService.paymentByCuenta(23).subscribe(
-    //   response => {
-    //     console.log('Se obtieron los pagos hacia la cuenta', response);
-    //     this.payments=response
-    //   },
-    //   error => {
-    //     console.error('No se obtieron los pagos hacia la cuenta', error);
-       
-    //   }
-    // );
-
-
-
   }
 
 
   obtainItems(servicio:any, ordenId:any){
     this.router.navigate(['/ui-components/items', servicio, ordenId]);
-    // console.log('id ',ordenId);
-    // console.log('servicio ',servicio);
-
-
   }
 
 
@@ -146,5 +94,4 @@ export class AppListsComponent  implements OnInit {
     );
   }
 
-  
 }

@@ -15,6 +15,10 @@ export class EstadoPipe implements PipeTransform {
           return 'Expirado';
         } else if(value=== 'ACT'){
           return 'Activo'
+        } else if(value=== 'APR'){
+          return 'Aprobado'
+        } else if(value=== 'REC'){
+          return 'Rechazado'
         }else if(value=== 'EXE'){
           return 'Exe'
         }else if(value=== 'DEB'){
@@ -27,12 +31,7 @@ export class EstadoPipe implements PipeTransform {
           return 'SI'
         }else if(value=== 'TRANSFER'){
           return 'transferencia'
-        }else if(value=== 'ADM'){
-          return 'Operador'
-        }else if(value=== 'APR'){
-          return 'Aprobador'
         }
-
       }
 }
 

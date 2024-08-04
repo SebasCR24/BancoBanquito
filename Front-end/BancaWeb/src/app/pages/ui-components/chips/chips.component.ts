@@ -96,8 +96,6 @@ export class ChipsComponent  implements OnInit {
   }
 
 
-
-
   ngOnInit():void{
     this.companyService.getAccounts(this.empresa.uniqueId).subscribe(
       response => {
@@ -118,15 +116,9 @@ export class ChipsComponent  implements OnInit {
     let startDate=this.listForm.value.startDate
     let endDate=this.listForm.value.endDate
 
-
     this.cobroService.getOrderByServiceAndDate(serviceId,accountId, startDate, endDate).subscribe(
       
       response => {
-
-        localStorage.setItem('serviceId', serviceId);
-        localStorage.setItem('accountId', accountId);
-        localStorage.setItem('startDate', startDate);
-        localStorage.setItem('endDate', endDate);
         console.log('Se obtieron ordenes', response);
         this.movimientos=response;
         this.transferencias = new MatTableDataSource<Transferencia>([]);
@@ -152,10 +144,6 @@ export class ChipsComponent  implements OnInit {
   }
 
 
-
-  // obtainItems(servicio:any, ordenId:any){
-  //   this.router.navigate(['/ui-components/items', servicio, ordenId]);
-  // }
   obtainItems(servicio: any, ordenId: any) {
     const url = this.router.createUrlTree(['/ui-components/items', servicio, ordenId]).toString();
     window.open(url, '_blank');
