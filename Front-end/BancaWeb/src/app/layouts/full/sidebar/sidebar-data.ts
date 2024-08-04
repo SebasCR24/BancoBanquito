@@ -5,9 +5,9 @@ export const navItems: NavItem[] = [
     navCap: 'Inicio',
   },
   {
-    displayName: 'DASHBOARD',
-    iconName: 'layout-dashboard',
-    route: '/dashboard',
+    displayName: 'POSICIÓN CONSOLIDADA',
+    iconName: 'list',
+    route: '/ui-components/movimientos',
   },
   {
     navCap: 'MENU',
@@ -17,11 +17,6 @@ export const navItems: NavItem[] = [
     iconName: 'cash', 
     route: '/ui-components/badge',
     showIf: 'ADM'
-  },
-  {
-    displayName: 'POSICIÓN CONSOLIDADA',
-    iconName: 'list',
-    route: '/ui-components/movimientos',
   },
   {
     displayName: 'REPORTES',
