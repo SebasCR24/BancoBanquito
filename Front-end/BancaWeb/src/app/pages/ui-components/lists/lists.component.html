@@ -1,35 +1,35 @@
 <div class="container mt-5">
     <h2 class="mb-5 text-center">Banca Web Empresas - BanQuito</h2>
-    <h3 class="mt-5 mb-4 text-center">Lista de Movimientos</h3>
+    <h3 class="mt-5 mb-4 text-center">Posición consolidada</h3>
     <br>
     <br>
     <!-- Filtro Global -->
     <form [formGroup]="listForm" (ngSubmit)="onSubmit()" class="mb-4 text-center">
-        <div class="form-row justify-content-center">
-            
+        <div class="row justify-content-center align-items-center">
             <div class="form-group col-md-3">
-                <label for="accountId">Numero de cuenta</label>
-                <select class="form-control" id="accountId" formControlName="accountId">
-                    <option value="" disabled selected>Seleccione...</option>
-                    <option *ngFor="let account of accounts" [value]=account.codeInternalAccount> {{ account.codeInternalAccount }}</option>
-                </select>
+              <select class="form-control" id="accountId" formControlName="accountId">
+                <option value="" disabled selected>Número de cuenta</option>
+                <option *ngFor="let account of accounts" [value]="account.codeInternalAccount">
+                  {{ account.codeInternalAccount }}
+                </option>
+              </select>
             </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-auto">
+            
+            <div class="col-md-auto">
               <button mat-raised-button color="primary" type="submit">Buscar</button>
             </div>
-          </div>              
+          </div>            
     </form>
-    
-  
+    <div class="card" *ngIf="accountValue != null">
+        <h3 class="text-center">Saldo disponible: <span class="card-value">${{accountValue.availableBalance}}</span></h3>
+    </div>
+        
     <!-- Lista de Movimientos -->
     <table *ngIf="payments" class="table table-striped mat-elevation-z8 mt-4">
         <thead>
             <tr>
                 <th>Tipo de transacción</th>
-                <th>Subtipo de transacción</th>
-                <th>Referencia</th>
+                <th>Tipo</th>
                 <th>Cuenta del deudor</th>
                 <th>Fecha</th>
                 <th>Impuesto aplicado</th>
@@ -40,15 +40,38 @@
         </thead>
         <tbody>
             <tr *ngFor="let movimiento of payments">
-                <td>{{ movimiento.transactionType}}</td>
-                <td>{{ movimiento.transactionSubtype }}</td>
-                <td>{{ movimiento.reference }}</td>
-                <td>{{ movimiento.debitorAccount}}</td>
-                <td>{{ movimiento.createDate}}</td>
-                <td>{{ movimiento.applyTax}}</td>
-                <td>{{ movimiento.parentTransactionKey}}</td>
-                <td>{{ movimiento.status | estado}}</td>
-                <td>{{ movimiento.amount}}</td>
+                <td [ngClass]="{
+      'text-red': movimiento.transactionType === 'DEB',
+      'text-green': movimiento.transactionType === 'CRE'
+    }">{{ movimiento.transactionType | estado}}</td>
+                <td [ngClass]="{
+      'text-red': movimiento.transactionType === 'DEB',
+      'text-green': movimiento.transactionType === 'CRE'
+    }">{{ movimiento.reference }}</td>
+                <td [ngClass]="{
+      'text-red': movimiento.transactionType === 'DEB',
+      'text-green': movimiento.transactionType === 'CRE'
+    }">{{ movimiento.DEBitorAccount}}</td>
+                <td [ngClass]="{
+      'text-red': movimiento.transactionType === 'DEB',
+      'text-green': movimiento.transactionType === 'CRE'
+    }">{{ movimiento.createDate | date}}</td>
+                <td [ngClass]="{
+      'text-red': movimiento.transactionType === 'DEB',
+      'text-green': movimiento.transactionType === 'CRE'
+    }">{{ movimiento.applyTax | estado }}</td>
+                <td [ngClass]="{
+      'text-red': movimiento.transactionType === 'DEB',
+      'text-green': movimiento.transactionType === 'CRE'
+    }">{{ movimiento.parentTransactionKey}}</td>
+                <td [ngClass]="{
+      'text-red': movimiento.transactionType === 'DEB',
+      'text-green': movimiento.transactionType === 'CRE'
+    }">{{ movimiento.status | estado}}</td>
+                <td [ngClass]="{
+      'text-red': movimiento.transactionType === 'DEB',
+      'text-green': movimiento.transactionType === 'CRE'
+    }">{{ movimiento.amount}}</td>
             </tr>
         </tbody>
     </table>

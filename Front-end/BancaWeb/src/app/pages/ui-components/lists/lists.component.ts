@@ -23,6 +23,7 @@ export class AppListsComponent  implements OnInit {
   listForm: FormGroup;
   services:any;
   accounts:any;
+  accountValue:any;
   payments:any;
   movimientos:any;
   empresa:any;
@@ -86,16 +87,16 @@ export class AppListsComponent  implements OnInit {
   onSubmit() {
     let accountId=this.listForm.value.accountId
 
-    // this.accountService.obtainAccount(1234567890).subscribe(
-    //   response => {
-    //     console.log('Se obtieron los aaa hacia la cuenta', response);
-    //     this.payments=response
-    //   },
-    //   error => {
-    //     console.error('No se obtieron los pagos hacia la cuenta', error);
+    this.accountService.obtainAccount(1234567890).subscribe(
+      response => {
+        console.log('Se obtuvo el valor que tiene la cuenta', response);
+        this.accountValue=response
+      },
+      error => {
+        console.error('No se obtuvo el valor que tiene la cuenta', error);
        
-    //   }
-    // );
+      }
+    );
 
 
     this.accountService.obtainTransaction(1234567890).subscribe(

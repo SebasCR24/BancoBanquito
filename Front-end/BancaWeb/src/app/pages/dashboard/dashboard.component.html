@@ -2,26 +2,26 @@
 
   <h2 class="mb-4 text-center">Banca Web Empresas - BanQuito</h2>
   <h4 class="mb-4 text-center">Empresa: {{empresa.companyName}}</h4>
-  <h4 class="mb-4 text-center">Rol: {{usuario.role}}</h4>
+  <h4 class="mb-4 text-center">Rol: {{usuario.role |estado}}</h4>
   
   <!-- Accesos Directos -->
   <div class="row mb-4 text-center">
     <div class="col-md-4">
-      <button class="shortcut-card btn btn-link" [routerLink]="'/position-consolidated'">
+      <button class="shortcut-card btn btn-link" >
         <img src="assets/icons/transfer.svg" alt="Transferir dinero" class="shortcut-icon">
-        <h3 class="shortcut-title">Posicion Consolidada</h3>
+        <h3 class="shortcut-title">Reportes</h3>
       </button>
     </div>
     <div class="col-md-4">
-      <button class="shortcut-card btn btn-link" [routerLink]="'/ui-components/badge'">
+      <button class="shortcut-card btn btn-link">
         <img src="assets/icons/payments.svg" alt="Realizar Pagos" class="shortcut-icon">
-        <h3 class="shortcut-title">Cobros/Recaudos</h3>
+        <h3 class="shortcut-title">Carga de órdenes</h3>
       </button>
     </div>
     <div class="col-md-4">
-      <button class="shortcut-card btn btn-link" [routerLink]="'/ui-components/movimientos'">
+      <button class="shortcut-card btn btn-link" >
         <img src="assets/icons/account-statement.svg" alt="Estados de cuenta" class="shortcut-icon">
-        <h3 class="shortcut-title">Movimientos</h3>
+        <h3 class="shortcut-title">Posición consolidada</h3>
       </button>
     </div>
   </div>

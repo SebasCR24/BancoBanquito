@@ -12,6 +12,11 @@ export const navItems: NavItem[] = [
   {
     navCap: 'MENU',
   },
+  // {
+  //   displayName: 'POSICIÓN CONSOLIDADA',
+  //   iconName: 'chart-pie',
+  //   route: '/position-consolidated',
+  // },
   {
     displayName: 'CARGA DE ÓRDENES',
     iconName: 'cash', 
@@ -19,7 +24,7 @@ export const navItems: NavItem[] = [
     showIf: 'ADM'
   },
   {
-    displayName: 'MOVIMIENTOS',
+    displayName: 'POSICIÓN CONSOLIDADA',
     iconName: 'list',
     route: '/ui-components/movimientos',
   },
