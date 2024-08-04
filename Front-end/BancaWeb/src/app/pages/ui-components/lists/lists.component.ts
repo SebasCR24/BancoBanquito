@@ -53,7 +53,7 @@ export class AppListsComponent  implements OnInit {
     //USO CUANDO SE TENGAN LAS MISMAS CUENTAS DE MONGO EN EL CORE
     let accountId=this.listForm.value.accountId
 
-    this.accountService.obtainAccount(1234567890).subscribe(
+    this.accountService.obtainAccount(accountId).subscribe(
       response => {
         console.log('Se obtuvo el valor que tiene la cuenta', response);
         this.accountValue=response
@@ -65,7 +65,7 @@ export class AppListsComponent  implements OnInit {
     );
 
 
-    this.accountService.obtainTransaction(1234567890).subscribe(
+    this.accountService.obtainTransaction(accountId).subscribe(
       response => {
         console.log('Se obtieron los movimientos hacia la cuenta', response);
         this.payments=response

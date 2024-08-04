@@ -25,6 +25,7 @@ export class AuthService {
 
   login2(datos:any): Observable<any[]> {
     localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('currentUser', JSON.stringify(datos));
 
     return this.http.post<any>(`${this.apiUrl}/users/login`,datos)
   }
