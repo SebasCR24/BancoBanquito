@@ -28,7 +28,7 @@ export class EstadoPipe implements PipeTransform {
         }else if(value=== 'TRANSFER'){
           return 'transferencia'
         }else if(value=== 'ADM'){
-          return 'Administrador'
+          return 'Operador'
         }else if(value=== 'APR'){
           return 'Aprobador'
         }
