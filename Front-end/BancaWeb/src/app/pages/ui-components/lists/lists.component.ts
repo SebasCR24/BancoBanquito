@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CobroService } from 'src/app/services/cobro.service';
 import { CompanyService } from 'src/app/services/company.service';
+import { AccountService } from 'src/app/services/account.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -27,7 +28,7 @@ export class AppListsComponent  implements OnInit {
   empresa:any;
 
 
-  constructor(private fb: FormBuilder,private cobroService:CobroService, private companyService:CompanyService, private router: Router){
+  constructor(private fb: FormBuilder,private cobroService:CobroService, private companyService:CompanyService, private router: Router, private accountService:AccountService){
 
     this.listForm = this.fb.group({
       serviceId: ['', Validators.required],
@@ -85,9 +86,21 @@ export class AppListsComponent  implements OnInit {
   onSubmit() {
     let accountId=this.listForm.value.accountId
 
-    this.cobroService.paymentByCuenta(23).subscribe(
+    // this.accountService.obtainAccount(1234567890).subscribe(
+    //   response => {
+    //     console.log('Se obtieron los aaa hacia la cuenta', response);
+    //     this.payments=response
+    //   },
+    //   error => {
+    //     console.error('No se obtieron los pagos hacia la cuenta', error);
+       
+    //   }
+    // );
+
+
+    this.accountService.obtainTransaction(1234567890).subscribe(
       response => {
-        console.log('Se obtieron los pagos hacia la cuenta', response);
+        console.log('Se obtieron los movimientos hacia la cuenta', response);
         this.payments=response
       },
       error => {
@@ -95,6 +108,19 @@ export class AppListsComponent  implements OnInit {
        
       }
     );
+
+    // this.cobroService.paymentByCuenta(23).subscribe(
+    //   response => {
+    //     console.log('Se obtieron los pagos hacia la cuenta', response);
+    //     this.payments=response
+    //   },
+    //   error => {
+    //     console.error('No se obtieron los pagos hacia la cuenta', error);
+       
+    //   }
+    // );
+
+
 
   }
 

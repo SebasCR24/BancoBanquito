@@ -11,7 +11,7 @@
                 <label for="accountId">Numero de cuenta</label>
                 <select class="form-control" id="accountId" formControlName="accountId">
                     <option value="" disabled selected>Seleccione...</option>
-                    <option *ngFor="let account of accounts" [value]="1"> {{ account.codeInternalAccount }}</option>
+                    <option *ngFor="let account of accounts" [value]=account.codeInternalAccount> {{ account.codeInternalAccount }}</option>
                 </select>
             </div>
         </div>
@@ -27,20 +27,28 @@
     <table *ngIf="payments" class="table table-striped mat-elevation-z8 mt-4">
         <thead>
             <tr>
-                <th>Tipo de pago</th>
-                <th>Fecha de pago</th>
-                <th>Saldo pendiente</th>
-                <th>Canal</th>
+                <th>Tipo de transacción</th>
+                <th>Subtipo de transacción</th>
+                <th>Referencia</th>
+                <th>Cuenta del deudor</th>
+                <th>Fecha</th>
+                <th>Impuesto aplicado</th>
+                <th>Padre de la transacción</th>
+                <th>Estado</th>
                 <th>Monto</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let movimiento of payments">
-                <td>{{ movimiento.paymentType}}</td>
-                <td>{{ movimiento.paymentDate }}</td>
-                <td>{{ movimiento.outstandingBalance }}</td>
-                <td>{{ movimiento.channel}}</td>
-                <td>{{ movimiento.collectionAmount}}</td>
+                <td>{{ movimiento.transactionType}}</td>
+                <td>{{ movimiento.transactionSubtype }}</td>
+                <td>{{ movimiento.reference }}</td>
+                <td>{{ movimiento.debitorAccount}}</td>
+                <td>{{ movimiento.createDate}}</td>
+                <td>{{ movimiento.applyTax}}</td>
+                <td>{{ movimiento.parentTransactionKey}}</td>
+                <td>{{ movimiento.status | estado}}</td>
+                <td>{{ movimiento.amount}}</td>
             </tr>
         </tbody>
     </table>

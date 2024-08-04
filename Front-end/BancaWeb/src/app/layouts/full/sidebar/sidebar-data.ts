@@ -13,12 +13,7 @@ export const navItems: NavItem[] = [
     navCap: 'MENU',
   },
   {
-    displayName: 'POSICIÓN CONSOLIDADA',
-    iconName: 'chart-pie',
-    route: '/position-consolidated',
-  },
-  {
-    displayName: 'Carga de órdenes',
+    displayName: 'CARGA DE ÓRDENES',
     iconName: 'cash', 
     route: '/ui-components/badge',
     showIf: 'ADM'
