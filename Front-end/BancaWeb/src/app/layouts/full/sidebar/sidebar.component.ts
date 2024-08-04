@@ -31,15 +31,19 @@ export class SidebarComponent implements OnInit {
 
   filterNavItems() {
     const usuario2 = localStorage.getItem('usuario');
-
+  
     if (usuario2) {
       this.usuario = JSON.parse(usuario2);
-      const userRole=this.usuario.role
-
+      const userRole = this.usuario.role;
+  
       if (userRole) {
         this.filteredNavItems = this.navItems.filter(item => {
           if (item.showIf) {
-            return item.showIf === userRole;
+            if (Array.isArray(item.showIf)) {
+              return item.showIf.includes(userRole);
+            } else {
+              return item.showIf === userRole;
+            }
           }
           return true; 
         });
@@ -48,8 +52,9 @@ export class SidebarComponent implements OnInit {
       }
     } else {
       this.usuario = null;
+      this.filteredNavItems = this.navItems; 
     }
-
   }
+  
 
 }

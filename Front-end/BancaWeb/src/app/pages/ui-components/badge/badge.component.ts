@@ -59,42 +59,53 @@ export class BadgeComponent implements OnInit {
     }
   }
 
-  generateRandomString(): string {
-    const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
-    const charsetLength = charset.length;
-    
-    for (let i = 0; i < 5; i++) {
-      const randomIndex = Math.floor(Math.random() * charsetLength);
-      result += charset[randomIndex];
-    }
-    return result;
-  }
 
   uploadFile() {
     if (this.selectedFile) {
-      this.cobroForm.value.status='PEN'
       this.cobroForm.value.companyUid=this.empresa.uniqueId
-      this.cobroForm.value.uniqueId='ORD'+this.generateRandomString()
 
-      this.cobroService.crearOrder(this.selectedFile, this.cobroForm.value).subscribe(
-        response => {
-          console.log('Archivo y datos subidos con éxito', response);
-          this.snackBar.open('Orden cargada de manera exitosa', 'Cerrar', {
-            duration: 3000,
-            verticalPosition: 'top',
-            horizontalPosition: 'center'
-          });
-        },
-        error => {
-          console.error('Error al subir el archivo y los datos', error);
-          this.snackBar.open('Error al cargar orden', 'Cerrar', {
-            duration: 3000,
-            verticalPosition: 'top',
-            horizontalPosition: 'center'
-          });
-        }
-      );
+      //si es un recaudo llamr al servicio de ingresar recaudos
+      if(this.cobroForm.value.serviceId==2){
+        this.cobroService.crearOrderRecaudo(this.selectedFile, this.cobroForm.value).subscribe(
+          response => {
+            console.log('Archivo y datos subidos con éxito', response);
+            this.snackBar.open('Orden cargada de manera exitosa', 'Cerrar', {
+              duration: 3000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center'
+            });
+          },
+          error => {
+            console.error('Error al subir el archivo y los datos', error);
+            this.snackBar.open('Error al cargar orden', 'Cerrar', {
+              duration: 3000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center'
+            });
+          }
+        );
+      }else{
+        this.cobroService.crearOrderCobroAutomatico(this.selectedFile, this.cobroForm.value).subscribe(
+          response => {
+            console.log('Archivo y datos subidos con éxito', response);
+            this.snackBar.open('Orden cargada de manera exitosa', 'Cerrar', {
+              duration: 3000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center'
+            });
+          },
+          error => {
+            console.error('Error al subir el archivo y los datos', error);
+            this.snackBar.open('Error al cargar orden', 'Cerrar', {
+              duration: 3000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center'
+            });
+          }
+        );
+      }
+
+      
     }
   }
 

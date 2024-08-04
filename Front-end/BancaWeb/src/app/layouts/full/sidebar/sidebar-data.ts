@@ -16,7 +16,7 @@ export const navItems: NavItem[] = [
     displayName: 'CARGA DE ÓRDENES',
     iconName: 'cash', 
     route: '/ui-components/badge',
-    showIf: 'ADM'
+    showIf: ['ADM', 'OPE']
   },
   {
     displayName: 'POSICIÓN CONSOLIDADA',

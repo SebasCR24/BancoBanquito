@@ -9,10 +9,12 @@ export class RolPipe implements PipeTransform {
 
     transform(value: any): any {
         
-        if(value=== 'ADM'){
+        if(value=== 'OPE'){
           return 'Operador'
         }else if(value=== 'APR'){
           return 'Aprobador'
+        } if(value=== 'ADM'){
+          return 'Administrador'
         }
 
       }

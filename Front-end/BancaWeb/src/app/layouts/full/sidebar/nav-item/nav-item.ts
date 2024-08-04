@@ -12,5 +12,5 @@ export interface NavItem {
     route?: string;
     children?: NavItem[];
     ddType?: string;
-    showIf?: string;
+    showIf?: string | string[];
 }
