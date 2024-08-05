@@ -15,7 +15,7 @@ applications:
           commands:
             - echo "Build completed successfully"
       artifacts:
-        baseDirectory: dist/modernize
+        baseDirectory: dist/modernize  # Ajusta esto a la carpeta generada
         files:
           - '**/*'
       cache:
