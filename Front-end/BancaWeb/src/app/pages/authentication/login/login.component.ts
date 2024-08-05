@@ -58,7 +58,7 @@ export class LoginComponent {
         }
   
         // Redirigir al dashboard después de almacenar en localStorage
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/ui-components/movimientos']);
       },
       error => {
         this.errorMessage = 'Credenciales incorrectas. Por favor, intenta de nuevo.';

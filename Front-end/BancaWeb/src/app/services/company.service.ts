@@ -23,7 +23,7 @@ export class CompanyService {
   }
 
   getAccounts(idCompany:any): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/companies/${idCompany}/accounts`);
+    return this.http.get<any[]>(`${this.apiUrl}/companies/accounts/${idCompany}`);
   }
 
   getUsers(): Observable<any[]> {
