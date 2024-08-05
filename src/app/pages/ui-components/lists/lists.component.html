@@ -44,23 +44,22 @@
   <table *ngIf="payments" class="table table-striped mat-elevation-z8 mt-4">
     <thead>
       <tr>
-        <th>Referencia</th>
+        <!-- <th>Referencia</th> -->
         <th>Referencia asociada</th>
         <th>Tipo de transacción</th>
         <th>Subtipo</th>
         <th>Cuenta del deudor</th>
         <th>Fecha</th>
-        <th>Impuesto aplicado</th>
         <th>Estado</th>
         <th>Monto</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let movimiento of payments">
-        <td [ngClass]="{
+        <!-- <td [ngClass]="{
           'text-red': movimiento.transactionType === 'DEB',
           'text-green': movimiento.transactionType === 'CRE'
-        }">{{ movimiento.uniqueId}}</td>
+        }">{{ movimiento.uniqueId}}</td> -->
         <td [ngClass]="{
           'text-red': movimiento.transactionType === 'DEB',
           'text-green': movimiento.transactionType === 'CRE'
@@ -81,10 +80,6 @@
       'text-red': movimiento.transactionType === 'DEB',
       'text-green': movimiento.transactionType === 'CRE'
     }">{{ movimiento.createDate | date}}</td>
-        <td [ngClass]="{
-      'text-red': movimiento.transactionType === 'DEB',
-      'text-green': movimiento.transactionType === 'CRE'
-    }">{{ movimiento.applyTax | estado }}</td>
         <td [ngClass]="{
       'text-red': movimiento.transactionType === 'DEB',
       'text-green': movimiento.transactionType === 'CRE'
