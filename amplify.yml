@@ -1,17 +1,24 @@
 version: 1
 applications:
-  - frontend:
+  - appRoot: frontend
+    frontend:
       phases:
         preBuild:
           commands:
-            - nvm install 18.19.0  # Instalar la versión específica de Node.js
-            - nvm use 18.19.0
+            - nvm install 18.19.0
             - npm install -g @angular/cli
             - npm install
         build:
           commands:
-            - ng build --prod
+            - ng build --configuration production
+        postBuild:
+          commands:
+            - echo "Build completed successfully"
       artifacts:
         baseDirectory: dist
         files:
           - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
+          - .npm
