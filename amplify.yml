@@ -15,7 +15,7 @@ applications:
           commands:
             - echo "Build completed successfully"
       artifacts:
-        baseDirectory: dist/BancoBanquito
+        baseDirectory: dist/modernize
         files:
           - '**/*'
       cache:
