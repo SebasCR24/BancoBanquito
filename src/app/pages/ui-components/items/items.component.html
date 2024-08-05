@@ -1,0 +1,27 @@
+<div class="container mt-5">
+    <h2 class="mb-5 text-center">Banca Web Empresas - BanQuito</h2>
+    
+ 
+    <!-- Lista de Movimientos -->
+    <h3 class="mt-5 mb-4 text-center">Lista de Items Asociados</h3>
+    <table class="table table-striped mat-elevation-z8 mt-4">
+        <thead>
+            <tr>
+                <th>Monto</th>
+                <th>Contrapartida</th>
+                <th>Nombre del deudor</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let movimiento of items">
+                <td>{{ movimiento.collectionAmount }}</td>
+                <td>{{ movimiento.counterpart }}</td>
+                <td>{{ movimiento.debtorName }}</td>
+                <td>{{ movimiento.status |estado}}</td>                
+            </tr>
+        </tbody>
+    </table>
+  </div>
+
+  

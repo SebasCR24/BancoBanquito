@@ -1,0 +1,32 @@
+<div class="background">
+  <div class="container">
+    <div class="row justify-content-center align-items-center vh-100">
+      <div class="col-md-12 col-lg-10">
+        <div class="register-card">
+          <div class="row">
+            <div class="col-md-6 d-flex flex-column justify-content-center align-items-center image-container" style="height: 90%;">
+              <img src="../../../../assets/icons/logoNav.png" alt="Portada" style="max-width: 90%; height: auto; display: block;">
+            </div>
+            <div class="col-md-6 d-flex flex-column justify-content-center align-items-center p-5 right-section">
+              <h2>Registro de Usuario Administrador</h2>
+              <form class="w-100" (submit)="registerAdmin()">
+                <div class="form-group">
+                  <label for="nombreAdmin">Nombre del Administrador:</label>
+                  <input type="text" class="form-control" id="nombreAdmin" placeholder="Nombre del Administrador" [(ngModel)]="nombreAdmin" name="nombreAdmin" required>
+                </div>
+                <div class="form-group">
+                  <label for="correoAdmin">Correo Electrónico del Administrador:</label>
+                  <input type="email" class="form-control" id="correoAdmin" placeholder="Correo Electrónico del Administrador" [(ngModel)]="correoAdmin" name="correoAdmin" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                <div *ngIf="successMessage" class="alert alert-success mt-2">{{ successMessage }}</div>
+                <div *ngIf="errorMessage" class="alert alert-danger mt-2">{{ errorMessage }}</div>
+              </form>
+              <button type="button" class="btn btn-link" routerLink="/login">Volver a Inicio de Sesión</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

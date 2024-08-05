@@ -1,0 +1,75 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.shortcut-card {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  .shortcut-icon {
+    width: 50px;
+    margin-bottom: 10px;
+  }
+
+  .shortcut-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+}
+
+.movements-list {
+  margin-top: 40px;
+
+  .movements-group {
+    margin-bottom: 20px;
+
+    .movements-date {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .movement-item {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+
+      .movement-description {
+        font-size: 1rem;
+        color: #333;
+      }
+
+      .movement-amount {
+        font-size: 1rem;
+        font-weight: 600;
+
+        &.text-success {
+          color: #28a745;
+        }
+
+        &.text-danger {
+          color: #dc3545;
+        }
+      }
+    }
+  }
+}
