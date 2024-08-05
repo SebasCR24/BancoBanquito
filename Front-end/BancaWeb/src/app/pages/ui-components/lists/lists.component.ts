@@ -16,21 +16,29 @@ export class AppListsComponent  implements OnInit {
   accountValue:any;
   payments:any;
   empresa:any;
+  cuentaporDefecto:any;
+  usuario:any;
 
 
   constructor(private fb: FormBuilder,private cobroService:CobroService, private companyService:CompanyService, private router: Router, private accountService:AccountService){
-
-    this.listForm = this.fb.group({
-      accountId:  ['', Validators.required],
-    });
-
     const empresa2 = localStorage.getItem('empresa');
+    const usuario2 = localStorage.getItem('usuario');
+
+    if (usuario2) {
+      this.usuario = JSON.parse(usuario2);
+    } else {
+      this.usuario = null;
+    }
 
     if (empresa2) {
       this.empresa = JSON.parse(empresa2);
     } else {
       this.empresa = null;
     }
+
+    this.listForm = this.fb.group({
+      accountId:  ['', Validators.required],
+    });
 
   }
 
@@ -40,6 +48,13 @@ export class AppListsComponent  implements OnInit {
       response => {
         console.log('Se obtieron cuentas de la empresa', response);
         this.accounts=response
+        this.cuentaporDefecto=this.accounts[0]
+
+        this.listForm.patchValue({
+          accountId: this.cuentaporDefecto ? this.cuentaporDefecto.codeInternalAccount : ''
+        });
+
+        this.fetchAccountData(this.cuentaporDefecto.codeInternalAccount);
       },
       error => {
         console.error('No se obtuvieron cuentas de la empresa', error);
@@ -48,9 +63,29 @@ export class AppListsComponent  implements OnInit {
     );
   }
 
+  fetchAccountData(accountId: string) {
+    this.accountService.obtainAccount(accountId).subscribe(
+      response => {
+        console.log('Se obtuvo el valor que tiene la cuenta', response);
+        this.accountValue = response;
+      },
+      error => {
+        console.error('No se obtuvo el valor que tiene la cuenta', error);
+      }
+    );
+  
+    this.accountService.obtainTransaction(accountId).subscribe(
+      response => {
+        console.log('Se obtuvieron los movimientos hacia la cuenta', response);
+        this.payments = response;
+      },
+      error => {
+        console.error('No se obtuvieron los pagos hacia la cuenta', error);
+      }
+    );
+  }
+
   onSubmit() {
-    
-    //USO CUANDO SE TENGAN LAS MISMAS CUENTAS DE MONGO EN EL CORE
     let accountId=this.listForm.value.accountId
 
     this.accountService.obtainAccount(accountId).subscribe(

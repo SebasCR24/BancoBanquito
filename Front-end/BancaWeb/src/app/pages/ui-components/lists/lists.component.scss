@@ -1,15 +1,19 @@
 .card {
-  border: 1px solid #ddd; /* Borde gris claro */
-  border-radius: 8px; /* Bordes redondeados */
-  padding: 16px; /* Espaciado interno */
-  margin: 16px 0; /* Espaciado externo */
-  background-color: #f9f9f9; /* Fondo gris claro */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #f9f9f9;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.card-value {
-  font-weight: bold; /* Texto en negrilla */
+
+.saldo-disponible .card-value {
+  font-size: 2rem; /* Ajusta el tamaño según tu preferencia */
+  font-weight: bold;
+  color: #036478; /* Color verde para destacar el saldo */
 }
+
 
 .text-red {
   color: red;
