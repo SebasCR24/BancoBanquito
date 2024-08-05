@@ -4,6 +4,8 @@ applications:
       phases:
         preBuild:
           commands:
+            - nvm install 18.19.0  # Instalar la versión específica de Node.js
+            - nvm use 18.19.0
             - npm install -g @angular/cli
             - npm install
         build:
