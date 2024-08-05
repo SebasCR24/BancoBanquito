@@ -1,0 +1,15 @@
+version: 1
+applications:
+  - frontend:
+      phases:
+        preBuild:
+          commands:
+            - npm install -g @angular/cli
+            - npm install
+        build:
+          commands:
+            - ng build --prod
+      artifacts:
+        baseDirectory: dist
+        files:
+          - '**/*'
