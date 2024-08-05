@@ -16,10 +16,8 @@
               <select class="form-control" id="accountId" formControlName="serviceId" >
                   <option value="" disabled selected>Seleccione...</option>
                   <!-- <option *ngFor="let service of services" [value]="1"> {{ service.name }}</option> -->   
-                  <!-- <option [value]="'LEY0053994'">Cobro </option>        
-                  <option  [value]="'JXM0025321'">Recaudo</option>        -->
-                  <option [value]="1">Cobro </option>        
-                  <option  [value]="2">Recaudo</option> 
+                  <option [value]="'JXM0025321'">Cobro </option>        
+                  <option  [value]="'LEY0053994'">Recaudo</option>       
               </select>
           </div>
           <div class="form-group col-md-3">
@@ -34,7 +32,7 @@
               <label for="accountId">Numero de cuenta</label>
               <select class="form-control" id="accountId" formControlName="accountId">
                   <option value="" disabled selected>Seleccione...</option>
-                  <option *ngFor="let account of accounts" [value]="1"> {{ account.codeInternalAccount }}</option>
+                  <option *ngFor="let account of accounts" [value]=" account.uniqueId"> {{ account.codeInternalAccount }}</option>
               </select>
           </div>
       </div>

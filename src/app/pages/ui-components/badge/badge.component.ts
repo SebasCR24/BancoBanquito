@@ -65,7 +65,8 @@ export class BadgeComponent implements OnInit {
       this.cobroForm.value.companyUid=this.empresa.uniqueId
 
       //si es un recaudo llamr al servicio de ingresar recaudos
-      if(this.cobroForm.value.serviceId==2){
+
+      if(this.cobroForm.value.serviceId=='LEY0053994'){
         this.cobroService.crearOrderRecaudo(this.selectedFile, this.cobroForm.value).subscribe(
           response => {
             console.log('Archivo y datos subidos con éxito', response);

@@ -20,7 +20,7 @@ export class EstadoPipe implements PipeTransform {
         } else if(value=== 'REC'){
           return 'Rechazado'
         }else if(value=== 'EXE'){
-          return 'Exe'
+          return 'Ejecutada'
         }else if(value=== 'DEB'){
           return 'Débito'
         }else if(value=== 'CRE'){
