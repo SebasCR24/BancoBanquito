@@ -1,4 +1,0 @@
-FROM eclipse-temurin:21-jre-alpine
-
-COPY build/libs/clientdoc-0.1.jar clientdoc-0.1.jar
-ENTRYPOINT [ "java", "-jar", "clientdoc-0.1.jar" ]
