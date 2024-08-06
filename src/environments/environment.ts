@@ -15,7 +15,7 @@ export const environment = {
   Core_account: 'https://m4b60phktl.execute-api.us-east-1.amazonaws.com/banquito/account-microservice/api/v1',
   //CoreCobros_company : 'http://localhost:8081/api/v1',
   CoreCobros_company : 'https://m4b60phktl.execute-api.us-east-1.amazonaws.com/banquito/company-microservice/api/v1',
-  CoreCobros_cobro : 'https://m4b60phktl.execute-api.us-east-1.amazonaws.com/banquito/order-microservice/api/v1',
+  CoreCobros_cobro : 'http://localhost:8080/api/v1',
 
 
   // CoreCobros_receivables: 'http://localhost:8080',
