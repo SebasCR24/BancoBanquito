@@ -9,6 +9,7 @@ import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
+
 interface Transferencia {
   serviceId: string;
   accountId: string;
@@ -155,6 +156,11 @@ export class ChipsComponent  implements OnInit {
     this.cobroService.cambioEstadoOrder(uniqueId, estado).subscribe(
       response => {
         console.log('Se cambio de estado a activo', response);
+        this.snackBar.open('Se cambió el estado de la órden correctamente', 'Cerrar', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center'
+        });
       },
       error => {
         console.error('No se se cambio de estado', error);

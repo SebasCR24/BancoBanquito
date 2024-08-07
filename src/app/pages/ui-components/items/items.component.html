@@ -8,16 +8,18 @@
         <thead>
             <tr>
                 <th>Monto</th>
-                <th>Contrapartida</th>
+                <th>Cuenta a debitar</th>
                 <th>Nombre del deudor</th>
+                <th>Identificacion</th>
                 <th>Estado</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let movimiento of items">
-                <td>{{ movimiento.collectionAmount }}</td>
-                <td>{{ movimiento.counterpart }}</td>
+                <td>{{ movimiento.debitAmount }}</td>
+                <td>{{ movimiento.debitAccount }}</td>
                 <td>{{ movimiento.debtorName }}</td>
+                <td>{{ movimiento.identification }}</td>
                 <td>{{ movimiento.status |estado}}</td>                
             </tr>
         </tbody>

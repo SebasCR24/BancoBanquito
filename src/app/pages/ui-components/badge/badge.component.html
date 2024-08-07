@@ -28,7 +28,7 @@
                 <mat-select formControlName="accountId" required>
                   <mat-option value="">Seleccione una cuenta</mat-option> 
                   <!-- [value]="account.uniqueId" -->
-                  <mat-option *ngFor="let account of accounts" [value]="1"> {{ account.codeInternalAccount }}</mat-option>        
+                  <mat-option *ngFor="let account of accounts" [value]="account.uniqueId"> {{ account.codeInternalAccount }}</mat-option>        
                 </mat-select>
               </mat-form-field>
             </div>

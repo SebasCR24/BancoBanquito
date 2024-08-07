@@ -13,7 +13,10 @@ export class EstadoPipe implements PipeTransform {
           return 'Pendiente';
         } else if(value=== 'EXP'){
           return 'Expirado';
-        } else if(value=== 'ACT'){
+        }else if(value=== 'PAG'){
+          return 'Pagado';
+        }  
+        else if(value=== 'ACT'){
           return 'Activo'
         } else if(value=== 'APR'){
           return 'Aprobado'

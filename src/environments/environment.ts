@@ -12,10 +12,15 @@ export const environment = {
   // CoreCobros_commission : 'http://corecobros-commission.us-east-2.elasticbeanstalk.com',
   // CoreCobros_invoice : 'http://corecobros-invoice.us-east-1.elasticbeanstalk.com',
   // CoreCobros_receivables : 'http://corecobros-receivables.us-east-1.elasticbeanstalk.com',
-  Core_account: 'https://m4b60phktl.execute-api.us-east-1.amazonaws.com/banquito/account-microservice/api/v1',
-  //CoreCobros_company : 'http://localhost:8081/api/v1',
-  CoreCobros_company : 'https://m4b60phktl.execute-api.us-east-1.amazonaws.com/banquito/company-microservice/api/v1',
-  CoreCobros_cobro : 'http://localhost:8080/order-microservice/api/v1',
+
+  // Core_account: 'http://localhost:8082/account-microservice/api/v1',
+  // CoreCobros_company : 'http://localhost:8080/company-microservice/api/v1',
+  // CoreCobros_cobro : 'http://localhost:9090/order-microservice/api/v1',
+
+  CoreCobros_cobro : 'https://08zhnuj863.execute-api.us-east-1.amazonaws.com/banquito/order-microservice/api/v1',
+  CoreCobros_company : 'https://08zhnuj863.execute-api.us-east-1.amazonaws.com/banquito/company-microservice/api/v1',
+  Core_account: 'https://08zhnuj863.execute-api.us-east-1.amazonaws.com/banquito/account-microservice/api/v1',
+
 
 
   // CoreCobros_receivables: 'http://localhost:8080',
