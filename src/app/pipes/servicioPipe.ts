@@ -9,7 +9,7 @@ export class ServiceePipe implements PipeTransform {
 
     transform(value: any): string {
         // Verifica el valor y retorna el texto correspondiente
-        if (value === 1) {
+        if (value === 'JXM0025321') {
           return 'Cobros';
         } else {
           return 'Recaudos';

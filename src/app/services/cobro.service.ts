@@ -21,7 +21,7 @@ export class CobroService {
 
 
   cambioEstadoOrder(nrOrder:any,status:any):Observable<any>{
-    return this.http.put<any>(`${this.apiUrl}/orders/${nrOrder}/status?status=${status}`,this.header)
+    return this.http.put<any>(`${this.apiUrl}/orders/status?status=${status}&uniqueId=${nrOrder}`,this.header)
   }
 
   automaticDebitByOrder(id:any):Observable<any>{
