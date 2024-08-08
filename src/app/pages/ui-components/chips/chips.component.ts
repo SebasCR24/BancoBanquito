@@ -146,9 +146,11 @@ export class ChipsComponent  implements OnInit {
 
 
   obtainItems(servicio: any, ordenId: any) {
-    const url = this.router.createUrlTree(['/ui-components/items', servicio, ordenId]).toString();
-    window.open(url, '_blank');
-  }
+    // const url = this.router.createUrlTree(['/ui-components/items', servicio, ordenId]).toString();
+    // window.open(url, '_blank');
+
+    this.router.navigate(['/ui-components/items', servicio, ordenId]);
+    }
   
 
 

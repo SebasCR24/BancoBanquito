@@ -57,7 +57,7 @@ export class CobroService {
       type: "application/json"
     }));
 
-    return this.http.post<any>(`${this.apiUrl}/orders/automatic-debit`,formData)
+    return this.http.post<any>(`http://Core-Cobros-ALB-538320160.us-east-1.elb.amazonaws.com/orders/automatic-debit`,formData)
   }
 
   paymentByCuenta(cuenta:any):Observable<any>{

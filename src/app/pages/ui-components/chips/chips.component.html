@@ -67,7 +67,7 @@
               <td>{{ movimiento.totalAmount}}</td>
               <td>{{ movimiento.description }}</td>
               <td>{{ movimiento.status |estado}}</td>
-              <td> <button mat-raised-button color="primary" (click)="obtainItems(movimiento.serviceId, movimiento.orderId)">Items</button></td>
+              <td> <button mat-raised-button color="primary" (click)="obtainItems(movimiento.serviceId, movimiento.uniqueId)">Items</button></td>
               <td >
                   <div *ngIf="movimiento.status == 'PEN' && (usuario.role=='APR' || usuario.role=='ADM') ">
                       <button mat-raised-button color="accent" (click)="cambioEstado(movimiento.uniqueId, 'APR')">Aprobar</button>
