@@ -19,14 +19,11 @@ export class BadgeComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private cobroService:CobroService, private companyService:CompanyService) {
     this.cobroForm = this.fb.group({
-      uniqueId: [''],
       serviceId: [''],
       accountId:  [''],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
-      totalAmount: [''],
       description: [''],
-      status: [''],
       companyUid: [''],
     });
 
