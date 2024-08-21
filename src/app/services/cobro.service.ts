@@ -21,7 +21,7 @@ export class CobroService {
 
 
   cambioEstadoOrder(nrOrder:any,status:any):Observable<any>{
-    return this.http.put<any>(`${this.apiUrl}/orders/status?status=${status}&uniqueId=${nrOrder}`,this.header)
+    return this.http.put<any>(`${this.apiUrl}orders/status?uniqueId=${nrOrder}&status=${status}`,this.header)
   }
 
   automaticDebitByOrder(id:any):Observable<any>{
@@ -57,7 +57,7 @@ export class CobroService {
       type: "application/json"
     }));
 
-    return this.http.post<any>('http://Core-Cobros-ALB-538320160.us-east-1.elb.amazonaws.com/order-microservice/api/v1/orders/automatic-debit',formData)
+    return this.http.post<any>(`${this.apiUrl}/orders/automatic-debit`,formData)
   }
 
   paymentByCuenta(cuenta:any):Observable<any>{
