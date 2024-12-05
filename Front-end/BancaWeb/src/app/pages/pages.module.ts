@@ -9,9 +9,13 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import * as TablerIcons from 'angular-tabler-icons/icons';
 import { DashboardComponent } from './dashboard/dashboard.component'; // Asegúrate de importar correctamente
+import { RolPipe } from '../pipes/rolPipe';
 
 @NgModule({
-  declarations: [DashboardComponent], // Declara el componente aquí
+  declarations: [
+    DashboardComponent,
+    RolPipe
+  ],
   imports: [
     CommonModule,
     MaterialModule,

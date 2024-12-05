@@ -22,8 +22,8 @@ export class CompanyService {
     return this.http.get<any[]>(`${this.apiUrl}/servicees`);
   }
 
-  getAccounts(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/accounts`);
+  getAccounts(idCompany:any): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/companies/${idCompany}/accounts`);
   }
 
   getUsers(): Observable<any[]> {

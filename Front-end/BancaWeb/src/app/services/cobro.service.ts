@@ -40,17 +40,27 @@ export class CobroService {
     return this.http.get<any>(`${this.apiUrl}/orders/search?serviceId=${serviceId}&accountId=${accountId}&startDate=${startDate}&endDate=${endDate}`)
   }  
 
-  crearOrder(file: File, orden:any): Observable<any> {
+  crearOrderRecaudo(file: File, orden:any): Observable<any> {
     const formData = new FormData();
     formData.append('file', file, file.name);
     formData.append('order', new Blob([JSON.stringify(orden)], {
       type: "application/json"
     }));
 
-    return this.http.post<any>(`${this.apiUrl}/orders`,formData)
+    return this.http.post<any>(`${this.apiUrl}/orders/collection`,formData)
+  }
+
+  crearOrderCobroAutomatico(file: File, orden:any): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    formData.append('order', new Blob([JSON.stringify(orden)], {
+      type: "application/json"
+    }));
+
+    return this.http.post<any>(`${this.apiUrl}/orders/automatic-debit`,formData)
   }
 
   paymentByCuenta(cuenta:any):Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}/payments/records/${cuenta}`);
+    return this.http.get<any>(`${this.apiUrl}/payments/by-item-collection/${cuenta}`);
   }
 }

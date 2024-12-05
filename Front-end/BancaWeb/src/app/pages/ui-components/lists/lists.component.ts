@@ -1,17 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CobroService } from 'src/app/services/cobro.service';
 import { CompanyService } from 'src/app/services/company.service';
+import { AccountService } from 'src/app/services/account.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-
-export interface Movimiento {
-  idMovimiento: number;
-  idCuenta: number;
-  tipoMovimiento: string;
-  monto: number;
-  fecha: string;
-  descripcion: string;
-}
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lists',
@@ -20,48 +12,97 @@ export interface Movimiento {
 })
 export class AppListsComponent  implements OnInit {
   listForm: FormGroup;
-  services:any;
   accounts:any;
+  accountValue:any;
   payments:any;
-  movimientos:any;
+  empresa:any;
+  cuentaporDefecto:any;
+  usuario:any;
 
 
-  constructor(private fb: FormBuilder,private cobroService:CobroService, private companyService:CompanyService){
+  constructor(private fb: FormBuilder,private cobroService:CobroService, private companyService:CompanyService, private router: Router, private accountService:AccountService){
+    const empresa2 = localStorage.getItem('empresa');
+    const usuario2 = localStorage.getItem('usuario');
+
+    if (usuario2) {
+      this.usuario = JSON.parse(usuario2);
+    } else {
+      this.usuario = null;
+    }
+
+    if (empresa2) {
+      this.empresa = JSON.parse(empresa2);
+    } else {
+      this.empresa = null;
+    }
 
     this.listForm = this.fb.group({
-      serviceId: ['', Validators.required],
       accountId:  ['', Validators.required],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required]
     });
+
   }
 
-  ngOnInit():void{
-    this.companyService.getServices().subscribe(
-      response => {
-        console.log('Se obtieron servicios disponibles', response);
-        this.services=response
-      },
-      error => {
-        console.error('No se obtuvieron servicios', error);
-       
-      }
-    );
+  ngOnInit():void{ 
 
-    this.companyService.getAccounts().subscribe(
+    this.companyService.getAccounts(this.empresa.uniqueId).subscribe(
       response => {
         console.log('Se obtieron cuentas de la empresa', response);
         this.accounts=response
+        this.cuentaporDefecto=this.accounts[0]
+
+        this.listForm.patchValue({
+          accountId: this.cuentaporDefecto ? this.cuentaporDefecto.codeInternalAccount : ''
+        });
+
+        this.fetchAccountData(this.cuentaporDefecto.codeInternalAccount);
       },
       error => {
         console.error('No se obtuvieron cuentas de la empresa', error);
        
       }
     );
+  }
 
-    this.cobroService.paymentByCuenta(3).subscribe(
+  fetchAccountData(accountId: string) {
+    this.accountService.obtainAccount(accountId).subscribe(
       response => {
-        console.log('Se obtieron los pagos hacia la cuenta', response);
+        console.log('Se obtuvo el valor que tiene la cuenta', response);
+        this.accountValue = response;
+      },
+      error => {
+        console.error('No se obtuvo el valor que tiene la cuenta', error);
+      }
+    );
+  
+    this.accountService.obtainTransaction(accountId).subscribe(
+      response => {
+        console.log('Se obtuvieron los movimientos hacia la cuenta', response);
+        this.payments = response;
+      },
+      error => {
+        console.error('No se obtuvieron los pagos hacia la cuenta', error);
+      }
+    );
+  }
+
+  onSubmit() {
+    let accountId=this.listForm.value.accountId
+
+    this.accountService.obtainAccount(accountId).subscribe(
+      response => {
+        console.log('Se obtuvo el valor que tiene la cuenta', response);
+        this.accountValue=response
+      },
+      error => {
+        console.error('No se obtuvo el valor que tiene la cuenta', error);
+       
+      }
+    );
+
+
+    this.accountService.obtainTransaction(accountId).subscribe(
+      response => {
+        console.log('Se obtieron los movimientos hacia la cuenta', response);
         this.payments=response
       },
       error => {
@@ -71,53 +112,9 @@ export class AppListsComponent  implements OnInit {
     );
   }
 
-  onSubmit() {
-
-    let serviceId=this.listForm.value.serviceId
-    let accountId=this.listForm.value.accountId
-    let startDate=this.listForm.value.startDate
-    let endDate=this.listForm.value.endDate
-
-    this.cobroService.getOrderByServiceAndDate(serviceId,accountId, startDate, endDate).subscribe(
-      response => {
-        console.log('Se obtieron ordenes', response);
-        this.movimientos=response;
-      },
-      error => {
-        console.error('No se obtuvieron ordenes', error);
-       
-      }
-    );
-  }
-
 
   obtainItems(servicio:any, ordenId:any){
-    console.log('id ',ordenId);
-    console.log('servicio ',servicio);
-
-    if(servicio==2){
-      this.cobroService.obtainItemCollection(ordenId).subscribe(
-        response => {
-          console.log('Se obtieron item collection', response);
-        },
-        error => {
-          console.error('No se obtuvieron ordenes', error);
-         
-        }
-      );
-
-    }
-    else{
-      this.cobroService.obtainItemAutomaticCollection(ordenId).subscribe(
-        response => {
-          console.log('Se obtieron automatic collection', response);
-        },
-        error => {
-          console.error('No se obtuvieron ordenes', error);
-        
-        }
-      );
-    }
+    this.router.navigate(['/ui-components/items', servicio, ordenId]);
   }
 
 
@@ -132,5 +129,4 @@ export class AppListsComponent  implements OnInit {
     );
   }
 
-  
 }

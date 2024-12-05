@@ -5,27 +5,18 @@ export const navItems: NavItem[] = [
     navCap: 'Inicio',
   },
   {
-    displayName: 'DASHBOARD',
-    iconName: 'layout-dashboard',
-    route: '/dashboard',
+    displayName: 'POSICIÓN CONSOLIDADA',
+    iconName: 'list',
+    route: '/ui-components/movimientos',
   },
   {
     navCap: 'MENU',
   },
   {
-    displayName: 'POSICIÓN CONSOLIDADA',
-    iconName: 'chart-pie',
-    route: '/position-consolidated',
-  },
-  {
-    displayName: 'COBROS / RECAUDOS',
+    displayName: 'CARGA DE ÓRDENES',
     iconName: 'cash', 
     route: '/ui-components/badge',
-  },
-  {
-    displayName: 'MOVIMIENTOS',
-    iconName: 'list',
-    route: '/ui-components/lists',
+    showIf: ['ADM', 'OPE']
   },
   {
     displayName: 'REPORTES',

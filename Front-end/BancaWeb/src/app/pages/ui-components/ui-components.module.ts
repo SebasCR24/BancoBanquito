@@ -29,6 +29,7 @@ import { ItemsComponent } from './items/items.component';
 
 import { ServiceePipe } from 'src/app/pipes/servicioPipe';
 import { EstadoPipe } from 'src/app/pipes/estadoPipe';
+import { RolPipe } from 'src/app/pipes/rolPipe';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { EstadoPipe } from 'src/app/pipes/estadoPipe';
     AppTooltipsComponent,
     ServiceePipe,
     EstadoPipe,
+    RolPipe,
     ItemsComponent
   ],
   imports: [
